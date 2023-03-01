@@ -5,7 +5,10 @@ module com.example.ogrebeauty {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     opens com.example.ogrebeauty to javafx.fxml;
     exports com.example.ogrebeauty;
+    exports com.example.ogrebeauty.controller;
+    opens com.example.ogrebeauty.controller to javafx.fxml;
 }

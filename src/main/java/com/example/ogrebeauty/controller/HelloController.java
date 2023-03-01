@@ -1,4 +1,4 @@
-package com.example.ogrebeauty;
+package com.example.ogrebeauty.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
