@@ -57,4 +57,12 @@ public class Client {
     public String getMark() {
         return mark;
     }
+
+    public List<Service> getService() {
+        return service;
+    }
+
+    public void setService(List<Service> service) {
+        this.service = service;
+    }
 }

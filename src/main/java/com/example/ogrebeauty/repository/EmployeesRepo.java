@@ -6,11 +6,12 @@ import com.example.ogrebeauty.entity.Employees;
 import java.sql.*;
 
 public class EmployeesRepo {
+    DatabaseInfo databaseInfo=new DatabaseInfo();
     public void saveEmployees(Employees employees){
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql="INSERT INTO employees VALUES("+
                     employees.getId().toString()+", '"+
@@ -33,16 +34,18 @@ public class EmployeesRepo {
     public Employees findEmployeesById(Long id){
         Connection connection = null;
         Employees employees=null;
+        ServiceRepo serviceRepo = new ServiceRepo();
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql = "SELECT id, fullName, jobTitle FROM client WHERE id="+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
             employees = new Employees(
                     rs.getLong("id"),
                     rs.getString("fullname"),
-                    rs.getString("jobTitle"));
+                    rs.getString("jobTitle"),
+                    serviceRepo.getServiceList("employees",rs.getLong("id")));
             //Сделано плохо, потому что нет защиты от неправильного id
         }
         catch (ClassNotFoundException e) {
@@ -63,7 +66,7 @@ public class EmployeesRepo {
             Connection connection = null;
             try {
                 Class.forName("org.postgresql.Driver");
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+                connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
                 String sql = "DELETE FROM employees WHERE id="+id.toString()+"";
                 ResultSet rs = stmt.executeQuery(sql);

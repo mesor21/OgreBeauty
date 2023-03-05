@@ -5,11 +5,12 @@ import com.example.ogrebeauty.entity.Client;
 import java.sql.*;
 
 public class ClientRepo{
+    DatabaseInfo databaseInfo = new DatabaseInfo();
     public void saveClient(Client client){
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql="INSERT INTO client VALUES("+
                     client.getId().toString()+", '"+
@@ -33,9 +34,10 @@ public class ClientRepo{
     public Client findClientById(Long id){
         Connection connection = null;
         Client client=null;
+        ServiceRepo serviceRepo=new ServiceRepo();
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql = "SELECT id, fullName, email, phoneNumber, mark FROM client WHERE id="+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
@@ -45,6 +47,7 @@ public class ClientRepo{
                     rs.getString("email"),
                     rs.getString("phoneNumber"),
                     rs.getString("mark"));
+            client.setService(serviceRepo.getServiceList("client", rs.getLong("id")));
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -64,7 +67,7 @@ public class ClientRepo{
             Connection connection = null;
             try {
                 Class.forName("org.postgresql.Driver");
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+                connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
                 String sql = "DELETE FROM client WHERE id="+id.toString()+"";
                 ResultSet rs = stmt.executeQuery(sql);

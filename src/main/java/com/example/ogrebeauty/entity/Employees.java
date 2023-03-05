@@ -9,10 +9,11 @@ public class Employees {
     private List<Service> service;
 
 
-    public Employees(Long id, String fullName, String jobTitle) {
-        this.id = id;
+    public Employees(Long id,String fullName, String jobTitle, List<Service> service) {
+        this.id=id;
         this.fullName = fullName;
         this.jobTitle = jobTitle;
+        this.service = service;
     }
 
     public void setFullName(String fullName) {

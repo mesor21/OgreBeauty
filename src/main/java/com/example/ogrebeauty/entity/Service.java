@@ -1,13 +1,14 @@
 package com.example.ogrebeauty.entity;
 
 
-import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Service {
     private Long id;
     private Date data;
-    private Time time;
     private String serviceType;
     private Employees emploer;
     private Client client;
@@ -15,12 +16,21 @@ public class Service {
     public Service() {
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public Service(Long id, String data, String serviceType, Client client, Employees employees) {
+        this.id = id;
+        this.serviceType = serviceType;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+        try{
+            this.data = formatter.parse(data);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        this.emploer=employees;
+        this.client=client;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public void setServiceType(String serviceType) {
@@ -41,10 +51,6 @@ public class Service {
 
     public Date getData() {
         return data;
-    }
-
-    public Time getTime() {
-        return time;
     }
 
     public String getServiceType() {

@@ -6,11 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PostgreSQLJDBC {
+    DatabaseInfo databaseInfo=new DatabaseInfo();
     public void connectTest(){
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             System.out.println("Соединение с базой данных успешно установлено.");
         } catch (ClassNotFoundException e) {
             System.out.println("Драйвер PostgreSQL не найден.");
@@ -29,7 +30,7 @@ public class PostgreSQLJDBC {
     public void autocreateTables(){
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             System.out.println("Соединение с базой данных успешно установлено.");
             Statement stmt = connection.createStatement();
 
@@ -57,10 +58,9 @@ public class PostgreSQLJDBC {
             sql = "CREATE TABLE service " +
                     "(id INTEGER not NULL, " +
                     " date VARCHER(255), " +
-                    " time VARCHER(255), " +
                     " serviceType VARCHER(255), " +
-                    " CONSTRAINT fk_client FOREIGN KEY(client_id) REFERENCES clinet(id), " +
-                    " CONSTRAINT fk_employees FOREIGN KEY(employees_id) REFERENCES employees(id), " +
+                    " clientID INTEGER, " +
+                    " employeerID INTEGER, " +
                     " PRIMARY KEY( id ))";
             stmt.executeUpdate(sql);
             System.out.println("Created table service");
