@@ -1,6 +1,6 @@
 package com.example.ogrebeauty;
 
-import com.example.ogrebeauty.repository.ConnectionDatabase;
+import com.example.ogrebeauty.repository.PostgreSQLJDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,7 +19,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        ConnectionDatabase connectionDatabase = new ConnectionDatabase();
+        PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
         connectionDatabase.connect();
         launch();
     }
