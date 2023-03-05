@@ -17,7 +17,9 @@ public class EmployeesRepo {
                     employees.getId().toString()+", '"+
                     employees.getFullName()+"', '"+
                     employees.getJobTitle()+"')";
-            stmt.executeUpdate(sql);
+            System.out.println(sql);
+            //to-do test
+            //stmt.executeUpdate(sql);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -40,13 +42,15 @@ public class EmployeesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql = "SELECT id, fullName, jobTitle FROM client WHERE id="+id.toString()+"";
-            ResultSet rs = stmt.executeQuery(sql);
+            System.out.println(sql);
+            //to-do test
+            /*ResultSet rs = stmt.executeQuery(sql);
             employees = new Employees(
                     rs.getLong("id"),
                     rs.getString("fullname"),
                     rs.getString("jobTitle"),
                     serviceRepo.getServiceList("employees",rs.getLong("id")));
-            //Сделано плохо, потому что нет защиты от неправильного id
+            //Сделано плохо, потому что нет защиты от неправильного id*/
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -69,7 +73,9 @@ public class EmployeesRepo {
                 connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
                 String sql = "DELETE FROM employees WHERE id="+id.toString()+"";
-                ResultSet rs = stmt.executeQuery(sql);
+                System.out.println(sql);
+                //to-do test
+                //ResultSet rs = stmt.executeQuery(sql);
             }
             catch (ClassNotFoundException e) {
                 e.printStackTrace();
