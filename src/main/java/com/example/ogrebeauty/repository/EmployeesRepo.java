@@ -1,19 +1,85 @@
 package com.example.ogrebeauty.repository;
 
+import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.entity.Employees;
 
+import java.sql.*;
+
 public class EmployeesRepo {
-    public boolean saveClient(Employees employees){
-        return true;
-    }
-    public Employees findClientById(Long id){
-        return null;
-    }
-    public boolean deleteClientById(Long id, boolean confirm){
-        if(confirm){
-            return true;
+    public void saveEmployees(Employees employees){
+        Connection connection = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+            Statement stmt = connection.createStatement();
+            String sql="INSERT INTO employees VALUES("+
+                    employees.getId().toString()+", '"+
+                    employees.getFullName()+"', '"+
+                    employees.getJobTitle()+"')";
+            stmt.executeUpdate(sql);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return false;
+    }
+
+    public Employees findEmployeesById(Long id){
+        Connection connection = null;
+        Employees employees=null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+            Statement stmt = connection.createStatement();
+            String sql = "SELECT id, fullName, jobTitle FROM client WHERE id="+id.toString()+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            employees = new Employees(
+                    rs.getLong("id"),
+                    rs.getString("fullname"),
+                    rs.getString("jobTitle"));
+            //Сделано плохо, потому что нет защиты от неправильного id
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return employees;
+    }
+    public void deleteEmployeesById(Long id, boolean confirm){
+        if(confirm){
+            Connection connection = null;
+            try {
+                Class.forName("org.postgresql.Driver");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ogrebeauty", "postgres", "postgresql");
+                Statement stmt = connection.createStatement();
+                String sql = "DELETE FROM employees WHERE id="+id.toString()+"";
+                ResultSet rs = stmt.executeQuery(sql);
+            }
+            catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     //to-do Сделать нормальный поиск
     public Employees findByFullName(String fullName){

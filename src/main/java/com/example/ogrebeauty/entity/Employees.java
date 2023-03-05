@@ -8,7 +8,11 @@ public class Employees {
     private String jobTitle;
     private List<Service> service;
 
-    public Employees() {
+
+    public Employees(Long id, String fullName, String jobTitle) {
+        this.id = id;
+        this.fullName = fullName;
+        this.jobTitle = jobTitle;
     }
 
     public void setFullName(String fullName) {
