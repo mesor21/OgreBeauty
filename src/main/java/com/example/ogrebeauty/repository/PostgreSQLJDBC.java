@@ -42,9 +42,7 @@ public class PostgreSQLJDBC {
                     " phoneNumber VARCHAR(255), " +
                     " mark VARCHAR(255), " +
                     " PRIMARY KEY( id ))";
-            System.out.println(sql);
-            //to-do test
-            //stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
             System.out.println("Created table client");
 
             //Создание таблицы Employees
@@ -53,9 +51,7 @@ public class PostgreSQLJDBC {
                     " fullName VARCHAR(255), " +
                     " jobTitle VARCHAR(255), " +
                     " PRIMARY KEY( id ))";
-            System.out.println(sql);
-            //to-do test
-            //stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
             System.out.println("Created table employees");
 
             //Create table service
@@ -66,9 +62,7 @@ public class PostgreSQLJDBC {
                     " clientID INTEGER, " +
                     " employeesID INTEGER, " +
                     " PRIMARY KEY( id ))";
-            System.out.println(sql);
-            //to-do test
-            //stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
             System.out.println("Created table service");
         }
         catch (SQLException e){

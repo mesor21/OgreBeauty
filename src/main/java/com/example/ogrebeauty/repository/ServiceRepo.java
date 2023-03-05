@@ -35,9 +35,7 @@ public class ServiceRepo {
                     service.getServiceType()+"', '"+
                     clientID+"', '"+
                     employeesID+"')";
-            System.out.println(sql);
-            //to-do test
-            //stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -60,9 +58,7 @@ public class ServiceRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql = "SELECT id, date, serviceType, clientID, employeerID FROM service WHERE id="+id.toString()+"";
-            System.out.println(sql);
-            //to-do test
-            /*ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(sql);
             service = new Service(
                     rs.getLong("id"),
                     rs.getString("date"),
@@ -70,7 +66,7 @@ public class ServiceRepo {
                     clientRepo.findClientById(rs.getLong("clientID")),
                     employeesRepo.findEmployeesById(rs.getLong("employeerID"))
                     );
-            //Сделано плохо, потому что нет защиты от неправильного id*/
+            //Сделано плохо, потому что нет защиты от неправильного id
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -93,9 +89,7 @@ public class ServiceRepo {
                 connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
                 String sql = "DELETE FROM service WHERE id="+id.toString()+"";
-                System.out.println(sql);
-                //to-do test
-                //ResultSet rs = stmt.executeQuery(sql);
+                ResultSet rs = stmt.executeQuery(sql);
             }
             catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -130,16 +124,14 @@ public class ServiceRepo {
                 chel="employeerID";
             }
             sql="SELECT id, date, serviceType, clientID, employeerID FROM service WHERE "+chel+"="+id.toString();
-            System.out.println(sql);
-            //to-do test
-            //ResultSet rs = stmt.executeQuery(sql);
-            /*while(rs.next()){
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
                 serviceList.add(new Service(rs.getLong("id"),
                         rs.getString("date"),
                         rs.getString("serviceType"),
                         clientRepo.findClientById(rs.getLong("clientID")),
                         employeesRepo.findEmployeesById(rs.getLong("id"))));
-            }*/
+            }
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();

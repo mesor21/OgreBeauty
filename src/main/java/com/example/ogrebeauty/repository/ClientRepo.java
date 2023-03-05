@@ -26,9 +26,7 @@ public class ClientRepo{
                     client.getEmail()+"', '"+
                     client.getPhoneNumber()+"', '"+
                     mark+"')";
-            System.out.println(sql);
-            //to-do test
-            //stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -50,16 +48,14 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql = "SELECT id, fullName, email, phoneNumber, mark FROM client WHERE id="+id.toString()+"";
-            System.out.println(sql);
-            //to-do test
-            /*ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(sql);
             client = new Client(
                     rs.getLong("id"),
                     rs.getString("fullname"),
                     rs.getString("email"),
                     rs.getString("phoneNumber"),
                     rs.getString("mark"));
-            client.setService(serviceRepo.getServiceList("client", rs.getLong("id")));*/
+            client.setService(serviceRepo.getServiceList("client", rs.getLong("id")));
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -82,9 +78,7 @@ public class ClientRepo{
                 connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
                 String sql = "DELETE FROM client WHERE id="+id.toString()+"";
-                System.out.println(sql);
-                //to-do test
-                //ResultSet rs = stmt.executeQuery(sql);
+                ResultSet rs = stmt.executeQuery(sql);
             }
             catch (ClassNotFoundException e) {
                 e.printStackTrace();
