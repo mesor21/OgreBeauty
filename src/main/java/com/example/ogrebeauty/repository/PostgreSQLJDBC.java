@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PostgreSQLJDBC {
-    public void connect(){
+    public void connectTest(){
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");

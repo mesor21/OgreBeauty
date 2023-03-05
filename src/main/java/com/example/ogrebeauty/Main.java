@@ -20,7 +20,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
-        connectionDatabase.connect();
+        connectionDatabase.connectTest();
         launch();
     }
 }

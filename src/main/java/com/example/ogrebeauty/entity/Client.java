@@ -15,6 +15,14 @@ public class Client {
     public Client() {
     }
 
+    public Client(Long id, String fullName, String email, String phoneNumber, String mark) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.mark = mark;
+    }
+
     public Long getId() {
         return id;
     }
