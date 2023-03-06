@@ -38,9 +38,8 @@ public class ClientService {
         clientRepo.deleteClientById(client.getId(),true);
         clientRepo.saveClient(client);
     }
-    public void saveClient(String id, String fullName, String email, String phoneNumber, String mark){
-        //TODO заменить параметр id на поиск последнего элемента в таблице + 1
-        Client client = new Client(Long.parseLong(id),fullName,email,phoneNumber,mark);
+    public void saveNewClient(String fullName, String email, String phoneNumber, String mark){
+        Client client = new Client(Long.parseLong(Integer.toString(clientRepo.getLastId()+1)),fullName,email,phoneNumber,mark);
         clientRepo.saveClient(client);
     }
 

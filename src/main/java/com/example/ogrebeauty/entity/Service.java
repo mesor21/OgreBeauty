@@ -10,6 +10,8 @@ public class Service {
     private Long id;
     private Date data;
     private String serviceType;
+    private int employeesID;
+    private int clientID;
     private Employees emploer;
     private Client client;
 
@@ -27,6 +29,19 @@ public class Service {
         }
         this.emploer=employees;
         this.client=client;
+    }
+
+    public Service(Long id, String data, String serviceType, int clientID, int employeesID) {
+        this.id = id;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+        try{
+            this.data = formatter.parse(data);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        this.serviceType = serviceType;
+        this.clientID = clientID;
+        this.employeesID = employeesID;
     }
 
     public void setData(Date data) {
@@ -63,6 +78,14 @@ public class Service {
 
     public Client getClient() {
         return client;
+    }
+
+    public int getEmployeesID() {
+        return employeesID;
+    }
+
+    public int getClientID() {
+        return clientID;
     }
 
     @Override

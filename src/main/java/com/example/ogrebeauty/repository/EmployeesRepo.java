@@ -89,7 +89,26 @@ public class EmployeesRepo {
 
     public int getLastId(){
         int id=0;
-
+        Connection connection = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql ="SELECT MAX(id) FROM employees";
+            ResultSet rs = stmt.executeQuery(sql);
+            id = rs.getInt("id");
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return id;
     }
 }

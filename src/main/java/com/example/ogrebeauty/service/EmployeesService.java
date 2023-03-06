@@ -25,9 +25,8 @@ public class EmployeesService {
         employeesRepo.deleteEmployeesById(Long.parseLong(id),true);
         employeesRepo.saveEmployees(employees);
     }
-    public void saveEmployees(String id, String fullName, String jobTitle){
-        //TODO заменить параметр id на поиск последнего элемента в таблице + 1
-        Employees employees = new Employees(Long.parseLong(id), fullName, jobTitle);
+    public void saveNewEmployees(String fullName, String jobTitle){
+        Employees employees = new Employees(Long.parseLong(Integer.toString(employeesRepo.getLastId()+1)), fullName, jobTitle);
         employeesRepo.saveEmployees(employees);
     }
     public void deleteById(String id){
