@@ -97,4 +97,10 @@ public class ClientRepo{
     public Client findByFullName(String fullName){
         return null;
     }
+
+    public int getLastId(){
+        int id=0;
+
+        return id;
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.ogrebeauty.repository;
 
-import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.entity.Employees;
 
 import java.sql.*;
@@ -44,8 +43,7 @@ public class EmployeesRepo {
             employees = new Employees(
                     rs.getLong("id"),
                     rs.getString("fullname"),
-                    rs.getString("jobTitle"),
-                    serviceRepo.getServiceList("employees",rs.getLong("id")));
+                    rs.getString("jobTitle"));
             //Сделано плохо, потому что нет защиты от неправильного id*/
         }
         catch (ClassNotFoundException e) {
@@ -87,5 +85,11 @@ public class EmployeesRepo {
     //to-do Сделать нормальный поиск
     public Employees findByFullName(String fullName){
         return null;
+    }
+
+    public int getLastId(){
+        int id=0;
+
+        return id;
     }
 }

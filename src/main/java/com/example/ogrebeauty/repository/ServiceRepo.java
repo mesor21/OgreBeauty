@@ -146,4 +146,9 @@ public class ServiceRepo {
         }
         return serviceList;
     }
+    public int getLastId(){
+        int id=0;
+
+        return id;
+    }
 }

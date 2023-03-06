@@ -64,4 +64,27 @@ public class Service {
     public Client getClient() {
         return client;
     }
+
+    @Override
+    public String toString(){
+        String out="Service{" +
+                "id=" + id +
+                ", data=" + data +
+                ", serviceType='" + serviceType + '\'' +
+                ", emploer=";
+        if(emploer==null){
+            out+="null";
+        }else{
+            out+=emploer.toString();
+        }
+        out+=", client=";
+        if(client==null){
+            out+="null";
+        }
+        else{
+            out+=client.toString();
+        }
+        out+="}";
+        return out;
+    }
 }

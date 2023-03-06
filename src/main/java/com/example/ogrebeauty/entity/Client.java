@@ -65,4 +65,15 @@ public class Client {
     public void setService(List<Service> service) {
         this.service = service;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mark='" + mark + '\'' +
+                '}';
+    }
 }
