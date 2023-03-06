@@ -9,7 +9,6 @@ public class EmployeesRepo {
     public void saveEmployees(Employees employees){
         Connection connection = null;
         try {
-            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql="INSERT INTO employees VALUES("+
@@ -17,9 +16,7 @@ public class EmployeesRepo {
                     employees.getFullName()+"', '"+
                     employees.getJobTitle()+"')";
             stmt.executeUpdate(sql);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -35,20 +32,18 @@ public class EmployeesRepo {
         Employees employees=null;
         ServiceRepo serviceRepo = new ServiceRepo();
         try {
-            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql = "SELECT id, fullName, jobTitle FROM client WHERE id="+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
             employees = new Employees(
                     rs.getLong("id"),
                     rs.getString("fullname"),
                     rs.getString("jobTitle"));
             //Сделано плохо, потому что нет защиты от неправильного id*/
         }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -63,15 +58,13 @@ public class EmployeesRepo {
         if(confirm){
             Connection connection = null;
             try {
-                Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
                 String sql = "DELETE FROM employees WHERE id="+id.toString()+"";
                 ResultSet rs = stmt.executeQuery(sql);
+                System.out.println("Delete employees. Id: "+id.toString());
             }
-            catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            catch (SQLException e) {
                 e.printStackTrace();
             } finally {
                 try {
@@ -91,16 +84,13 @@ public class EmployeesRepo {
         int id=0;
         Connection connection = null;
         try {
-            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql ="SELECT MAX(id) FROM employees";
             ResultSet rs = stmt.executeQuery(sql);
             id = rs.getInt("id");
         }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {

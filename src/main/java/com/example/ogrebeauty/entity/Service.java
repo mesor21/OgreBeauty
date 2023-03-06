@@ -1,6 +1,7 @@
 package com.example.ogrebeauty.entity;
 
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,9 +22,9 @@ public class Service {
     public Service(Long id, String data, String serviceType, Client client, Employees employees) {
         this.id = id;
         this.serviceType = serviceType;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try{
-            this.data = formatter.parse(data);
+            this.data = df.parse(data);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -31,11 +32,11 @@ public class Service {
         this.client=client;
     }
 
-    public Service(Long id, String data, String serviceType, int clientID, int employeesID) {
-        this.id = id;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+    public Service(Integer id, String data, String serviceType, int clientID, int employeesID) {
+        this.id = Long.parseLong(id.toString());
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try{
-            this.data = formatter.parse(data);
+            this.data = df.parse(data);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

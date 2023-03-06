@@ -27,7 +27,7 @@ public class ClientService {
             client.setPhoneNumber(phoneNumber);
         }
         if(mark.equals("")){
-            if(client.getMark()==null){
+            if(client.getMark().equals("NULL")){
             }else{
                 client.setMark(null);
             }

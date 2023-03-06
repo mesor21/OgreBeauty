@@ -17,21 +17,27 @@ public class ServiceRepo {
             String clientID;
             String employeesID;
             if(service.getClient()==null){
-                clientID="NULL";
+                clientID="0";
             }
             else{
                 clientID=service.getClient().getId().toString();
             }
             if(service.getEmploer()==null){
-                employeesID="NULL";
+                employeesID="0";
             }
             else{
                 employeesID = service.getEmploer().getId().toString();
             }
+            String data = service.getData().getDay()+"/"+
+                    service.getData().getMonth()+"/"+
+                    service.getData().getYear()+" "+
+                    service.getData().getMinutes();
+
+            System.out.println(data);
 
             String sql="INSERT INTO service VALUES("+
                     service.getId().toString()+", '"+
-                    service.getData().toString()+"', '"+
+                    data+"', '"+
                     service.getServiceType()+"', '"+
                     clientID+"', '"+
                     employeesID+"')";
@@ -54,21 +60,19 @@ public class ServiceRepo {
         ClientRepo clientRepo=new ClientRepo();
         EmployeesRepo employeesRepo=new EmployeesRepo();
         try {
-            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql = "SELECT id, date, serviceType, clientID, employeerID FROM service WHERE id="+id.toString()+"";
+            String sql = "SELECT id, date, serviceType, clientID, employeesID FROM service WHERE id = "+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
             service = new Service(
-                    rs.getLong("id"),
+                    rs.getInt("id"),
                     rs.getString("date"),
                     rs.getString("serviceType"),
                     rs.getInt("clientID"),
-                    rs.getInt("employeerID"));
+                    rs.getInt("employeesID"));
         }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -83,15 +87,13 @@ public class ServiceRepo {
         if(confirm){
             Connection connection = null;
             try {
-                Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
                 String sql = "DELETE FROM service WHERE id="+id.toString()+"";
                 ResultSet rs = stmt.executeQuery(sql);
+                System.out.println("Delete service. Id:"+id.toString());
             }
-            catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            catch (SQLException e) {
                 e.printStackTrace();
             } finally {
                 try {

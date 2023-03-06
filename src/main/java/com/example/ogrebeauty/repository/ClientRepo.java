@@ -9,7 +9,6 @@ public class ClientRepo{
     public void saveClient(Client client){
         Connection connection = null;
         try {
-            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String mark;
@@ -27,9 +26,8 @@ public class ClientRepo{
                     client.getPhoneNumber()+"', '"+
                     mark+"')";
             stmt.executeUpdate(sql);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -44,22 +42,20 @@ public class ClientRepo{
         Client client=null;
         ServiceRepo serviceRepo=new ServiceRepo();
         try {
-            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql = "SELECT id, fullName, email, phoneNumber, mark FROM client WHERE id="+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
             client = new Client(
                     rs.getLong("id"),
-                    rs.getString("fullname"),
+                    rs.getString("fullName"),
                     rs.getString("email"),
                     rs.getString("phoneNumber"),
                     rs.getString("mark"));
             client.setService(serviceRepo.getServiceList("client", rs.getLong("id")));
         }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -74,15 +70,12 @@ public class ClientRepo{
         if(confirm){
             Connection connection = null;
             try {
-                Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
                 String sql = "DELETE FROM client WHERE id="+id.toString()+"";
                 ResultSet rs = stmt.executeQuery(sql);
             }
-            catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            catch (SQLException e) {
                 e.printStackTrace();
             } finally {
                 try {
@@ -102,16 +95,13 @@ public class ClientRepo{
         int id=0;
         Connection connection = null;
         try {
-            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql ="SELECT MAX(id) FROM client";
             ResultSet rs = stmt.executeQuery(sql);
             id = rs.getInt("id");
         }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
