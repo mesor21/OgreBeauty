@@ -11,6 +11,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ServiceService {
+
+    /*Как работать с Data?
+    Создавайте в controller новый Data class и вставляйте в нужный метод сервиса через функцию .toString()
+    Пример:
+    private Data data = new Data();
+    data.set...(...);
+    service.editService(id, data.toString(), ...) ;
+    */
+
     ServiceRepo serviceRepo;
     ClientRepo clientRepo;
     EmployeesRepo employeesRepo;
