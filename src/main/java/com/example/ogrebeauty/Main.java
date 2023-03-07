@@ -1,6 +1,5 @@
 package com.example.ogrebeauty;
 
-import com.example.ogrebeauty.repository.PostgreSQLJDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,8 +18,9 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
+        /*PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
         connectionDatabase.connectTest();
+        connectionDatabase.autocreateTables*/
         launch();
     }
 }

@@ -8,9 +8,17 @@ public class Employees {
     private String jobTitle;
     private List<Service> service;
 
+    public Employees() {
+    }
 
-    public Employees(Long id,String fullName, String jobTitle, List<Service> service) {
+    public Employees(Long id, String fullName, String jobTitle) {
         this.id=id;
+        this.fullName = fullName;
+        this.jobTitle = jobTitle;
+    }
+
+    public Employees(Long id, String fullName, String jobTitle, List<Service> service) {
+        this.id = id;
         this.fullName = fullName;
         this.jobTitle = jobTitle;
         this.service = service;
@@ -42,5 +50,14 @@ public class Employees {
 
     public List<Service> getService() {
         return service;
+    }
+
+    @Override
+    public String toString() {
+        return "Employees{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", jobTitle='" + jobTitle + '\'' +
+                '}';
     }
 }

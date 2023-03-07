@@ -37,10 +37,10 @@ public class PostgreSQLJDBC {
             //Создание таблицы клиента
             String sql = "CREATE TABLE client " +
                     "(id INTEGER not NULL, " +
-                    " fullName VARCHER(255), " +
-                    " email VARCHER(255), " +
-                    " phoneNumber VARCHER(255), " +
-                    " mark VARCHER(255), " +
+                    " fullName VARCHAR(255), " +
+                    " email VARCHAR(255), " +
+                    " phoneNumber VARCHAR(255), " +
+                    " mark VARCHAR(255), " +
                     " PRIMARY KEY( id ))";
             stmt.executeUpdate(sql);
             System.out.println("Created table client");
@@ -48,8 +48,8 @@ public class PostgreSQLJDBC {
             //Создание таблицы Employees
             sql = "CREATE TABLE employees " +
                     "(id INTEGER not NULL, " +
-                    " fullName VARCHER(255), " +
-                    " jobTitle VARCHER(255), " +
+                    " fullName VARCHAR(255), " +
+                    " jobTitle VARCHAR(255), " +
                     " PRIMARY KEY( id ))";
             stmt.executeUpdate(sql);
             System.out.println("Created table employees");
@@ -57,10 +57,10 @@ public class PostgreSQLJDBC {
             //Create table service
             sql = "CREATE TABLE service " +
                     "(id INTEGER not NULL, " +
-                    " date VARCHER(255), " +
-                    " serviceType VARCHER(255), " +
+                    " date VARCHAR(255), " +
+                    " serviceType VARCHAR(255), " +
                     " clientID INTEGER, " +
-                    " employeerID INTEGER, " +
+                    " employeesID INTEGER, " +
                     " PRIMARY KEY( id ))";
             stmt.executeUpdate(sql);
             System.out.println("Created table service");
