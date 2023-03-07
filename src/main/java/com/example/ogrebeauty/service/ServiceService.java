@@ -24,7 +24,7 @@ public class ServiceService {
     }
     public void editService(String id, String data, String serviceType, String clientID, String employeesID){
         Service service=serviceRepo.findServiceById(Long.parseLong(id));
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         Date date;
         if(data.equals("")){}
         else{

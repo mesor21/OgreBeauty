@@ -34,14 +34,13 @@ public class EmployeesRepo {
         try {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql = "SELECT id, fullName, jobTitle FROM client WHERE id="+id.toString()+"";
+            String sql = "SELECT id, fullName, jobTitle FROM employees WHERE id = "+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
             employees = new Employees(
                     rs.getLong("id"),
-                    rs.getString("fullname"),
+                    rs.getString("fullName"),
                     rs.getString("jobTitle"));
-            //Сделано плохо, потому что нет защиты от неправильного id*/
         }
         catch (SQLException e) {
             e.printStackTrace();

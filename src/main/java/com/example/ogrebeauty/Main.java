@@ -30,34 +30,37 @@ public class Main extends Application {
     public static void main(String[] args) {
         /*PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
         connectionDatabase.connectTest();*/
-        Date date = new Date(2023,3,6);
+        Date date = new Date(2023,02,6);
         date.setHours(23);
         date.setMinutes(31);
         date.setSeconds(0);
 
-        String testdate = date.getDate()+"/"+date.getMonth()+"/"+date.getYear()+" "+date.getHours()+":"+date.getMinutes();
+        String testdate = date.getYear()+"-"+date.getMonth()+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
         System.out.println(testdate);
+        System.out.println(date.toString());
+
         Client clientNullMark = new Client(Long.parseLong("1"),"Ivanova T. M.","123@123.com", "+79054321010",null);
         Client clientMark = new Client(Long.parseLong("2"),"Ivanova T. M.","123@123.com","79054321010", "DCP");
         Employees employees = new Employees(Long.parseLong("1"), "Sidorova A. I.","Старший мастер маникюра", null);
-        Service serviceWithClient = new Service(Long.parseLong("1"), testdate,"маникюр", clientNullMark, null);
-        Service serviceWithEmployees = new Service(Long.parseLong("2"),testdate,"маникюр", null, employees);
-        Service serviceWithoutClientAndEmployees = new Service(Long.parseLong("3"),testdate,"маникюр", null, null);
-        Service serviceWithClientAndEmployees = new Service(Long.parseLong("4"),testdate,"маникюр", clientNullMark, employees);
+        Service serviceWithClient = new Service(Long.parseLong("1"), date.toString(),"маникюр", clientNullMark, null);
+        Service serviceWithEmployees = new Service(Long.parseLong("2"),date.toString(),"маникюр", null, employees);
+        Service serviceWithoutClientAndEmployees = new Service(Long.parseLong("3"),date.toString(),"маникюр", null, null);
+        Service serviceWithClientAndEmployees = new Service(Long.parseLong("4"),date.toString(),"маникюр", clientNullMark, employees);
 
 
         EmployeesRepo employeesRepo=new EmployeesRepo();
         ClientRepo clientRepo = new ClientRepo();
         ServiceRepo serviceRepo = new ServiceRepo();
 
-        clientRepo.saveClient(clientNullMark);
+
+        /*clientRepo.saveClient(clientNullMark);
         clientRepo.saveClient(clientMark);
         employeesRepo.saveEmployees(employees);
-        employeesRepo.saveEmployees(new Employees(Long.parseLong("2"), "Sidorova A. I.","Старший мастер маникюра", null));
+        employeesRepo.saveEmployees(employees);
         serviceRepo.saveService(serviceWithClient);
         serviceRepo.saveService(serviceWithEmployees);
         serviceRepo.saveService(serviceWithoutClientAndEmployees);
-        serviceRepo.saveService(serviceWithClientAndEmployees);
+        serviceRepo.saveService(serviceWithClientAndEmployees);*/
 
         System.out.println(serviceRepo.findServiceById(Long.parseLong("1")).toString());
         System.out.println(serviceRepo.findServiceById(Long.parseLong("2")).toString());

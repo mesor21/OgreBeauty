@@ -3,6 +3,8 @@ package com.example.ogrebeauty.repository;
 import com.example.ogrebeauty.entity.Service;
 
 import java.sql.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,16 +30,9 @@ public class ServiceRepo {
             else{
                 employeesID = service.getEmploer().getId().toString();
             }
-            String data = service.getData().getDay()+"/"+
-                    service.getData().getMonth()+"/"+
-                    service.getData().getYear()+" "+
-                    service.getData().getMinutes();
-
-            System.out.println(data);
-
             String sql="INSERT INTO service VALUES("+
                     service.getId().toString()+", '"+
-                    data+"', '"+
+                    service.getData().toString()+"', '"+
                     service.getServiceType()+"', '"+
                     clientID+"', '"+
                     employeesID+"')";

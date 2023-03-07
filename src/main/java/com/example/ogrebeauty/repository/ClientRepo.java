@@ -53,7 +53,6 @@ public class ClientRepo{
                     rs.getString("email"),
                     rs.getString("phoneNumber"),
                     rs.getString("mark"));
-            client.setService(serviceRepo.getServiceList("client", rs.getLong("id")));
         }
         catch (SQLException e) {
             e.printStackTrace();

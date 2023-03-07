@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Service {
+    public static final DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
     private Long id;
     private Date data;
     private String serviceType;
@@ -19,12 +20,11 @@ public class Service {
     public Service() {
     }
 
-    public Service(Long id, String data, String serviceType, Client client, Employees employees) {
+    public Service(Long id, String dataString, String serviceType, Client client, Employees employees) {
         this.id = id;
         this.serviceType = serviceType;
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try{
-            this.data = df.parse(data);
+            this.data = df.parse(dataString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -32,11 +32,10 @@ public class Service {
         this.client=client;
     }
 
-    public Service(Integer id, String data, String serviceType, int clientID, int employeesID) {
+    public Service(Integer id, String dataString, String serviceType, int clientID, int employeesID) {
         this.id = Long.parseLong(id.toString());
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try{
-            this.data = df.parse(data);
+            this.data = df.parse(dataString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
