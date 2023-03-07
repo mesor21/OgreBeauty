@@ -18,7 +18,7 @@ JavaFX progect for beauty saloon
 
 
 
-**Загрузить проект**
+## Загрузить проект**
 
 Что б загрузить этот проект требуется:
 
@@ -40,7 +40,7 @@ https://git-scm.com/download/mac
 git clone https://github.com/mesor21/OgreBeauty.git 
 ```
 
-**IDE**
+## IDE
 
 Что б вам было удобно работать с проектом, вам требуется скачать IDE IntelliJ IDEA
 ```
@@ -71,7 +71,7 @@ https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/c
 Не знаю. Наверное все коммиты будут на ветке main
 
 
-**Теория**
+## Теория
 
 Прежде чем написать мне используем все ресурсы в этом и следующем пунке, а потом пишем мне.
 * Теория по JavaFX habr (прочитать всё кроме 7)
@@ -99,7 +99,7 @@ https://t.me/RussiaChatGPTBot
 ```
 https://translate.google.com/
 ```
-**<h2>С чем взаимодействовать</h2>**
+## С чем взаимодействовать
 
 
 1. src/main/java/com/example/ogrebeauty
