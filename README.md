@@ -18,23 +18,22 @@ JavaFX progect for beauty saloon
 
 
 
-## Загрузить проект**
+## Загрузить проект
 
 Что б загрузить этот проект требуется:
 
 **Для Егора:**
-Скачать GitHub Desktop
-```
-https://www.jetbrains.com/idea/download
-```
-Как скачать проект (Мне похер что тут на английском всё. По картинкам разберёшься)
-```
-https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/adding-and-cloning-repositories/cloning-a-repository-from-github-to-github-desktop
-```
+
+[Скачать GitHub Desktop](https://www.jetbrains.com/idea/download)
+
+
+[Как скачать проект (Мне похер что тут на английском всё. По картинкам разберёшься)](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/adding-and-cloning-repositories/cloning-a-repository-from-github-to-github-desktop)
+
+
 **Для Никиты:**
-```
-https://git-scm.com/download/mac
-```
+
+[Git](https://git-scm.com/download/mac)
+
 Открываешь в консоли папку куда хочешь сохранить проет и вставляешь туда эту команду:
 ```
 git clone https://github.com/mesor21/OgreBeauty.git 
@@ -42,10 +41,7 @@ git clone https://github.com/mesor21/OgreBeauty.git
 
 ## IDE
 
-Что б вам было удобно работать с проектом, вам требуется скачать IDE IntelliJ IDEA
-```
-https://www.jetbrains.com/idea/download
-```
+Что б вам было удобно работать с проектом, вам требуется скачать IDE [IntelliJ IDEA](https://www.jetbrains.com/idea/download)
 
 После открытия приложения у вас появится это окно
 
@@ -64,28 +60,18 @@ https://www.jetbrains.com/idea/download
 * На 8 этапе можете выбирать все галочки
 * На 9 этапе сохраните его к себе отдельным файлом что б не генерировать потом ещё раз
 
-Создание токена
-```
-https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
-```
+[Создание токена](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
 Не знаю. Наверное все коммиты будут на ветке main
 
 
 ## Теория
 
 Прежде чем написать мне используем все ресурсы в этом и следующем пунке, а потом пишем мне.
-* Теория по JavaFX habr (прочитать всё кроме 7)
-```
-https://habr.com/ru/post/474498
-```
-* Google
-```
-https://google.com
-```
-* ChatGPT на русском
-```
-https://t.me/RussiaChatGPTBot
-```
+* [Теория по JavaFX habr (прочитать всё кроме 7)](https://habr.com/ru/post/474498)
+* [Google](https://google.com)
+
+* [ChatGPT на русском](https://t.me/RussiaChatGPTBot)
 
 
 Так как на ваших плечах будет лежать непростая задача:
@@ -94,19 +80,16 @@ https://t.me/RussiaChatGPTBot
 
 
 <h4>Специально для Егора</h2>>
-Пишем названия переменных понятным АНГЛИЙСКИМ ЯЗЫКОМ. Если не знаешь как назвать, вот тебе
+Пишем названия переменных понятным АНГЛИЙСКИМ ЯЗЫКОМ. Если не знаешь как назвать, вот тебе [Гениальное решение проблемы Егора](https://translate.google.com/)
 
-```
-https://translate.google.com/
-```
 ## С чем взаимодействовать
 
 
-1. src/main/java/com/example/ogrebeauty
-2. src/main/resources/com/example/ogrebeauty
-   * controller
-   * service
-   * Main.java
+1. [src/main/java/com/example/ogrebeauty](https://github.com/mesor21/OgreBeauty/tree/main/src/main/resources/com/example/ogrebeauty)
+2. [src/main/resources/com/example/ogrebeauty](https://github.com/mesor21/OgreBeauty/tree/main/src/main/java/com/example/ogrebeauty)
+   * [controller](https://github.com/mesor21/OgreBeauty/tree/main/src/main/java/com/example/ogrebeauty/controller)
+   * [service](https://github.com/mesor21/OgreBeauty/tree/main/src/main/java/com/example/ogrebeauty/service)
+   * [Main.java](https://github.com/mesor21/OgreBeauty/blob/main/src/main/java/com/example/ogrebeauty/Main.java)
 
 Советую ознакомится со всеми методами service так как взаимодействие со всеми данными у вас будет производится через service(обязательно посмотрите ServiceService). 
 Желаю удачи!
