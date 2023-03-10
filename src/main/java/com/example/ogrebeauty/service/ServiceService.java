@@ -28,7 +28,9 @@ public class ServiceService {
         if(service.getClientID()==0) {
             service.setClient(clientRepo.findClientById(Long.parseLong(Integer.toString(service.getClientID()))));
         }
-        service.setEmploer(employeesRepo.findEmployeesById(Long.parseLong(Integer.toString(service.getEmployeesID()))));
+        if(service.getEmployeesID()==0) {
+            service.setEmploer(employeesRepo.findEmployeesById(Long.parseLong(Integer.toString(service.getEmployeesID()))));
+        }
         return service;
     }
     public void editService(String id, String data, String serviceType, String clientID, String employeesID){
