@@ -24,6 +24,10 @@ public class Employees {
         this.service = service;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }

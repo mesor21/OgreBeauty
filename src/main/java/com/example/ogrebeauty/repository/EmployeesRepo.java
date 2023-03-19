@@ -79,7 +79,7 @@ public class EmployeesRepo {
         return null;
     }
 
-    public int getLastId(){
+    public Long getLastId(){
         int id=0;
         Connection connection = null;
         try {
@@ -98,6 +98,6 @@ public class EmployeesRepo {
                 e.printStackTrace();
             }
         }
-        return id;
+        return Long.valueOf(id);
     }
 }

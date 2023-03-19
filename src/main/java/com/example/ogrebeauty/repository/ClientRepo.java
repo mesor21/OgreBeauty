@@ -90,7 +90,7 @@ public class ClientRepo{
         return null;
     }
 
-    public int getLastId(){
+    public Long getLastId(){
         int id=0;
         Connection connection = null;
         try {
@@ -109,6 +109,6 @@ public class ClientRepo{
                 e.printStackTrace();
             }
         }
-        return id;
+        return Long.valueOf(id);
     }
 }

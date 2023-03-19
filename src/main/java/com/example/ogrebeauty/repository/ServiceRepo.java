@@ -141,7 +141,7 @@ public class ServiceRepo {
         }
         return serviceList;
     }
-    public int getLastId(){
+    public Long getLastId(){
         int id=0;
         Connection connection = null;
         try {
@@ -163,6 +163,6 @@ public class ServiceRepo {
                 e.printStackTrace();
             }
         }
-        return id;
+        return Long.valueOf(id);
     }
 }

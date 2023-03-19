@@ -44,6 +44,10 @@ public class Service {
         this.employeesID = employeesID;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setData(Date data) {
         this.data = data;
     }

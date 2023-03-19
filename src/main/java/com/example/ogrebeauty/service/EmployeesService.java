@@ -7,26 +7,18 @@ import com.example.ogrebeauty.repository.ServiceRepo;
 public class EmployeesService {
     EmployeesRepo employeesRepo;
     ServiceRepo serviceRepo;
-    public Employees getEmployees(String id){
-        Employees employees=employeesRepo.findEmployeesById(Long.parseLong(id));
-        employees.setService(serviceRepo.getServiceList("employees",Long.parseLong(id)));
+    public Employees getEmployees(Long id){
+        Employees employees=employeesRepo.findEmployeesById(id);
+        employees.setService(serviceRepo.getServiceList("employees",id));
         return employees;
     }
-    public void editEmployees(String id, String fullName, String jobTitle){
-        Employees employees=employeesRepo.findEmployeesById(Long.parseLong(id));
-        if(fullName.equals("")){}
-        else{
-            employees.setFullName(fullName);
-        }
-        if(jobTitle.equals("")){}
-        else{
-            employees.setJobTitle(jobTitle);
-        }
-        employeesRepo.deleteEmployeesById(Long.parseLong(id),true);
+    public void updateEmployees(Employees employees){
+        employeesRepo.deleteEmployeesById(employees.getId(),true);
         employeesRepo.saveEmployees(employees);
     }
-    public void saveNewEmployees(String fullName, String jobTitle){
-        Employees employees = new Employees(Long.parseLong(Integer.toString(employeesRepo.getLastId()+1)), fullName, jobTitle);
+    public void saveNewEmployees(Employees employees){
+        int id = (int)(long) employeesRepo.getLastId() + 1;
+        employees.setId(Long.valueOf(id));
         employeesRepo.saveEmployees(employees);
     }
     public void deleteById(String id){
