@@ -1,34 +1,29 @@
 package com.example.ogrebeauty.repository;
 
-import com.example.ogrebeauty.entity.Client;
+import com.example.ogrebeauty.entity.Services;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ClientRepo{
+public class ServicesRepo {
     DatabaseInfo databaseInfo = new DatabaseInfo();
-    public void saveClient(Client client){
+
+    public void save(Services services){
         Connection connection = null;
         try {
+            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String mark;
-            if(client.getMark()==null){
-                mark="NULL";
-            }
-            else{
-                mark= client.getMark();
-            }
-
-            String sql="INSERT INTO client VALUES("+
-                    client.getId().toString()+", '"+
-                    client.getFullName()+"', '"+
-                    client.getEmail()+"', '"+
-                    client.getPhoneNumber()+"', '"+
-                    mark+"')";
+            String clientID;
+            String employeesID;
+            String sql="INSERT INTO services VALUES("+
+                    services.getId().toString()+", '"+
+                    services.getServiceType()+"')";
             stmt.executeUpdate(sql);
-        }
-        catch (SQLException e) {
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -38,22 +33,19 @@ public class ClientRepo{
             }
         }
     }
-    public Client findClientById(Long id){
+    public Services findById(Long id){
         Connection connection = null;
-        Client client=null;
-        ServiceRepo serviceRepo=new ServiceRepo();
+        Services services=null;
         try {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql = "SELECT id, fullName, email, phoneNumber, mark FROM client WHERE id="+id.toString()+"";
+            String sql = "SELECT id, serviceType FROM services WHERE id = "+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            client = new Client(
-                    rs.getLong("id"),
-                    rs.getString("fullName"),
-                    rs.getString("email"),
-                    rs.getString("phoneNumber"),
-                    rs.getString("mark"));
+            services = new Services(
+                    rs.getInt("id"),
+                    rs.getString("serviceType")
+            );
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -64,16 +56,18 @@ public class ClientRepo{
                 e.printStackTrace();
             }
         }
-        return client;
+        return services;
     }
-    public void deleteClientById(Long id, boolean confirm){
+
+    public void delete(Long id, boolean confirm){
         if(confirm){
             Connection connection = null;
             try {
                 connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
                 Statement stmt = connection.createStatement();
-                String sql = "DELETE FROM client WHERE id="+id.toString()+"";
+                String sql = "DELETE FROM services WHERE id="+id.toString()+"";
                 ResultSet rs = stmt.executeQuery(sql);
+                System.out.println("Delete services. Id:"+id.toString());
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -86,22 +80,48 @@ public class ClientRepo{
             }
         }
     }
-    //to-do Сделать нормальный поиск
-    public List<Client> findByFullName(String fullName){
-        return null;
+    public List<Services> getAll(String peaple,Long id){
+        List<Services> serviceList=new ArrayList<>();
+        Connection connection = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            String chel=new String();
+            sql="SELECT id, serviceType FROM services WHERE "+chel+"="+id.toString();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                serviceList.add(new Services(rs.getInt("id"), rs.getString("serviceType")));
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return serviceList;
     }
-
     public Long getLastId(){
         int id=0;
         Connection connection = null;
         try {
+            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql ="SELECT MAX(id) FROM client";
+            String sql ="SELECT MAX(id) FROM services";
             ResultSet rs = stmt.executeQuery(sql);
             id = rs.getInt("id");
         }
-        catch (SQLException e) {
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {

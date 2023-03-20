@@ -54,11 +54,18 @@ public class PostgreSQLJDBC {
             stmt.executeUpdate(sql);
             System.out.println("Created table employees");
 
+            //Create new table Services
+            sql = "CREATE TABLE services " +
+                    "(id INTEGER not NULL, " +
+                    " serviceType VARCHAR(255))";
+            stmt.executeUpdate(sql);
+            System.out.println("Created table services");
+
             //Create table service
             sql = "CREATE TABLE service " +
                     "(id INTEGER not NULL, " +
                     " date VARCHAR(255), " +
-                    " serviceType VARCHAR(255), " +
+                    " servicesID INTEGER, " +
                     " clientID INTEGER, " +
                     " employeesID INTEGER, " +
                     " PRIMARY KEY( id ))";

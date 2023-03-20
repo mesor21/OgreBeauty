@@ -3,8 +3,6 @@ package com.example.ogrebeauty.repository;
 import com.example.ogrebeauty.entity.Service;
 
 import java.sql.*;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class ServiceRepo {
             String sql="INSERT INTO service VALUES("+
                     service.getId().toString()+", '"+
                     service.getData().toString()+"', '"+
-                    service.getServiceType()+"', '"+
+                    service.getServicesID()+"', '"+
                     clientID+"', '"+
                     employeesID+"')";
             stmt.executeUpdate(sql);
@@ -53,19 +51,21 @@ public class ServiceRepo {
         Connection connection = null;
         Service service=null;
         ClientRepo clientRepo=new ClientRepo();
+        ServicesRepo servicesRepo = new ServicesRepo();
         EmployeesRepo employeesRepo=new EmployeesRepo();
         try {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql = "SELECT id, date, serviceType, clientID, employeesID FROM service WHERE id = "+id.toString()+"";
+            String sql = "SELECT id, date, servicesID, clientID, employeesID FROM service WHERE id = "+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
             service = new Service(
-                    rs.getInt("id"),
+                    rs.getLong("id"),
                     rs.getString("date"),
-                    rs.getString("serviceType"),
-                    rs.getInt("clientID"),
-                    rs.getInt("employeesID"));
+                    servicesRepo.findById(rs.getLong("servicesID")),
+                    employeesRepo.findEmployeesById(rs.getLong("employeerID")),
+                    clientRepo.findClientById(rs.getLong("clientID"))
+            );
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -104,6 +104,7 @@ public class ServiceRepo {
     public List<Service> getServiceList(String peaple,Long id){
         List<Service> serviceList=new ArrayList<>();
         Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
         ClientRepo clientRepo = new ClientRepo();
         EmployeesRepo employeesRepo = new EmployeesRepo();
         try {
@@ -118,14 +119,17 @@ public class ServiceRepo {
             if(peaple.equals("employees")){
                 chel="employeerID";
             }
-            sql="SELECT id, date, serviceType, clientID, employeerID FROM service WHERE "+chel+"="+id.toString();
+            sql="SELECT id, date, servicesID, clientID, employeerID FROM service WHERE "+chel+"="+id.toString();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                serviceList.add(new Service(rs.getLong("id"),
+                serviceList.add(new Service(
+                        rs.getLong("id"),
                         rs.getString("date"),
-                        rs.getString("serviceType"),
-                        clientRepo.findClientById(rs.getLong("clientID")),
-                        employeesRepo.findEmployeesById(rs.getLong("id"))));
+                        servicesRepo.findById(rs.getLong("servicesID")),
+                        employeesRepo.findEmployeesById(rs.getLong("employeerID")),
+                        clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
             }
         }
         catch (ClassNotFoundException e) {

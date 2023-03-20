@@ -17,8 +17,7 @@ public class ClientService {
         clientRepo.saveClient(client);
     }
     public void saveNewClient(Client client){
-        int id = (int)(long)clientRepo.getLastId() + 1;
-        client.setId(Long.valueOf(id));
+        client.setId(clientRepo.getLastId() + 1);
         clientRepo.saveClient(client);
     }
 

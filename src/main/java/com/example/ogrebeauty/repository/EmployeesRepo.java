@@ -3,6 +3,7 @@ package com.example.ogrebeauty.repository;
 import com.example.ogrebeauty.entity.Employees;
 
 import java.sql.*;
+import java.util.List;
 
 public class EmployeesRepo {
     DatabaseInfo databaseInfo=new DatabaseInfo();
@@ -75,7 +76,7 @@ public class EmployeesRepo {
         }
     }
     //to-do Сделать нормальный поиск
-    public Employees findByFullName(String fullName){
+    public List<Employees> findByFullName(String fullName){
         return null;
     }
 

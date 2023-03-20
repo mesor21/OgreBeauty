@@ -17,8 +17,7 @@ public class EmployeesService {
         employeesRepo.saveEmployees(employees);
     }
     public void saveNewEmployees(Employees employees){
-        int id = (int)(long) employeesRepo.getLastId() + 1;
-        employees.setId(Long.valueOf(id));
+        employees.setId(employeesRepo.getLastId()+1);
         employeesRepo.saveEmployees(employees);
     }
     public void deleteById(String id){

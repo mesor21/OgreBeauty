@@ -11,7 +11,8 @@ public class Service {
     public static final DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
     private Long id;
     private Date data;
-    private String serviceType;
+    private Services services;
+    private int servicesID;
     private int employeesID;
     private int clientID;
     private Employees emploer;
@@ -20,26 +21,25 @@ public class Service {
     public Service() {
     }
 
-    public Service(Long id, String dataString, String serviceType, Client client, Employees employees) {
+    public Service(Long id, String dataString, Services services, Employees emploer, Client client) {
         this.id = id;
-        this.serviceType = serviceType;
         try{
             this.data = df.parse(dataString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        this.emploer=employees;
-        this.client=client;
+        this.services = services;
+        this.emploer = emploer;
+        this.client = client;
     }
 
-    public Service(Integer id, String dataString, String serviceType, int clientID, int employeesID) {
+    public Service(Integer id, String dataString, int clientID, int employeesID) {
         this.id = Long.parseLong(id.toString());
         try{
             this.data = df.parse(dataString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        this.serviceType = serviceType;
         this.clientID = clientID;
         this.employeesID = employeesID;
     }
@@ -48,12 +48,32 @@ public class Service {
         this.id = id;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public Services getServices() {
+        return services;
     }
 
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
+    public void setServices(Services services) {
+        this.services = services;
+    }
+
+    public int getServicesID() {
+        return servicesID;
+    }
+
+    public void setServicesID(int servicesID) {
+        this.servicesID = servicesID;
+    }
+
+    public void setEmployeesID(int employeesID) {
+        this.employeesID = employeesID;
+    }
+
+    public void setClientID(int clientID) {
+        this.clientID = clientID;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 
     public void setEmploer(Employees emploer) {
@@ -72,9 +92,6 @@ public class Service {
         return data;
     }
 
-    public String getServiceType() {
-        return serviceType;
-    }
 
     public Employees getEmploer() {
         return emploer;
@@ -97,7 +114,7 @@ public class Service {
         String out="Service{" +
                 "id=" + id +
                 ", data=" + data +
-                ", serviceType='" + serviceType + '\'' +
+                ", servicesID='" + servicesID + '\'' +
                 ", emploer=";
         if(emploer==null){
             out+="null";

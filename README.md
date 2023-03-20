@@ -102,6 +102,9 @@ git clone https://github.com/mesor21/OgreBeauty.git
    * [service](https://github.com/mesor21/OgreBeauty/tree/main/src/main/java/com/example/ogrebeauty/service)
    * [Main.java](https://github.com/mesor21/OgreBeauty/blob/main/src/main/java/com/example/ogrebeauty/Main.java)
 
+В основном взаимодействие с сервисами будут идти через объекты. 
+
+
 Советую ознакомится со всеми методами service так как взаимодействие со всеми данными у вас будет производится через service(обязательно посмотрите ServiceService).
 Желаю удачи!
 
