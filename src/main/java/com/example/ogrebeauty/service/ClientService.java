@@ -3,6 +3,9 @@ package com.example.ogrebeauty.service;
 import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.repository.ClientRepo;
 import com.example.ogrebeauty.repository.ServiceRepo;
+import org.w3c.dom.ls.LSException;
+
+import java.util.List;
 
 public class ClientService {
     ClientRepo clientRepo;
@@ -23,5 +26,23 @@ public class ClientService {
 
     public void deleteClient(String id){
         clientRepo.deleteClientById(Long.parseLong(id), true);
+    }
+
+    //TODO null exception
+    public List<Client> find(String data, String fieldNameFromEntity){
+        List<Client> clientList = null;
+        if(fieldNameFromEntity.equals("fullname")) {
+            clientList= clientRepo.findByFullname(data);
+        }
+        if(fieldNameFromEntity.equals("email")) {
+            clientList = clientRepo.findEmail(data);
+        }
+        if(fieldNameFromEntity.equals("phoneNumber")) {
+            clientList = clientRepo.findByPhoneNumber(data);
+        }
+        if(fieldNameFromEntity.equals("mark")) {
+            return clientRepo.findByMark(data);
+        }
+        return clientList;
     }
 }

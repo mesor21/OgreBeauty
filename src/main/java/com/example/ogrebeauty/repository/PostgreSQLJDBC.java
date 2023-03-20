@@ -57,7 +57,8 @@ public class PostgreSQLJDBC {
             //Create new table Services
             sql = "CREATE TABLE services " +
                     "(id INTEGER not NULL, " +
-                    " serviceType VARCHAR(255))";
+                    " serviceType VARCHAR(255), "+
+                    " price INTEGER"+")";
             stmt.executeUpdate(sql);
             System.out.println("Created table services");
 

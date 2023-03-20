@@ -63,7 +63,7 @@ public class ServiceRepo {
                     rs.getLong("id"),
                     rs.getString("date"),
                     servicesRepo.findById(rs.getLong("servicesID")),
-                    employeesRepo.findEmployeesById(rs.getLong("employeerID")),
+                    employeesRepo.findEmployeesById(rs.getLong("employeesID")),
                     clientRepo.findClientById(rs.getLong("clientID"))
             );
         }
@@ -100,7 +100,6 @@ public class ServiceRepo {
         }
     }
 
-    //to-do сделать поиск клиенту
     public List<Service> getServiceList(String peaple,Long id){
         List<Service> serviceList=new ArrayList<>();
         Connection connection = null;
@@ -117,16 +116,16 @@ public class ServiceRepo {
                 chel="clientID";
             }
             if(peaple.equals("employees")){
-                chel="employeerID";
+                chel="employeesID";
             }
-            sql="SELECT id, date, servicesID, clientID, employeerID FROM service WHERE "+chel+"="+id.toString();
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE "+chel+"="+id.toString();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 serviceList.add(new Service(
                         rs.getLong("id"),
                         rs.getString("date"),
                         servicesRepo.findById(rs.getLong("servicesID")),
-                        employeesRepo.findEmployeesById(rs.getLong("employeerID")),
+                        employeesRepo.findEmployeesById(rs.getLong("employeesID")),
                         clientRepo.findClientById(rs.getLong("clientID"))
                         )
                 );
@@ -168,5 +167,155 @@ public class ServiceRepo {
             }
         }
         return Long.valueOf(id);
+    }
+
+    //Search
+    public List<Service> findByDate(Date date){
+        Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
+        ClientRepo clientRepo = new ClientRepo();
+        EmployeesRepo employeesRepo = new EmployeesRepo();
+        List<Service> service = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date="+date.toString()+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                service.add(
+                        new Service(
+                                rs.getLong("id"),
+                                rs.getString("date"),
+                                servicesRepo.findById(rs.getLong("servicesID")),
+                                employeesRepo.findEmployeesById(rs.getLong("employeesID")),
+                                clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return service;
+    }
+    public List<Service> findByClientID(Long clientID){
+        Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
+        ClientRepo clientRepo = new ClientRepo();
+        EmployeesRepo employeesRepo = new EmployeesRepo();
+        List<Service> service = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE clientID="+clientID+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                service.add(
+                        new Service(
+                                rs.getLong("id"),
+                                rs.getString("date"),
+                                servicesRepo.findById(rs.getLong("servicesID")),
+                                employeesRepo.findEmployeesById(rs.getLong("employeesID")),
+                                clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return service;
+    }
+    public List<Service> findByEmployeesID(Long servicesID){
+        Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
+        ClientRepo clientRepo = new ClientRepo();
+        EmployeesRepo employeesRepo = new EmployeesRepo();
+        List<Service> service = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE employeesID="+servicesID+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                service.add(
+                        new Service(
+                                rs.getLong("id"),
+                                rs.getString("date"),
+                                servicesRepo.findById(rs.getLong("servicesID")),
+                                employeesRepo.findEmployeesById(rs.getLong("employeesID")),
+                                clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return service;
+    }
+    public List<Service> findByServicesID(Long servicesID){
+        Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
+        ClientRepo clientRepo = new ClientRepo();
+        EmployeesRepo employeesRepo = new EmployeesRepo();
+        List<Service> service = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE servicesID="+servicesID+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                service.add(
+                        new Service(
+                                rs.getLong("id"),
+                                rs.getString("date"),
+                                servicesRepo.findById(rs.getLong("servicesID")),
+                                employeesRepo.findEmployeesById(rs.getLong("employeesID")),
+                                clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return service;
     }
 }

@@ -19,7 +19,8 @@ public class ServicesRepo {
             String employeesID;
             String sql="INSERT INTO services VALUES("+
                     services.getId().toString()+", '"+
-                    services.getServiceType()+"')";
+                    services.getServiceType()+"', '"+
+                    services.getPrice()+"')";
             stmt.executeUpdate(sql);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -39,12 +40,13 @@ public class ServicesRepo {
         try {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql = "SELECT id, serviceType FROM services WHERE id = "+id.toString()+"";
+            String sql = "SELECT id, serviceType, price FROM services WHERE id = "+id.toString()+"";
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
             services = new Services(
                     rs.getInt("id"),
-                    rs.getString("serviceType")
+                    rs.getString("serviceType"),
+                    rs.getInt("price")
             );
         }
         catch (SQLException e) {
@@ -88,10 +90,13 @@ public class ServicesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, serviceType FROM services WHERE id="+id.toString();
+            sql="SELECT id, serviceType, price FROM services WHERE id="+id.toString();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
-                serviceList.add(new Services(rs.getInt("id"), rs.getString("serviceType")));
+                serviceList.add(new Services(rs.getInt("id"),
+                        rs.getString("serviceType"),
+                        rs.getInt("price")
+                ));
             }
         }
         catch (ClassNotFoundException e) {
@@ -131,4 +136,64 @@ public class ServicesRepo {
         }
         return Long.valueOf(id);
     }
+    //Search
+    public List<Services> findByServiceType(String serviceType){
+        Connection connection = null;
+        List<Services> client = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, serviceType, price FROM services WHERE serviceType="+serviceType+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                client.add(new Services(rs.getInt("id"),
+                        rs.getString("serviceType"),
+                        rs.getInt("price")
+                ));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return client;
+    }
+    public List<Services> findByPrice(String price){
+        Connection connection = null;
+        List<Services> client = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, serviceType, price FROM services WHERE price="+price+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                client.add(new Services(rs.getInt("id"),
+                        rs.getString("serviceType"),
+                        rs.getInt("price")
+                ));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return client;
+    }
+
 }

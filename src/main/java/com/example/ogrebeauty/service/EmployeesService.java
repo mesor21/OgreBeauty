@@ -4,6 +4,8 @@ import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.repository.EmployeesRepo;
 import com.example.ogrebeauty.repository.ServiceRepo;
 
+import java.util.List;
+
 public class EmployeesService {
     EmployeesRepo employeesRepo;
     ServiceRepo serviceRepo;
@@ -22,5 +24,16 @@ public class EmployeesService {
     }
     public void deleteById(String id){
         employeesRepo.deleteEmployeesById(Long.parseLong(id), true);
+    }
+    //TODO null exception
+    public List<Employees> find(String data, String fieldNameFromEntity){
+        List<Employees> employees = null;
+        if(fieldNameFromEntity.equals("fullName")){
+            employees = employeesRepo.findByFullname(data);
+        }
+        if(fieldNameFromEntity.equals("jobTitle")){
+            employees = employeesRepo.findByJobtitle(data);
+        }
+        return employees;
     }
 }

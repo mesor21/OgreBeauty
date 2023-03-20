@@ -3,6 +3,7 @@ package com.example.ogrebeauty.repository;
 import com.example.ogrebeauty.entity.Employees;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeesRepo {
@@ -75,11 +76,6 @@ public class EmployeesRepo {
             }
         }
     }
-    //to-do Сделать нормальный поиск
-    public List<Employees> findByFullName(String fullName){
-        return null;
-    }
-
     public Long getLastId(){
         int id=0;
         Connection connection = null;
@@ -100,5 +96,64 @@ public class EmployeesRepo {
             }
         }
         return Long.valueOf(id);
+    }
+    //Search
+    public List<Employees> findByFullname(String fullname){
+        Connection connection = null;
+        List<Employees> employees = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, fullName, jobTitle FROM employees WHERE fullName"+fullname+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                employees.add(new Employees(
+                        rs.getLong("id"),
+                        rs.getString("fullName"),
+                        rs.getString("jobTitle")));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return employees;
+    }
+    public List<Employees> findByJobtitle(String jobtitle){
+        Connection connection = null;
+        List<Employees> employees = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, fullName, jobTitle FROM employees WHERE jobTitle"+jobtitle+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                employees.add(new Employees(
+                        rs.getLong("id"),
+                        rs.getString("fullName"),
+                        rs.getString("jobTitle")));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return employees;
     }
 }

@@ -1,0 +1,19 @@
+Список сотрудников: +
+String fullname +
+String jobtitle +
+
+Список клиентов: +
+String fullname +
+String email +
+int phonenumber +
+String mark +
+
+Список услуг: +
+String servicetype +
+int price +
+
+Список записей: +
+String clientfullname +
+String employeefullname +
+String  servicetype +
+Date date +

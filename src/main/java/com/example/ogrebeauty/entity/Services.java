@@ -6,17 +6,22 @@ public class Services {
 
     private Long id;
     private String serviceType;
-
-    public Services() {
-    }
+    private int price;
 
     public Services(String serviceType) {
         this.serviceType = serviceType;
     }
 
-    public Services(int id, String serviceType) {
+    public Services(int id, String serviceType, int price) {
         this.id = Long.valueOf(id);
         this.serviceType = serviceType;
+        this.price = price;
+    }
+
+    public Services(Long id, String serviceType, int price) {
+        this.id = id;
+        this.serviceType = serviceType;
+        this.price = price;
     }
 
     public void setId(Long id) {
@@ -33,5 +38,13 @@ public class Services {
 
     public String getServiceType() {
         return serviceType;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

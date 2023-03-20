@@ -1,10 +1,15 @@
 package com.example.ogrebeauty.service;
 
+import com.example.ogrebeauty.entity.Client;
+import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.entity.Service;
+import com.example.ogrebeauty.entity.Services;
 import com.example.ogrebeauty.repository.ClientRepo;
 import com.example.ogrebeauty.repository.EmployeesRepo;
 import com.example.ogrebeauty.repository.ServiceRepo;
 import com.example.ogrebeauty.repository.ServicesRepo;
+
+import java.util.List;
 
 public class ServiceService {
 
@@ -40,5 +45,28 @@ public class ServiceService {
     public void saveNewService(Service service){
         service.setId(serviceRepo.getLastId() + 1);
         serviceRepo.saveService(service);
+    }
+    //TODO null exception
+    public List<Service> find(String data, String fieldNameFromEntity){
+        List<Service> serviceList = null;
+        if(fieldNameFromEntity.equals("clientFullname")){
+            List<Client> clientList= clientRepo.findByFullname(data);
+            for(int i=0; i<clientList.size(); i++){
+                serviceList.addAll(serviceRepo.findByClientID(clientList.get(i).getId()));
+            }
+        }
+        if(fieldNameFromEntity.equals("employeeFullname")){
+            List<Employees> employeesList = employeesRepo.findByFullname(data);
+            for(int i=0; i<employeesList.size(); i++){
+                serviceList.addAll(serviceRepo.findByEmployeesID(employeesList.get(i).getId()));
+            }
+        }
+        if(fieldNameFromEntity.equals("serviceType")){
+            List<Services> services = servicesRepo.findByServiceType(data);
+            for(int i=0; i<services.size(); i++){
+                serviceList.addAll(serviceRepo.findByServicesID(services.get(i).getId()));
+            }
+        }
+        return serviceList;
     }
 }
