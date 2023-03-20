@@ -80,7 +80,7 @@ public class ServicesRepo {
             }
         }
     }
-    public List<Services> getAll(String peaple,Long id){
+    public List<Services> getAll(Long id){
         List<Services> serviceList=new ArrayList<>();
         Connection connection = null;
         try {
@@ -88,8 +88,7 @@ public class ServicesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            String chel=new String();
-            sql="SELECT id, serviceType FROM services WHERE "+chel+"="+id.toString();
+            sql="SELECT id, serviceType FROM services WHERE id="+id.toString();
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 serviceList.add(new Services(rs.getInt("id"), rs.getString("serviceType")));
