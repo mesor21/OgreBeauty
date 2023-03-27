@@ -25,11 +25,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
-        connectionDatabase.connectTest();
-        ServiceService service=new ServiceService();
-        List<Service> list= service.find("lol","employeeFullname");
-        System.out.println(list);
+        //PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
+        //connectionDatabase.connectTest();
         /*connectionDatabase.autocreateTables();*/
         launch();
     }
