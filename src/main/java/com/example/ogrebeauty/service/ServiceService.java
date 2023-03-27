@@ -50,7 +50,7 @@ public class ServiceService {
     public List<Service> find(String data, String fieldNameFromEntity){
         List<Service> serviceList = null;
         if(fieldNameFromEntity.equals("clientFullname")){
-            List<Client> clientList= clientRepo.findByFullname(data);
+            List<Client> clientList = clientRepo.findByFullname(data);
             for(int i=0; i<clientList.size(); i++){
                 serviceList.addAll(serviceRepo.findByClientID(clientList.get(i).getId()));
             }
