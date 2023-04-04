@@ -12,7 +12,7 @@ import java.io.InputStream;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
         stage.setTitle("Ogre Beaity");
         //TODO set icon
