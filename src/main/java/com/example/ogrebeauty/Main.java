@@ -1,6 +1,8 @@
 package com.example.ogrebeauty;
 
+import com.example.ogrebeauty.entity.Service;
 import com.example.ogrebeauty.repository.PostgreSQLJDBC;
+import com.example.ogrebeauty.service.ServiceService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 public class Main extends Application {
     @Override
