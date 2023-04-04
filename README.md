@@ -40,7 +40,7 @@ JavaFX progect for beauty saloon
 1. В этом окне нажимаем кнопку "Get frin VCS"
 2. Вставляем следующую ссылку в поле URL:
 ```
-git clone https://github.com/mesor21/OgreBeauty.git 
+https://github.com/mesor21/OgreBeauty.git 
 ```
 3. Устанавливаем под ней место куда сохранить файл
 4. Далее подтверждаем все что предложит вам IDE
