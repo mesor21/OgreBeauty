@@ -11,7 +11,7 @@ public class EmployeesService {
     ServiceRepo serviceRepo;
     public Employees getEmployees(Long id){
         Employees employees=employeesRepo.findEmployeesById(id);
-        employees.setService(serviceRepo.getServiceList("employees",id));
+        employees.setService(serviceRepo.getServiceForPeapleService("employees",id));
         return employees;
     }
     public void updateEmployees(Employees employees){

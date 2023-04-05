@@ -12,7 +12,7 @@ public class ClientService {
     ServiceRepo serviceRepo;
     public Client getClient(Long id){
         Client client = clientRepo.findClientById(id);
-        client.setService(serviceRepo.getServiceList("client",id));
+        client.setService(serviceRepo.getServiceForPeapleService("client",id));
         return client;
     }
     public void updateClient(Client client){

@@ -46,6 +46,9 @@ public class ServiceService {
         service.setId(serviceRepo.getLastId() + 1);
         serviceRepo.saveService(service);
     }
+    public List<Service> getListService(){
+        return serviceRepo.getServiceList();
+    }
     //TODO null exception
     public List<Service> find(String data, String fieldNameFromEntity){
         List<Service> serviceList = null;
@@ -69,4 +72,5 @@ public class ServiceService {
         }
         return serviceList;
     }
+
 }

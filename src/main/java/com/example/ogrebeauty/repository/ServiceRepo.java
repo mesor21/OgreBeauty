@@ -100,7 +100,7 @@ public class ServiceRepo {
         }
     }
 
-    public List<Service> getServiceList(String peaple,Long id){
+    public List<Service> getServiceForPeapleService(String peaple,Long id){
         List<Service> serviceList=new ArrayList<>();
         Connection connection = null;
         ServicesRepo servicesRepo = new ServicesRepo();
@@ -127,6 +127,43 @@ public class ServiceRepo {
                         servicesRepo.findById(rs.getLong("servicesID")),
                         employeesRepo.findEmployeesById(rs.getLong("employeesID")),
                         clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return serviceList;
+    }
+    public List<Service> getServiceList(){
+        List<Service> serviceList=new ArrayList<>();
+        Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
+        ClientRepo clientRepo = new ClientRepo();
+        EmployeesRepo employeesRepo = new EmployeesRepo();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                serviceList.add(new Service(
+                                rs.getLong("id"),
+                                rs.getString("date"),
+                                servicesRepo.findById(rs.getLong("servicesID")),
+                                employeesRepo.findEmployeesById(rs.getLong("employeesID")),
+                                clientRepo.findClientById(rs.getLong("clientID"))
                         )
                 );
             }
