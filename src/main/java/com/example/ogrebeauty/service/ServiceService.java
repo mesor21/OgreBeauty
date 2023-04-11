@@ -21,10 +21,18 @@ public class ServiceService {
     service.editService(id, data.toString(), ...) ;
     */
 
+    public ServiceService() {
+        this.serviceRepo = new ServiceRepo();
+        this.clientRepo = new ClientRepo();
+        this.employeesRepo = new EmployeesRepo();
+        this.servicesRepo = new ServicesRepo();
+    }
+
     ServiceRepo serviceRepo;
     ClientRepo clientRepo;
     EmployeesRepo employeesRepo;
     ServicesRepo servicesRepo;
+
     public Service getService(Long id){
         Service service=serviceRepo.findServiceById(id);
         if(service.getServicesID()==0){

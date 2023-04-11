@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServicesService {
+    public ServicesService() {
+        this.servicesRepo = new ServicesRepo();
+    }
+
     ServicesRepo servicesRepo;
     public Services getServices(Long id){
         return servicesRepo.findById(id);

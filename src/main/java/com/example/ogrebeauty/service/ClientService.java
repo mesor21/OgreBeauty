@@ -8,6 +8,11 @@ import org.w3c.dom.ls.LSException;
 import java.util.List;
 
 public class ClientService {
+    public ClientService() {
+        this.clientRepo = new ClientRepo();
+        this.serviceRepo = new ServiceRepo();
+    }
+
     ClientRepo clientRepo;
     ServiceRepo serviceRepo;
     public Client getClient(Long id){

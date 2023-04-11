@@ -7,6 +7,11 @@ import com.example.ogrebeauty.repository.ServiceRepo;
 import java.util.List;
 
 public class EmployeesService {
+    public EmployeesService() {
+        this.employeesRepo = new EmployeesRepo();
+        this.serviceRepo = new ServiceRepo();
+    }
+
     EmployeesRepo employeesRepo;
     ServiceRepo serviceRepo;
     public Employees getEmployees(Long id){

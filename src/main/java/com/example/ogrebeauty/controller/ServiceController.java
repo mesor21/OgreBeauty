@@ -33,9 +33,8 @@ public class ServiceController {
     @FXML
     private TableColumn<ServiceDTO, String> time;
     @FXML
-    public void setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
+    public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
         // Устанавливаем значения для столбцов
-        //serviceList.get(i).getEmploer().getFullName())
         employeesName.setCellValueFactory(new PropertyValueFactory<>("service"));
         clientName.setCellValueFactory(new PropertyValueFactory<>("client"));
         servicesName.setCellValueFactory(new PropertyValueFactory<>("usluga"));
@@ -51,14 +50,15 @@ public class ServiceController {
                     serviceList.get(i).getData().toString()
             ));
         }
-        tableView.setItems(observableList);
+        return observableList;
     }
 
     @FXML
-    public void whatSetInTable(){ //TODO Можно объеденить поиск и выдачу информации по дефолту
+    public void initialize(){ //TODO Можно объеденить поиск и выдачу информации по дефолту
         List<Service> serviceList;
         serviceList = serviceService.getListService();
-        setTableData(serviceList);
+        tableView.setItems(setTableData(serviceList));
+        System.out.println("Get data to frontend");
         /*if(){//Если у тебя только вызвали весь список
             serviceList=serviceService.getListService();
         }
