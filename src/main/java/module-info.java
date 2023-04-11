@@ -8,6 +8,7 @@ module com.example.ogrebeauty {
     requires java.sql;
 
     opens com.example.ogrebeauty to javafx.fxml;
+    opens com.example.ogrebeauty.controller.DTO to javafx.base;
     exports com.example.ogrebeauty;
     exports com.example.ogrebeauty.controller;
     opens com.example.ogrebeauty.controller to javafx.fxml;

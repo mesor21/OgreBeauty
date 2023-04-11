@@ -41,15 +41,17 @@ public class ServiceController {
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         time.setCellValueFactory(new PropertyValueFactory<>("time"));
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
-        for(int i=0; i<serviceList.size(); i++){
+        observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test","12.06.2023","15:00")); //TODO Bugfix работает только дата почему-то
+        /*for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
+                    serviceList.get(i).getId(),
                     serviceList.get(i).getEmploer().getFullName(),
                     serviceList.get(i).getClient().getFullName(),
                     serviceList.get(i).getServices().getServiceType(),
                     serviceList.get(i).getData().toString(), //TODO разделить дату и время
                     serviceList.get(i).getData().toString()
             ));
-        }
+        }*/
         return observableList;
     }
 

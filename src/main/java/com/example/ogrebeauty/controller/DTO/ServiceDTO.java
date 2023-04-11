@@ -2,18 +2,28 @@ package com.example.ogrebeauty.controller.DTO;
 
 public class ServiceDTO {
     //объект для записи данных в таблицу. Все данные будут строковыми
+    private Long id;
     private String employeesName;
     private String clientName;
     private String servicesName;
     private String date;
     private String time;
 
-    public ServiceDTO(String employeesName, String clientName, String servicesName, String date, String time) {
+    public ServiceDTO(Long id, String employeesName, String clientName, String servicesName, String date, String time) {
+        this.id = id;
         this.employeesName = employeesName;
         this.clientName = clientName;
         this.servicesName = servicesName;
         this.date = date;
         this.time = time;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setEmployeesName(String employeesName) {

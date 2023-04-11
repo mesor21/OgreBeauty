@@ -12,7 +12,6 @@ public class ClientService {
         this.clientRepo = new ClientRepo();
         this.serviceRepo = new ServiceRepo();
     }
-
     ClientRepo clientRepo;
     ServiceRepo serviceRepo;
     public Client getClient(Long id){
