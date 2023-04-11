@@ -16,7 +16,7 @@ public class ServiceController {
 
     private ServiceService serviceService;
 
-    private ServiceController(){
+    public ServiceController(){
         serviceService = new ServiceService();
     }
 
@@ -57,6 +57,8 @@ public class ServiceController {
     @FXML
     public void whatSetInTable(){ //TODO Можно объеденить поиск и выдачу информации по дефолту
         List<Service> serviceList;
+        serviceList = serviceService.getListService();
+        setTableData(serviceList);
         /*if(){//Если у тебя только вызвали весь список
             serviceList=serviceService.getListService();
         }

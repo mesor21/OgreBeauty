@@ -1,22 +1,19 @@
 package com.example.ogrebeauty;
 
-import com.example.ogrebeauty.entity.Service;
-import com.example.ogrebeauty.repository.PostgreSQLJDBC;
-import com.example.ogrebeauty.service.ServiceService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainPage.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
+        scene.getStylesheets().add(0, "style.css");
         stage.setTitle("Ogre Beaity");
 
         stage.setScene(scene);
