@@ -34,7 +34,7 @@ public class ServiceService {
     ServicesRepo servicesRepo;
 
     public Service getService(Long id){
-        Service service=serviceRepo.findServiceById(id);
+        /*Service service=serviceRepo.findServiceById(id);
         if(service.getServicesID()==0){
             service.setServices(servicesRepo.findById(Long.valueOf(service.getServicesID())));
         }
@@ -43,7 +43,8 @@ public class ServiceService {
         }
         if(service.getEmployeesID()==0){
             service.setEmploer(employeesRepo.findEmployeesById(Long.parseLong(Integer.toString(service.getEmployeesID()))));
-        }
+        }*/
+        Service service = new Service();
         return service;
     }
     public void updateService(Service service){
