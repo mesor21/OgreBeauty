@@ -9,6 +9,7 @@ import com.example.ogrebeauty.repository.EmployeesRepo;
 import com.example.ogrebeauty.repository.ServiceRepo;
 import com.example.ogrebeauty.repository.ServicesRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceService {
@@ -34,7 +35,7 @@ public class ServiceService {
     ServicesRepo servicesRepo;
 
     public Service getService(Long id){
-        /*Service service=serviceRepo.findServiceById(id);
+        Service service=serviceRepo.findServiceById(id);
         if(service.getServicesID()==0){
             service.setServices(servicesRepo.findById(Long.valueOf(service.getServicesID())));
         }
@@ -43,8 +44,7 @@ public class ServiceService {
         }
         if(service.getEmployeesID()==0){
             service.setEmploer(employeesRepo.findEmployeesById(Long.parseLong(Integer.toString(service.getEmployeesID()))));
-        }*/
-        Service service = new Service();
+        }
         return service;
     }
     public void updateService(Service service){
@@ -56,7 +56,8 @@ public class ServiceService {
         serviceRepo.saveService(service);
     }
     public List<Service> getListService(){
-        return serviceRepo.getServiceList();
+        return new ArrayList<>();
+        //return serviceRepo.getServiceList();
     }
     //TODO null exception
     public List<Service> find(String data, String fieldNameFromEntity){
