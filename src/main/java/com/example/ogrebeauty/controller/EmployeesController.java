@@ -1,4 +1,4 @@
 package com.example.ogrebeauty.controller;
 
-public class EmployeesController {
+public class EmployeesController extends MainPageController {
 }

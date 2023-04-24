@@ -16,9 +16,31 @@
 - [ ] Создание поиска под все страница (разбей на подзадачи)
    - [ ] Поиск на странице...
 
-Links:
-* [Обменивайтесь нужными ссылками здесь](https://github.com/mesor21/OgreBeauty)
+### Заебали хуи пинать. TODO
 
+- [ ] Main page
+- [ ] Service page
+  - [+] Table
+    - [ ] Edit buttons
+  - [ ] Filter
+  - [ ] Style
+  - [ ] Add new service
+- [ ] Services page
+  - [ ] Table
+    - [ ] Edit buttons
+  - [ ] Add new services
+- [ ] Employees page
+  - [ ] Table
+    - [ ] Buttons
+  - [ ] Filters
+  - [ ] Add new
+- [ ] Client Page
+  - [ ] Table
+    - [ ] Buttons
+  - [ ] Filters
+  - [ ] Add new
+
+ 
 # Документация
 JavaFX progect for beauty saloon
 

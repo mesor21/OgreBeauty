@@ -12,7 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 
-public class ServiceController {
+public class ServiceController extends MainPageController   {
 
     private ServiceService serviceService;
 
@@ -35,14 +35,15 @@ public class ServiceController {
     @FXML
     public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
         // Устанавливаем значения для столбцов
-        employeesName.setCellValueFactory(new PropertyValueFactory<>("service"));
-        clientName.setCellValueFactory(new PropertyValueFactory<>("client"));
-        servicesName.setCellValueFactory(new PropertyValueFactory<>("usluga"));
+        employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
+        clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        servicesName.setCellValueFactory(new PropertyValueFactory<>("servicesName"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         time.setCellValueFactory(new PropertyValueFactory<>("time"));
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
-        observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test","12.06.2023","15:00")); //TODO Bugfix работает только дата почему-то
-        /*for(int i=0; i<serviceList.size(); i++){
+        //observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test","12.06.2023","15:00"));
+
+        for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
                     serviceList.get(i).getId(),
                     serviceList.get(i).getEmploer().getFullName(),
@@ -51,7 +52,7 @@ public class ServiceController {
                     serviceList.get(i).getData().toString(), //TODO разделить дату и время
                     serviceList.get(i).getData().toString()
             ));
-        }*/
+        }
         return observableList;
     }
 
@@ -60,7 +61,6 @@ public class ServiceController {
         List<Service> serviceList;
         serviceList = serviceService.getListService();
         tableView.setItems(setTableData(serviceList));
-        System.out.println("Get data to frontend");
         /*if(){//Если у тебя только вызвали весь список
             serviceList=serviceService.getListService();
         }
