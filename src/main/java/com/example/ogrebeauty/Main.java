@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         MainPageController mainPageController = new MainPageController();
         mainPageController.setStage(stage);
-        mainPageController.setScene("mainPage.fxml");
+        mainPageController.setScene("mainPage/mainPage.fxml");
     }
 
     public static void main(String[] args) {

@@ -1,9 +1,10 @@
 package com.example.ogrebeauty.controller;
 
 import com.example.ogrebeauty.Main;
+import com.example.ogrebeauty.controller.DTO.ServiceDTO;
+import com.example.ogrebeauty.controller.serviceController.ServiceController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -23,23 +24,23 @@ public class MainPageController {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(nameOfTamplate));
         Pane pane = (Pane)fxmlLoader.load();
-        if(nameOfTamplate.equals("mainPage.fxml")) {
+        if(nameOfTamplate.equals("mainPage/mainPage.fxml")) {
             MainPageController controller = (MainPageController) fxmlLoader.getController();
             controller.setStage(stage);
         }
-        if(nameOfTamplate.equals("servicePage.fxml")) {
+        if(nameOfTamplate.equals("servicePage/servicePage.fxml")) {
             ServiceController controller = (ServiceController) fxmlLoader.getController();
             controller.setStage(stage);
         }
-        if(nameOfTamplate.equals("employeesPage.fxml")) {
+        if(nameOfTamplate.equals("employees/employeesPage.fxml")) {
             EmployeesController controller = (EmployeesController) fxmlLoader.getController();
             controller.setStage(stage);
         }
-        if(nameOfTamplate.equals("clientPage.fxml")) {
+        if(nameOfTamplate.equals("client/clientPage.fxml")) {
             ClientController controller = (ClientController) fxmlLoader.getController();
             controller.setStage(stage);
         }
-        if(nameOfTamplate.equals("servicesPage.fxml")) {
+        if(nameOfTamplate.equals("services/servicesPage.fxml")) {
             ServicesController controller = (ServicesController) fxmlLoader.getController();
             controller.setStage(stage);
         }
@@ -52,18 +53,18 @@ public class MainPageController {
     }
     @FXML
     protected void redirectToServicePage() throws IOException {
-        setScene("servicePage.fxml");
+        setScene("servicePage/servicePage.fxml");
     }
     @FXML
     protected void redirectToEmployeesPage() throws IOException {
-        setScene("employeesPage.fxml");
+        setScene("employees/employeesPage.fxml");
     }
     @FXML
     protected void redirectToClientPage() throws IOException {
-        setScene("clientPage.fxml");
+        setScene("client/clientPage.fxml");
     }
     @FXML
     protected void redirectToServicesPage() throws IOException {
-        setScene("servicesPage.fxml");
+        setScene("services/servicesPage.fxml");
     }
 }

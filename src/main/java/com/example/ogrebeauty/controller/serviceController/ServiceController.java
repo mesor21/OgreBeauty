@@ -1,30 +1,26 @@
-package com.example.ogrebeauty.controller;
+package com.example.ogrebeauty.controller.serviceController;
 
+import com.example.ogrebeauty.Main;
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
-import com.example.ogrebeauty.entity.Client;
-import com.example.ogrebeauty.entity.Employees;
+import com.example.ogrebeauty.controller.MainPageController;
 import com.example.ogrebeauty.entity.Service;
-import com.example.ogrebeauty.service.ClientService;
-import com.example.ogrebeauty.service.EmployeesService;
 import com.example.ogrebeauty.service.ServiceService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.util.List;
 
-public class ServiceController extends MainPageController   {
+public class ServiceController extends MainPageController {
 
     private ServiceService serviceService;
 
@@ -48,8 +44,6 @@ public class ServiceController extends MainPageController   {
     private TableColumn<ServiceDTO, String> editButton;
     @FXML
     private TableColumn<ServiceDTO, String> deleteButton;
-    @FXML
-    private TextField employeesNameInput, clientNameInput, servicesNameInput, dateInput, timeInput;
     @FXML
     public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
         // Устанавливаем значения для столбцов
@@ -96,7 +90,7 @@ public class ServiceController extends MainPageController   {
                                 } else {
                                     btn.setOnAction(event -> {
                                         ServiceDTO serviceDTO = getTableView().getItems().get(getIndex());
-                                        //getForEdit(serviceDTO);
+                                        editService(serviceDTO);
                                     });
                                     setGraphic(btn);
                                     setText(null);
@@ -127,7 +121,7 @@ public class ServiceController extends MainPageController   {
                                 } else {
                                     btn.setOnAction(event -> {
                                         ServiceDTO serviceDTO = getTableView().getItems().get(getIndex());
-                                        //add delete confirm
+                                        deleteConfirm(serviceDTO);
                                     });
                                     setGraphic(btn);
                                     setText(null);
@@ -141,8 +135,6 @@ public class ServiceController extends MainPageController   {
 
         List<Service> serviceList;
         serviceList = serviceService.getListService();
-        serviceTable.getColumns().add(editButton);
-        serviceTable.getColumns().add(deleteButton);
         serviceTable.setItems(setTableData(serviceList));
     }
 
@@ -182,5 +174,26 @@ public class ServiceController extends MainPageController   {
     public void addNewService(){
         Service service = new Service();
 
+    }
+    public void editService(ServiceDTO serviceDTO){
+
+    }
+    public void deleteConfirm(ServiceDTO serviceDTO){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("servicePage/delete.fxml")); //TODO Не устанавливается нужная страница
+        Stage stage = new Stage();
+        Pane paneOne = null;
+        try {
+            paneOne = (Pane)loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        DeleteConfirm controller = (DeleteConfirm) loader.getController();
+        controller.setStage(stage);
+        controller.setServiceDTO(serviceDTO);
+        Scene scene = new Scene(paneOne);
+        stage.setScene(scene);
+        stage.initModality(Modality.NONE);
+        stage.showAndWait();
     }
 }
