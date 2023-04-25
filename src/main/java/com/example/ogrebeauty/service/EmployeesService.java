@@ -31,7 +31,7 @@ public class EmployeesService {
     }
     public List<Employees> find(String data, String fieldNameFromEntity){
         List<Employees> employees = null;
-        if(fieldNameFromEntity.equals("fullName")){
+        if(fieldNameFromEntity.equals("fullname")){
             employees = employeesRepo.findByFullname(data);
         }
         if(fieldNameFromEntity.equals("jobTitle")){

@@ -10,5 +10,8 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.ogrebeauty.controller.ServicesController"
             prefHeight="400.0" prefWidth="600.0">
-
+    <Button mnemonicParsing="false" text="Клиенты" onAction="#redirectToClientPage"/>
+    <Button mnemonicParsing="false" text="Записи" onAction="#redirectToServicesPage" />
+    <Button mnemonicParsing="false" text="Сотрудники" onAction="#redirectToEmployeesPage" />
+    <Button mnemonicParsing="false" text="Услуги" onAction="#redirectToServicePage"/>
 </AnchorPane>

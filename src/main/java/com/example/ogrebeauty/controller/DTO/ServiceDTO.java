@@ -9,6 +9,9 @@ public class ServiceDTO {
     private String date;
     private String time;
 
+    public ServiceDTO() {
+    }
+
     public ServiceDTO(Long id, String employeesName, String clientName, String servicesName, String date, String time) {
         this.id = id;
         this.employeesName = employeesName;

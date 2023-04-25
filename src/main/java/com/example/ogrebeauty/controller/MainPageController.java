@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainPageController {
-    private Stage openStage;
+    protected Stage openStage;
     public MainPageController() {
     }
     public void setStage(Stage stage) {

@@ -20,7 +20,7 @@
 
 - [ ] Main page
 - [ ] Service page
-  - [+] Table
+  - [X] Table
     - [ ] Edit buttons
   - [ ] Filter
   - [ ] Style
