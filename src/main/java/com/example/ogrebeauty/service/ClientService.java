@@ -32,7 +32,6 @@ public class ClientService {
         clientRepo.deleteClientById(Long.parseLong(id), true);
     }
 
-    //TODO null exception
     public List<Client> find(String data, String fieldNameFromEntity){
         List<Client> clientList = null;
         if(fieldNameFromEntity.equals("fullname")) {

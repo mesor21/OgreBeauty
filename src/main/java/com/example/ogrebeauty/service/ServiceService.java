@@ -59,7 +59,6 @@ public class ServiceService {
         return new ArrayList<>();
         //return serviceRepo.getServiceList();
     }
-    //TODO null exception
     public List<Service> find(String data, String fieldNameFromEntity){
         List<Service> serviceList = null;
         if(fieldNameFromEntity.equals("clientFullname")){

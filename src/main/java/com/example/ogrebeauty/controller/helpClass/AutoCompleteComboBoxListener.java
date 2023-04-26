@@ -88,9 +88,10 @@ public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
     }
 
     public static<T> T getComboBoxValue(ComboBox<T> comboBox){
-        if (comboBox.getSelectionModel().getSelectedIndex() < 0) {
+        if (comboBox.getSelectionModel().isEmpty()) {
             return null;
         } else {
+            System.out.println("It work");
             return comboBox.getItems().get(comboBox.getSelectionModel().getSelectedIndex());
         }
     }

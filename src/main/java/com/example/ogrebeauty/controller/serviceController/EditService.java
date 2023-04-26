@@ -13,9 +13,12 @@ import com.example.ogrebeauty.service.ServiceService;
 import com.example.ogrebeauty.service.ServicesService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +29,6 @@ import java.util.Date;
 import java.util.List;
 
 public class EditService extends MainPageController{
-    private Service service;
     private ServiceDTO serviceDTO;
     private Stage stage;
 
@@ -50,6 +52,10 @@ public class EditService extends MainPageController{
     private ServicesService servicesService;
     private EmployeesService employeesService;
     private ClientService clientService;
+    private Date date=new Date();
+    private Services services;
+    private Employees employees;
+    private Client client;
 
     public EditService() {
         this.serviceService = new ServiceService();
@@ -89,7 +95,14 @@ public class EditService extends MainPageController{
 
         servicesObservableList = FXCollections.observableArrayList(servicesList);
         servicesComboBox.setItems(servicesObservableList);
+        servicesComboBox.setVisibleRowCount(5);
         autoCompleteComboBoxListenerForServices = new AutoCompleteComboBoxListener<>(servicesComboBox);
+
+        servicesComboBox.setOnAction(event -> {
+            Services services;
+            services = servicesComboBox.getSelectionModel().getSelectedItem();
+            setServices(services);
+        });
 
         List<Employees> employeesList = new ArrayList<>();
         //TODO TEST DATA
@@ -98,7 +111,14 @@ public class EditService extends MainPageController{
         //employeesList = employeesService.find("","fullname");
         employeesObservableList = FXCollections.observableArrayList(employeesList);
         employeesComboBox.setItems(employeesObservableList);
+        employeesComboBox.setVisibleRowCount(5);
         autoCompleteComboBoxListenerForEmployees = new AutoCompleteComboBoxListener<>(employeesComboBox);
+
+        employeesComboBox.setOnAction(event -> {
+            Employees employees;
+            employees = employeesComboBox.getSelectionModel().getSelectedItem();
+            setEmployees(employees);
+        });
 
         List<Client> clientList = new ArrayList<>();
         //TODO TEST DATA
@@ -107,15 +127,19 @@ public class EditService extends MainPageController{
         //clientList = clientService.find("","fullname");
         clientObservableList = FXCollections.observableArrayList(clientList);
         clientComboBox.setItems(clientObservableList);
+        clientComboBox.setVisibleRowCount(5);
         autoCompleteComboBoxListenerForClient = new AutoCompleteComboBoxListener<>(clientComboBox);
 
-        Date date = new Date();
+        clientComboBox.setOnAction(event -> {
+            Client client;
+            client = clientComboBox.getSelectionModel().getSelectedItem();
+            setClient(client);
+        });
+
+        //TODO set Date
+
         confirmAllData.setOnAction(event -> {
-            Services services = autoCompleteComboBoxListenerForServices.getComboBoxValue(servicesComboBox);//TODO not work
-            Employees employee = autoCompleteComboBoxListenerForEmployees.getComboBoxValue(employeesComboBox);//
-            Client client = autoCompleteComboBoxListenerForClient.getComboBoxValue(clientComboBox);
-            Service service = new Service(serviceDTO.getId(),date.toString(),services,employee, client);
-            saveData(service,itNewService);
+            saveData(serviceDTO.getId(),itNewService);
             stage.close();
             try {
                 redirectToServicePage();
@@ -127,7 +151,8 @@ public class EditService extends MainPageController{
             stage.close();
         });
     }
-    public void saveData(Service service, boolean isNew){
+    public void saveData(Long id, boolean isNew){
+        Service service = new Service(id,date.toString(),services,employees,client);
         System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString());
         if(isNew){
             //serviceService.saveNewService(service); TODO TEST DATA
@@ -138,5 +163,21 @@ public class EditService extends MainPageController{
     }
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setServices(Services services) {
+        this.services = services;
+    }
+
+    public void setEmployees(Employees employees) {
+        this.employees = employees;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
