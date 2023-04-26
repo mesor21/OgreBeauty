@@ -47,4 +47,9 @@ public class Services {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return serviceType;
+    }
 }

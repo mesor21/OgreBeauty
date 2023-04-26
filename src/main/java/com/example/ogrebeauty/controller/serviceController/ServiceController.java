@@ -143,7 +143,21 @@ public class ServiceController extends MainPageController {
 
     }
     public void openEditStage(ServiceDTO serviceDTO){
-
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("servicePage/edit.fxml"));
+        Stage stage = new Stage();
+        Pane paneOne = null;
+        try {
+            paneOne = (Pane)loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        EditService controller = (EditService) loader.getController();
+        controller.setStage(stage);
+        controller.setServiceDTO(serviceDTO);
+        Scene scene = new Scene(paneOne, 500,500);
+        stage.setScene(scene);
+        stage.initModality(Modality.NONE);
+        stage.showAndWait();
     }
     public void deleteConfirm(ServiceDTO serviceDTO){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("servicePage/delete.fxml"));
