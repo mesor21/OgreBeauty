@@ -63,9 +63,9 @@ public class ServiceController extends MainPageController {
         }*/
         return observableList;
     }
-
+    //TODO Можно объеденить поиск и выдачу информации по дефолту
     @FXML
-    public void initialize(){ //TODO Можно объеденить поиск и выдачу информации по дефолту
+    public void initialize(){
         employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
         clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
         servicesName.setCellValueFactory(new PropertyValueFactory<>("servicesName"));
@@ -90,7 +90,7 @@ public class ServiceController extends MainPageController {
                                 } else {
                                     btn.setOnAction(event -> {
                                         ServiceDTO serviceDTO = getTableView().getItems().get(getIndex());
-                                        editService(serviceDTO);
+                                        openEditStage(serviceDTO);
                                     });
                                     setGraphic(btn);
                                     setText(null);
@@ -137,45 +137,12 @@ public class ServiceController extends MainPageController {
         serviceList = serviceService.getListService();
         serviceTable.setItems(setTableData(serviceList));
     }
-
-    //Edit
-    //TODO сделать форму для изменения данных
-    /*public void getForEdit(ServiceDTO serviceDTO){
-        System.out.println(serviceDTO .toString());
-        Service service = serviceService.getService(serviceDTO.getId());
-        ClientService clientService = new ClientService();
-        EmployeesService employeesService = new EmployeesService();
-        String clientField = "";
-        String employeeField = "";
-        TextField searchField = new TextField();
-        searchField.setPromptText("Enter text to search");
-        Button searchButton = new Button("Search");
-        searchButton.setOnAction(event -> {
-            ListView<String> listView = new ListView<>();
-            String searchText = searchField.getText().trim();
-            if (!searchText.isEmpty()) {
-                List<Client> clientList =  clientService.find(searchField.getText(),"fullname");
-                for(int i=0; i<clientList.size(); i++){
-                    listView.getItems().add(clientList.get(i).getFullName());
-                }
-            }
-            Dialog<Void> dialog = new Dialog<>();
-            dialog.setTitle("Search Results");
-            dialog.getDialogPane().setContent(listView);
-
-            ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-            dialog.getDialogPane().getButtonTypes().add(okButtonType);
-
-            dialog.showAndWait();
-        });
-    }*/
-    //TODO сохранение изменённых данных
-
     public void addNewService(){
-        Service service = new Service();
+        ServiceDTO serviceDTO = new ServiceDTO();
+        openEditStage(serviceDTO);
 
     }
-    public void editService(ServiceDTO serviceDTO){
+    public void openEditStage(ServiceDTO serviceDTO){
 
     }
     public void deleteConfirm(ServiceDTO serviceDTO){

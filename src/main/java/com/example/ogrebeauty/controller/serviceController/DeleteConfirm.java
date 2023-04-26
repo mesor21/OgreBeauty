@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 
-public class DeleteConfirm extends MainPageController {
+public class DeleteConfirm {
     @FXML
     private Button deleteTrue;
     @FXML
@@ -19,19 +19,23 @@ public class DeleteConfirm extends MainPageController {
     @FXML
     private Label label;
     private ServiceDTO serviceDTO;
+    private Stage stage;
     @FXML
     public void initialize(){
         label.setText("Уверены что хотите удалить запись ?");
         deleteTrue.setOnAction((event -> {
-            System.out.println(serviceDTO.toString());
             ServiceService serviceService = new ServiceService();
             serviceService.delete(serviceDTO.getId());
         }));
         deleteFalse.setOnAction((event -> {
-            openStage.close();
+            stage.close();
         }));
     }
     public void setServiceDTO(ServiceDTO serviceDTO){
         this.serviceDTO = serviceDTO;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }
