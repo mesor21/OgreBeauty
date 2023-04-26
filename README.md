@@ -21,10 +21,10 @@
 - [ ] Main page
 - [ ] Service page
   - [X] Table
-    - [ ] Edit buttons
+    - [X] Edit buttons
   - [ ] Filter
   - [ ] Style
-  - [ ] Add new service
+  - [X] Add new service
 - [ ] Services page
   - [ ] Table
     - [ ] Edit buttons

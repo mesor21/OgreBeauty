@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class ServiceController extends MainPageController {
@@ -51,7 +52,7 @@ public class ServiceController extends MainPageController {
         // Устанавливаем значения для столбцов
 
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
-        observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test","12.06.2023","15:00"));
+        observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test","12.06.2023","15:00",new Date()));
 
         /*for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
@@ -59,7 +60,7 @@ public class ServiceController extends MainPageController {
                     serviceList.get(i).getEmploer().getFullName(),
                     serviceList.get(i).getClient().getFullName(),
                     serviceList.get(i).getServices().getServiceType(),
-                    serviceList.get(i).getData().toString(), //TODO разделить дату и время
+                    serviceList.get(i).getData().toString(), //TODO сделать разделение
                     serviceList.get(i).getData().toString()
             ));
         }*/

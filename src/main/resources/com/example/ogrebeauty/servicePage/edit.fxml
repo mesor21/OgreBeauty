@@ -5,12 +5,13 @@
 
 <VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ogrebeauty.controller.serviceController.EditService">
    <children>
-      <Label text="Услуга"/>
+      <Label text="Услуга" />
       <ComboBox fx:id="servicesComboBox" prefHeight="50.0" prefWidth="200.0" />
-      <Label text="Сотрудник"/>
+      <Label text="Сотрудник" />
       <ComboBox fx:id="employeesComboBox" prefHeight="50.0" prefWidth="200.0" />
-      <Label text="Клиент"/>
+      <Label text="Клиент" />
       <ComboBox fx:id="clientComboBox" prefHeight="50.0" prefWidth="200.0" />
+      <DatePicker fx:id="datePicker"/>
       <Button fx:id="confirmAllData" mnemonicParsing="false" text="Подтвердить" />
       <Button fx:id="disableEdit" mnemonicParsing="false" text="Отменить" />
    </children>

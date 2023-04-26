@@ -1,5 +1,7 @@
 package com.example.ogrebeauty.controller.DTO;
 
+import java.util.Date;
+
 public class ServiceDTO {
     //объект для записи данных в таблицу. Все данные будут строковыми
     private Long id;
@@ -8,17 +10,18 @@ public class ServiceDTO {
     private String servicesName;
     private String date;
     private String time;
-
+    private Date dateDate;
     public ServiceDTO() {
     }
 
-    public ServiceDTO(Long id, String employeesName, String clientName, String servicesName, String date, String time) {
+    public ServiceDTO(Long id, String employeesName, String clientName, String servicesName, String date, String time, Date dateDate) {
         this.id = id;
         this.employeesName = employeesName;
         this.clientName = clientName;
         this.servicesName = servicesName;
         this.date = date;
         this.time = time;
+        this.dateDate = dateDate;
     }
 
     public Long getId() {
@@ -67,5 +70,13 @@ public class ServiceDTO {
 
     public String getTime() {
         return time;
+    }
+
+    public Date getDateDate() {
+        return dateDate;
+    }
+
+    public void setDateDate(Date dateDate) {
+        this.dateDate = dateDate;
     }
 }

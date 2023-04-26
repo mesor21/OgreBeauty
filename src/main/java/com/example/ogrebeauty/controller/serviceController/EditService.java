@@ -18,11 +18,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.nio.Buffer;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -31,7 +35,6 @@ import java.util.List;
 public class EditService extends MainPageController{
     private ServiceDTO serviceDTO;
     private Stage stage;
-
     @FXML
     private ComboBox<Services> servicesComboBox;
     private ObservableList<Services> servicesObservableList;
@@ -45,6 +48,8 @@ public class EditService extends MainPageController{
     private ObservableList<Client> clientObservableList;
     private AutoCompleteComboBoxListener<Client> autoCompleteComboBoxListenerForClient;
     @FXML
+    private DatePicker datePicker;
+    @FXML
     private Button confirmAllData;
     @FXML
     private Button disableEdit;
@@ -52,7 +57,7 @@ public class EditService extends MainPageController{
     private ServicesService servicesService;
     private EmployeesService employeesService;
     private ClientService clientService;
-    private Date date=new Date();
+    private Date date;
     private Services services;
     private Employees employees;
     private Client client;
@@ -71,6 +76,8 @@ public class EditService extends MainPageController{
         servicesComboBox.setEditable(true);
         employeesComboBox.setEditable(true);
         clientComboBox.setEditable(true);
+
+        //TODO сделать установку даты
 
         boolean itNewService;
         if(!serviceDTO.getServicesName().equals("")){
@@ -136,7 +143,16 @@ public class EditService extends MainPageController{
             setClient(client);
         });
 
-        //TODO set Date
+        Instant instant = serviceDTO.getDateDate().toInstant();
+        datePicker.setValue(instant.atZone(ZoneId.systemDefault()).toLocalDate());
+        datePicker.setShowWeekNumbers(true);
+        datePicker.setOnAction(event -> {
+            LocalDate localDate = datePicker.getValue();
+            Instant instante = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+            Date date = Date.from(instante);
+            setDate(date);
+            }
+        );
 
         confirmAllData.setOnAction(event -> {
             saveData(serviceDTO.getId(),itNewService);
@@ -153,7 +169,7 @@ public class EditService extends MainPageController{
     }
     public void saveData(Long id, boolean isNew){
         Service service = new Service(id,date.toString(),services,employees,client);
-        System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString());
+        System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString()+" "+date.toString());
         if(isNew){
             //serviceService.saveNewService(service); TODO TEST DATA
         }
