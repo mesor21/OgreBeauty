@@ -82,5 +82,8 @@ public class ServiceService {
         }
         return serviceList;
     }
+    public void delete(Long id){
+        serviceRepo.deleteServiceById(id,true);
+    }
 
 }

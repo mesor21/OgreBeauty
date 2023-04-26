@@ -179,8 +179,7 @@ public class ServiceController extends MainPageController {
 
     }
     public void deleteConfirm(ServiceDTO serviceDTO){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("servicePage/delete.fxml")); //TODO Не устанавливается нужная страница
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("servicePage/delete.fxml"));
         Stage stage = new Stage();
         Pane paneOne = null;
         try {
@@ -191,7 +190,7 @@ public class ServiceController extends MainPageController {
         DeleteConfirm controller = (DeleteConfirm) loader.getController();
         controller.setStage(stage);
         controller.setServiceDTO(serviceDTO);
-        Scene scene = new Scene(paneOne);
+        Scene scene = new Scene(paneOne, 300,200);
         stage.setScene(scene);
         stage.initModality(Modality.NONE);
         stage.showAndWait();

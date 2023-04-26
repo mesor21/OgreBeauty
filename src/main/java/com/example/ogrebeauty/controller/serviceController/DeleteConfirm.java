@@ -17,19 +17,18 @@ public class DeleteConfirm extends MainPageController {
     @FXML
     private Button deleteFalse;
     @FXML
-    private TextField textField;
-    private Stage stage = null;
+    private Label label;
     private ServiceDTO serviceDTO;
     @FXML
     public void initialize(){
-        textField.setText("Вы уверены что хотите удалить запись от "+serviceDTO.getDate()+" "+serviceDTO.getTime()+"?");
+        label.setText("Уверены что хотите удалить запись ?");
         deleteTrue.setOnAction((event -> {
+            System.out.println(serviceDTO.toString());
             ServiceService serviceService = new ServiceService();
-            System.out.println(DeleteConfirm.class);
+            serviceService.delete(serviceDTO.getId());
         }));
         deleteFalse.setOnAction((event -> {
-            ServiceService serviceService = new ServiceService();
-            System.out.println(DeleteConfirm.class);
+            openStage.close();
         }));
     }
     public void setServiceDTO(ServiceDTO serviceDTO){
