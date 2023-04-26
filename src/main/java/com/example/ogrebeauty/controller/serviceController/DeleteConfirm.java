@@ -9,9 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.HashMap;
 
-public class DeleteConfirm {
+public class DeleteConfirm extends MainPageController{
     @FXML
     private Button deleteTrue;
     @FXML
@@ -20,21 +21,34 @@ public class DeleteConfirm {
     private Label label;
     private ServiceDTO serviceDTO;
     private Stage stage;
-    @FXML
-    public void initialize(){
-        label.setText("Уверены что хотите удалить запись ?");
-        deleteTrue.setOnAction((event -> {
-            ServiceService serviceService = new ServiceService();
-            serviceService.delete(serviceDTO.getId());
-        }));
-        deleteFalse.setOnAction((event -> {
-            stage.close();
-        }));
-    }
-    public void setServiceDTO(ServiceDTO serviceDTO){
-        this.serviceDTO = serviceDTO;
+    private ServiceService serviceService;
+
+    public DeleteConfirm() {
+        serviceService = new ServiceService();
     }
 
+    @FXML
+    public void initialize(ServiceDTO serviceDTO,Stage stage){
+        this.serviceDTO = serviceDTO;
+        this.stage = stage;
+
+        label.setText("Уверены что хотите удалить запись" + serviceDTO.getDate()+" "+serviceDTO.getTime()+ " ?");
+        deleteTrue.setOnAction(event -> {
+            try {
+                stage.close();
+                //delete(serviceDTO.getId());
+                redirectToServicePage();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        deleteFalse.setOnAction(event -> {
+            stage.close();
+        });
+    }
+    private void delete(Long id){
+        serviceService.delete(id);
+    }
     public void setStage(Stage stage) {
         this.stage = stage;
     }

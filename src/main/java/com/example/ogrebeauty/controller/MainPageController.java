@@ -67,4 +67,8 @@ public class MainPageController {
     protected void redirectToServicesPage() throws IOException {
         setScene("services/servicesPage.fxml");
     }
+
+    public void setOpenStage(Stage openStage) {
+        this.openStage = openStage;
+    }
 }

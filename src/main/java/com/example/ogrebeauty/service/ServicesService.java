@@ -23,7 +23,6 @@ public class ServicesService {
         services.setId(servicesRepo.getLastId()+1);
         servicesRepo.save(services);
     }
-    //TODO null exception
     public List<Services> findByServiceType(String data, String fieldNameFromEntity){
         List<Services> servicesList =null;
         if(fieldNameFromEntity.equals("serviceType")) {

@@ -45,6 +45,8 @@ public class ServiceController extends MainPageController {
     @FXML
     private TableColumn<ServiceDTO, String> deleteButton;
     @FXML
+    private Button addNewService;
+    @FXML
     public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
         // Устанавливаем значения для столбцов
 
@@ -136,12 +138,17 @@ public class ServiceController extends MainPageController {
         List<Service> serviceList;
         serviceList = serviceService.getListService();
         serviceTable.setItems(setTableData(serviceList));
+
+        addNewService.setOnAction(event -> {
+            addNewService();
+        });
     }
+
     public void addNewService(){
         ServiceDTO serviceDTO = new ServiceDTO();
         openEditStage(serviceDTO);
-
     }
+
     public void openEditStage(ServiceDTO serviceDTO){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("servicePage/edit.fxml"));
         Stage stage = new Stage();
@@ -152,11 +159,11 @@ public class ServiceController extends MainPageController {
             throw new RuntimeException(e);
         }
         EditService controller = (EditService) loader.getController();
-        controller.setStage(stage);
-        controller.setServiceDTO(serviceDTO);
+        controller.initialize(serviceDTO,stage);
+        controller.setOpenStage(openStage);
         Scene scene = new Scene(paneOne, 500,500);
         stage.setScene(scene);
-        stage.initModality(Modality.NONE);
+        stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
     }
     public void deleteConfirm(ServiceDTO serviceDTO){
@@ -169,11 +176,11 @@ public class ServiceController extends MainPageController {
             throw new RuntimeException(e);
         }
         DeleteConfirm controller = (DeleteConfirm) loader.getController();
-        controller.setStage(stage);
-        controller.setServiceDTO(serviceDTO);
+        controller.initialize(serviceDTO,stage);
+        controller.setOpenStage(openStage);
         Scene scene = new Scene(paneOne, 300,200);
         stage.setScene(scene);
-        stage.initModality(Modality.NONE);
+        stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
     }
 }

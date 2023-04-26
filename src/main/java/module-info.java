@@ -14,4 +14,6 @@ module com.example.ogrebeauty {
     opens com.example.ogrebeauty.controller to javafx.fxml;
     exports com.example.ogrebeauty.controller.serviceController;
     opens com.example.ogrebeauty.controller.serviceController to javafx.fxml;
+    exports com.example.ogrebeauty.controller.helpClass;
+    opens com.example.ogrebeauty.controller.helpClass to javafx.fxml;
 }

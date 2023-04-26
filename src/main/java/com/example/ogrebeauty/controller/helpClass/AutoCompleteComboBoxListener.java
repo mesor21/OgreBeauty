@@ -1,4 +1,4 @@
-package com.example.ogrebeauty.controller.serviceController;
+package com.example.ogrebeauty.controller.helpClass;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,25 +7,28 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class AutoCompleteComboBoxListenerForServices<Services> implements EventHandler<KeyEvent> {
+public class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 
-    private ComboBox<Services> comboBox;
-    private ObservableList<Services> data;
+    private ComboBox<T> comboBox;
+    private ObservableList<T> data;
     private boolean moveCaretToPos = false;
     private int caretPos;
 
-    public AutoCompleteComboBoxListenerForServices(final ComboBox<Services> comboBox) {
+    public AutoCompleteComboBoxListener(final ComboBox<T> comboBox) {
         this.comboBox = comboBox;
         data = comboBox.getItems();
+
         this.comboBox.setEditable(true);
         this.comboBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
             @Override
             public void handle(KeyEvent t) {
                 comboBox.hide();
             }
         });
-        this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListenerForServices.this);
+        this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListener.this);
     }
+
     @Override
     public void handle(KeyEvent event) {
 
@@ -54,7 +57,7 @@ public class AutoCompleteComboBoxListenerForServices<Services> implements EventH
             return;
         }
 
-        ObservableList<Services> list = FXCollections.observableArrayList();
+        ObservableList<T> list = FXCollections.observableArrayList();
         for (int i = 0; i < data.size(); i++) {
             if(data.get(i).toString().toLowerCase().startsWith(
                     //AutoCompleteComboBoxListener.this.comboBox.getEditor().getText().toLowerCase().trim())) {
@@ -83,7 +86,8 @@ public class AutoCompleteComboBoxListenerForServices<Services> implements EventH
         }
         moveCaretToPos = false;
     }
-    public static<Services> Services getComboBoxValue(ComboBox<Services> comboBox){
+
+    public static<T> T getComboBoxValue(ComboBox<T> comboBox){
         if (comboBox.getSelectionModel().getSelectedIndex() < 0) {
             return null;
         } else {
