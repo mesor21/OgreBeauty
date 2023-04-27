@@ -6,11 +6,9 @@ import com.example.ogrebeauty.service.ServiceService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class DeleteConfirm extends MainPageController{
     @FXML

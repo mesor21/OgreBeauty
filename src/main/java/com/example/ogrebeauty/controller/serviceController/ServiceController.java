@@ -3,6 +3,7 @@ package com.example.ogrebeauty.controller.serviceController;
 import com.example.ogrebeauty.Main;
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
 import com.example.ogrebeauty.controller.MainPageController;
+import com.example.ogrebeauty.controller.ServicesController;
 import com.example.ogrebeauty.entity.Service;
 import com.example.ogrebeauty.service.ServiceService;
 import javafx.collections.FXCollections;
@@ -10,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -22,15 +22,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class ServiceController extends MainPageController {
 
     private ServiceService serviceService;
-
-    public ServiceController(){
-        serviceService = new ServiceService();
-    }
 
     @FXML
     private TableView<ServiceDTO> serviceTable;
@@ -82,34 +77,28 @@ public class ServiceController extends MainPageController {
         return observableList;
     }
     //TODO Можно объеденить поиск и выдачу информации по дефолту
-    private List<Service> setSearchDataInTable(String data, String name){
-        return serviceService.find(data,name);
+    private void setSearchDataInTable(String data, String name){
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("servicePage/servicePage.fxml"));
+        Pane paneOne = null;
+        try {
+            paneOne = (Pane)loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ServiceController serviceController = (ServiceController) loader.getController();
+        serviceController.initialize(serviceService.find(data,name));
+        serviceController.setOpenStage(openStage);
+        Scene scene = new Scene(paneOne, 1920, 1080);
+        stage.setTitle("Ogre Beaity");
+        stage.setScene(scene);
+        openStage.close();
+        stage.show();
+        openStage = stage;
     }
 
-
-    @FXML
-    public void initialize(){
-
-        serviceList = serviceService.getListService();
-
-        List<String> listWhatIsSearch = new ArrayList<>();
-        listWhatIsSearch.add("Сотрудник");
-        listWhatIsSearch.add("Клиент");
-        listWhatIsSearch.add("Услуга");
-        ObservableList<String> ListForSearch = FXCollections.observableArrayList(listWhatIsSearch);
-        whereSearch.setItems(ListForSearch);
-        searchConfirm.setOnAction(event -> {
-            if(whereSearch.getValue().equals("Сотрудник")){
-                setServiceList(setSearchDataInTable(search.getText(),"employeeFullname"));
-            }
-            if(whereSearch.getValue().equals("Клиент")){
-                setServiceList(setSearchDataInTable(search.getText(),"clientFullname"));
-            }
-            if(whereSearch.getValue().equals("Услуга")){
-                setServiceList(setSearchDataInTable(search.getText(),"serviceType"));
-            }
-                }
-        );
+    public void initialize(List<Service> services){
+        serviceList = services;
         serviceTable.setItems(setTableData(serviceList));
 
         employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
@@ -184,11 +173,108 @@ public class ServiceController extends MainPageController {
             addNewService();
         });
     }
+
+    public void initialize(){
+        List<String> listWhatIsSearch = new ArrayList<>();
+        listWhatIsSearch.add("Сотрудник");
+        listWhatIsSearch.add("Клиент");
+        listWhatIsSearch.add("Услуга");
+        ObservableList<String> ListForSearch = FXCollections.observableArrayList(listWhatIsSearch);
+        whereSearch.setItems(ListForSearch);
+        whereSearch.setValue(listWhatIsSearch.get(0));
+        searchConfirm.setOnAction(event -> {
+                    if(whereSearch.getValue().equals("Сотрудник")){
+                        setSearchDataInTable(search.getText(),"employeeFullname");
+                    }
+                    if(whereSearch.getValue().equals("Клиент")){
+                        setSearchDataInTable(search.getText(),"clientFullname");
+                    }
+                    if(whereSearch.getValue().equals("Услуга")){
+                        setSearchDataInTable(search.getText(),"serviceType");
+                    }
+                }
+        );
+
+        serviceList = serviceService.getListService();
+        serviceTable.setItems(setTableData(serviceList));
+
+        employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
+        clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        servicesName.setCellValueFactory(new PropertyValueFactory<>("servicesName"));
+        date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        time.setCellValueFactory(new PropertyValueFactory<>("time"));
+        editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
+
+        Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>> editFactory
+                = //
+                new Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>>() {
+                    @Override
+                    public TableCell call(final TableColumn<ServiceDTO, String> param) {
+                        final TableCell<ServiceDTO, String> cell = new TableCell<ServiceDTO, String>() {
+
+                            final Button btn = new Button("Радактировать");
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    btn.setOnAction(event -> {
+                                        ServiceDTO serviceDTO = getTableView().getItems().get(getIndex());
+                                        openEditStage(serviceDTO);
+                                    });
+                                    setGraphic(btn);
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        editButton.setCellFactory(editFactory);
+
+        deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+        Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>> deleteFactory
+                = //
+                new Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>>() {
+                    @Override
+                    public TableCell call(final TableColumn<ServiceDTO, String> param) {
+                        final TableCell<ServiceDTO, String> cell = new TableCell<ServiceDTO, String>() {
+
+                            final Button btn = new Button("Удалить");
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    btn.setOnAction(event -> {
+                                        ServiceDTO serviceDTO = getTableView().getItems().get(getIndex());
+                                        deleteConfirm(serviceDTO);
+                                    });
+                                    setGraphic(btn);
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        deleteButton.setCellFactory(deleteFactory);
+
+        addNewService.setOnAction(event -> {
+            addNewService();
+        });
+    }
+
     private void addNewService(){
         ServiceDTO serviceDTO = new ServiceDTO();
         openEditStage(serviceDTO);
     }
-
     public void openEditStage(ServiceDTO serviceDTO){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("servicePage/edit.fxml"));
         Stage stage = new Stage();
@@ -223,7 +309,9 @@ public class ServiceController extends MainPageController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
     }
-
+    public ServiceController(){
+        serviceService = new ServiceService();
+    }
     public void setServiceList(List<Service> serviceList) {
         this.serviceList = serviceList;
     }

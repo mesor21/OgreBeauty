@@ -19,10 +19,10 @@
 ### Заебали хуи пинать. TODO
 
 - [ ] Main page
-- [ ] Service page
+- [X] Service page
   - [X] Table
     - [X] Edit buttons
-  - [ ] Filter
+  - [X] Filter
   - [ ] Style
   - [X] Add new service
 - [ ] Services page
