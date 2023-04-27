@@ -19,8 +19,10 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class ServiceController extends MainPageController {
 
@@ -49,6 +51,13 @@ public class ServiceController extends MainPageController {
     @FXML
     private Button addNewService;
     @FXML
+    private ComboBox whereSearch;
+    @FXML
+    private TextField search;
+    @FXML
+    private Button searchConfirm;
+    List<Service> serviceList;
+    @FXML
     public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
         // Устанавливаем значения для столбцов  1
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
@@ -73,14 +82,43 @@ public class ServiceController extends MainPageController {
         return observableList;
     }
     //TODO Можно объеденить поиск и выдачу информации по дефолту
+    private List<Service> setSearchDataInTable(String data, String name){
+        return serviceService.find(data,name);
+    }
+
+
     @FXML
     public void initialize(){
+
+        serviceList = serviceService.getListService();
+
+        List<String> listWhatIsSearch = new ArrayList<>();
+        listWhatIsSearch.add("Сотрудник");
+        listWhatIsSearch.add("Клиент");
+        listWhatIsSearch.add("Услуга");
+        ObservableList<String> ListForSearch = FXCollections.observableArrayList(listWhatIsSearch);
+        whereSearch.setItems(ListForSearch);
+        searchConfirm.setOnAction(event -> {
+            if(whereSearch.getValue().equals("Сотрудник")){
+                setServiceList(setSearchDataInTable(search.getText(),"employeeFullname"));
+            }
+            if(whereSearch.getValue().equals("Клиент")){
+                setServiceList(setSearchDataInTable(search.getText(),"clientFullname"));
+            }
+            if(whereSearch.getValue().equals("Услуга")){
+                setServiceList(setSearchDataInTable(search.getText(),"serviceType"));
+            }
+                }
+        );
+        serviceTable.setItems(setTableData(serviceList));
+
         employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
         clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
         servicesName.setCellValueFactory(new PropertyValueFactory<>("servicesName"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         time.setCellValueFactory(new PropertyValueFactory<>("time"));
         editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
+
         Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>> editFactory
                 = //
                 new Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>>() {
@@ -142,16 +180,11 @@ public class ServiceController extends MainPageController {
                 };
         deleteButton.setCellFactory(deleteFactory);
 
-        List<Service> serviceList;
-        serviceList = serviceService.getListService();
-        serviceTable.setItems(setTableData(serviceList));
-
         addNewService.setOnAction(event -> {
             addNewService();
         });
     }
-
-    public void addNewService(){
+    private void addNewService(){
         ServiceDTO serviceDTO = new ServiceDTO();
         openEditStage(serviceDTO);
     }
@@ -189,5 +222,9 @@ public class ServiceController extends MainPageController {
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
+    }
+
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 }

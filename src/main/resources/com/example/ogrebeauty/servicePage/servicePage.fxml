@@ -11,6 +11,9 @@
             <Font name="PT Mono Bold" size="64.0" />
         </font>
     </Label>
+    <ComboBox fx:id="whereSearch"/>
+    <TextField fx:id="search"/>
+    <Button fx:id="searchConfirm"/>
     <Button mnemonicParsing="false" text="Клиенты" onAction="#redirectToClientPage"/>
     <Button mnemonicParsing="false" text="Записи" onAction="#redirectToServicesPage" />
     <Button mnemonicParsing="false" text="Сотрудники" onAction="#redirectToEmployeesPage" />
