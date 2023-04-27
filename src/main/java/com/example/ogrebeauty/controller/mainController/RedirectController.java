@@ -1,7 +1,9 @@
-package com.example.ogrebeauty.controller;
+package com.example.ogrebeauty.controller.mainController;
 
 import com.example.ogrebeauty.Main;
-import com.example.ogrebeauty.controller.DTO.ServiceDTO;
+import com.example.ogrebeauty.controller.clientController.ClientController;
+import com.example.ogrebeauty.controller.employeesController.EmployeesController;
+import com.example.ogrebeauty.controller.servicesController.ServicesController;
 import com.example.ogrebeauty.controller.serviceController.ServiceController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,21 +13,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainPageController {
+public class RedirectController {
     protected Stage openStage;
-    public MainPageController() {
+    public RedirectController() {
     }
     public void setStage(Stage stage) {
         this.openStage = stage;
     }
     @FXML
     public void setScene(String nameOfTamplate) throws IOException {
-        System.out.println(MainPageController.this);
+        System.out.println(RedirectController.this);
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(nameOfTamplate));
         Pane pane = (Pane)fxmlLoader.load();
         if(nameOfTamplate.equals("mainPage/mainPage.fxml")) {
-            MainPageController controller = (MainPageController) fxmlLoader.getController();
+            MainController controller = (MainController) fxmlLoader.getController();
             controller.setStage(stage);
         }
         if(nameOfTamplate.equals("servicePage/servicePage.fxml")) {

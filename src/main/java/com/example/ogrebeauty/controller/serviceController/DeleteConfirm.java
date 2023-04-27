@@ -1,7 +1,7 @@
 package com.example.ogrebeauty.controller.serviceController;
 
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
-import com.example.ogrebeauty.controller.MainPageController;
+import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.service.ServiceService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class DeleteConfirm extends MainPageController{
+public class DeleteConfirm extends RedirectController {
     @FXML
     private Button deleteTrue;
     @FXML

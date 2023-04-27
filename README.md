@@ -40,6 +40,8 @@
   - [ ] Filters
   - [ ] Add new
 
+## Link
+* [Calendar](https://github.com/JKostikiadis/JFXCalendar.git)
  
 # Документация
 JavaFX progect for beauty saloon

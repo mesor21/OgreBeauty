@@ -13,7 +13,7 @@
     </Label>
     <ComboBox fx:id="whereSearch"/>
     <TextField fx:id="search"/>
-    <Button fx:id="searchConfirm"/>
+    <Button fx:id="searchConfirm" text="Поиск"/>
     <Button mnemonicParsing="false" text="Клиенты" onAction="#redirectToClientPage"/>
     <Button mnemonicParsing="false" text="Записи" onAction="#redirectToServicesPage" />
     <Button mnemonicParsing="false" text="Сотрудники" onAction="#redirectToEmployeesPage" />

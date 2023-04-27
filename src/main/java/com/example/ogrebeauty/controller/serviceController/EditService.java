@@ -1,7 +1,7 @@
 package com.example.ogrebeauty.controller.serviceController;
 
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
-import com.example.ogrebeauty.controller.MainPageController;
+import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.controller.helpClass.AutoCompleteComboBoxListener;
 import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.entity.Employees;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EditService extends MainPageController{
+public class EditService extends RedirectController {
     private ServiceDTO serviceDTO;
     private Stage stage;
     @FXML
@@ -173,19 +173,15 @@ public class EditService extends MainPageController{
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
     public void setDate(Date date) {
         this.date = date;
     }
-
     public void setServices(Services services) {
         this.services = services;
     }
-
     public void setEmployees(Employees employees) {
         this.employees = employees;
     }
-
     public void setClient(Client client) {
         this.client = client;
     }

@@ -1,6 +1,6 @@
 package com.example.ogrebeauty;
 
-import com.example.ogrebeauty.controller.MainPageController;
+import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.repository.PostgreSQLJDBC;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        MainPageController mainPageController = new MainPageController();
+        RedirectController mainPageController = new RedirectController();
         mainPageController.setStage(stage);
         mainPageController.setScene("mainPage/mainPage.fxml");
     }

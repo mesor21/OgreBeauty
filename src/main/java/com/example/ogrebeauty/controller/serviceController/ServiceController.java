@@ -2,8 +2,7 @@ package com.example.ogrebeauty.controller.serviceController;
 
 import com.example.ogrebeauty.Main;
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
-import com.example.ogrebeauty.controller.MainPageController;
-import com.example.ogrebeauty.controller.ServicesController;
+import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.entity.Service;
 import com.example.ogrebeauty.service.ServiceService;
 import javafx.collections.FXCollections;
@@ -23,8 +22,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ServiceController extends MainPageController {
-
+public class ServiceController extends RedirectController {
+    //В этом классе нет удаления предыдущего контроллера и мне кажется это может привести в плохим последствиям, если много искать
     private ServiceService serviceService;
 
     @FXML

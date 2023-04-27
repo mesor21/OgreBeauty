@@ -1,13 +1,13 @@
-package com.example.ogrebeauty.controller;
+package com.example.ogrebeauty.controller.employeesController;
 
-import com.example.ogrebeauty.controller.DTO.ServiceDTO;
+import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.service.EmployeesService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class EmployeesController extends MainPageController {
+public class EmployeesController extends RedirectController {
     private EmployeesService employeesService;
     public  EmployeesController(){
         employeesService = new EmployeesService();
