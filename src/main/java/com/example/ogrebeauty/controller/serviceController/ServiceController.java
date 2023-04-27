@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -49,10 +50,14 @@ public class ServiceController extends MainPageController {
     private Button addNewService;
     @FXML
     public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
-        // Устанавливаем значения для столбцов
-
+        // Устанавливаем значения для столбцов  1
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
-        observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test","12.06.2023","15:00",new Date()));
+        //TODO TEST DATA
+        Date date = new Date(2023,02,6);
+        date.setHours(23);
+        date.setMinutes(31);
+        date.setSeconds(0);
+        observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test",date.getDate()+"."+date.getMonth()+"."+date.getYear(),date.getHours()+":"+date.getMinutes(),new Date()));
 
         /*for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
@@ -60,8 +65,9 @@ public class ServiceController extends MainPageController {
                     serviceList.get(i).getEmploer().getFullName(),
                     serviceList.get(i).getClient().getFullName(),
                     serviceList.get(i).getServices().getServiceType(),
-                    serviceList.get(i).getData().toString(), //TODO сделать разделение
-                    serviceList.get(i).getData().toString()
+                    serviceList.get(i).getData().getDate()+"."+serviceList.get(i).getData().getMonth()+"."+serviceList.get(i).getData().getYear(),
+                    serviceList.get(i).getData().getHours()+":"+serviceList.get(i).getData().getMinutes(),
+                    serviceList.get(i).getData()
             ));
         }*/
         return observableList;

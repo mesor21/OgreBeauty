@@ -77,8 +77,6 @@ public class EditService extends MainPageController{
         employeesComboBox.setEditable(true);
         clientComboBox.setEditable(true);
 
-        //TODO сделать установку даты
-
         boolean itNewService;
         if(!serviceDTO.getServicesName().equals("")){
             //TODO TEST DATA
