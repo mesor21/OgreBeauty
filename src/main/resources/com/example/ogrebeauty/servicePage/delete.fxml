@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ogrebeauty.controller.serviceController.DeleteConfirm">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ogrebeauty.controller.serviceController.DeleteConfirm">
    <children>
        <Label fx:id="label" />
        <Button fx:id="deleteTrue" mnemonicParsing="false" text="+">
@@ -19,4 +19,4 @@
            </font>
        </Button>
    </children>
-</VBox>
+</AnchorPane>

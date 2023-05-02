@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ogrebeauty.controller.serviceController.EditService">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ogrebeauty.controller.serviceController.EditService">
    <children>
       <Label text="Услуга" />
       <ComboBox fx:id="servicesComboBox" prefHeight="50.0" prefWidth="200.0" />
@@ -15,4 +15,4 @@
       <Button fx:id="confirmAllData" mnemonicParsing="false" text="Подтвердить" />
       <Button fx:id="disableEdit" mnemonicParsing="false" text="Отменить" />
    </children>
-</VBox>
+</AnchorPane>

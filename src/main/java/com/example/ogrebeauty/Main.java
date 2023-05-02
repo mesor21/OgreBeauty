@@ -18,7 +18,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
         connectionDatabase.connectTest();
-        /*connectionDatabase.autocreateTables();*/
+        //connectionDatabase.autocreateTables();
         launch();
     }
 }
