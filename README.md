@@ -2,6 +2,9 @@
 
 Здесть появится распределение задач
 
+### 
+[figma](https://www.figma.com/file/gzx8QFwKm6lN11LvRi4s8H/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D0%B0%D1%8F-%D0%B4%D0%B5%D1%8F%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D1%8C-4-%D1%81%D0%B5%D0%BC?node-id=0-1)
+
 ### Никита:
 
 - [ ] Первый коммит
