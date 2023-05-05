@@ -10,17 +10,17 @@
             <Font name="PT Mono Bold" size="64.0" />
         </font>
     </Label>
-    <ComboBox fx:id="whereSearch" />
+    <ComboBox fx:id="whereSearch" layoutX="100.0" layoutY="174.0" />
     <TextField fx:id="search" layoutX="195" layoutY="160" style="-fx-background-color: #787272; -fx-pref-height: 53px; -fx-border-radius: 15px; -fx-pref-width: 1415px;" />
     <Button fx:id="searchConfirm" layoutX="1673" layoutY="153" style="-fx-pref-width: 162.85px; -fx-pref-height: 63px; -fx-background-color: #CC4A79; -fx-border-radius: 18px;" text="Поиск" textFill="WHITE">
         <font>
             <Font name="Sarai" size="18.0" />
         </font>
     </Button>
-    <Button mnemonicParsing="false" onAction="#redirectToClientPage" text="Клиенты" />
-    <Button mnemonicParsing="false" onAction="#redirectToServicesPage" text="Записи" />
-    <Button mnemonicParsing="false" onAction="#redirectToEmployeesPage" text="Сотрудники" />
-    <Button mnemonicParsing="false" onAction="#redirectToServicePage" text="Услуги" />
+    <Button layoutX="14.0" layoutY="540.0" mnemonicParsing="false" onAction="#redirectToClientPage" text="Клиенты" />
+    <Button layoutX="18.0" layoutY="469.0" mnemonicParsing="false" onAction="#redirectToServicesPage" text="Записи" />
+    <Button layoutX="3.0" layoutY="390.0" mnemonicParsing="false" onAction="#redirectToEmployeesPage" text="Сотрудники" />
+    <Button layoutX="20.0" layoutY="316.0" mnemonicParsing="false" onAction="#redirectToServicePage" text="Услуги" />
     <TableView fx:id="serviceTable" layoutX="100.0" layoutY="235.0" prefHeight="400.0" prefWidth="1000.0">
         <columns>
             <TableColumn fx:id="employeesName" prefWidth="75.0" text="Мастер" />
@@ -35,5 +35,5 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
     </TableView>
-    <Button fx:id="addNewService" text="+" />
+    <Button fx:id="addNewService" layoutX="37.0" layoutY="677.0" text="+" />
 </AnchorPane>

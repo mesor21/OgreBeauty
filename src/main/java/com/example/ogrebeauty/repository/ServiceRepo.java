@@ -4,6 +4,7 @@ import com.example.ogrebeauty.entity.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ServiceRepo {
@@ -206,7 +207,7 @@ public class ServiceRepo {
         return Long.valueOf(id);
     }
 
-    //Search
+    //TODO не работает поиск, так как будет ещё время автоматически искаться. Надо будет изменить
     public List<Service> findByDate(Date date){
         Connection connection = null;
         ServicesRepo servicesRepo = new ServicesRepo();
@@ -218,7 +219,7 @@ public class ServiceRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date="+date.toString()+"";
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date="+date.toString();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 service.add(

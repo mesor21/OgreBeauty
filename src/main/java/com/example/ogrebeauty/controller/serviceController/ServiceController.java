@@ -25,7 +25,6 @@ import java.util.List;
 public class ServiceController extends RedirectController {
     //В этом классе нет удаления предыдущего контроллера и мне кажется это может привести в плохим последствиям, если много искать
     private ServiceService serviceService;
-
     @FXML
     private TableView<ServiceDTO> serviceTable;
     @FXML
