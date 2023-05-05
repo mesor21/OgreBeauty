@@ -3,9 +3,12 @@ package com.example.ogrebeauty.repository;
 import com.example.ogrebeauty.entity.Service;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ServiceRepo {
     DatabaseInfo databaseInfo = new DatabaseInfo();
@@ -31,7 +34,7 @@ public class ServiceRepo {
             }
             String sql="INSERT INTO service VALUES("+
                     service.getId().toString()+", '"+
-                    service.getData().toString()+"', '"+
+                    (service.getData().getYear()+1900)+"."+(service.getData().getMonth()+1)+"."+service.getData().getDate()+" "+service.getData().getHours()+":"+service.getData().getMinutes()+":"+service.getData().getSeconds()+"', '"+
                     service.getServicesID()+"', '"+
                     clientID+"', '"+
                     employeesID+"')";
@@ -219,7 +222,7 @@ public class ServiceRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date="+date.toString();
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date BETWEEN '"+ (date.getYear()+1900)+"."+(date.getMonth()+1)+"."+date.getDate()+" 00:00:00" +"' AND '"+date.getYear()+1900+"."+date.getMonth()+1+"."+date.getDate()+"23:59:59'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 service.add(

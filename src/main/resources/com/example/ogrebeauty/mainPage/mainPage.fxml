@@ -12,12 +12,12 @@
     </Label>
     <Label fx:id="summByDay" />
     <Button layoutX="14.0" layoutY="540.0" mnemonicParsing="false" onAction="#redirectToClientPage" text="Клиенты" />
-    <Button layoutX="18.0" layoutY="469.0" mnemonicParsing="false" onAction="#redirectToServicesPage" text="Записи" />
+    <Button layoutX="18.0" layoutY="469.0" mnemonicParsing="false" onAction="#redirectToServicePage" text="Записи" />
     <Button layoutX="3.0" layoutY="390.0" mnemonicParsing="false" onAction="#redirectToEmployeesPage" text="Сотрудники" />
-    <Button layoutX="20.0" layoutY="316.0" mnemonicParsing="false" onAction="#redirectToServicePage" text="Услуги" />
-       <Button fx:id="firstDate" layoutX="214.0" layoutY="233.0" mnemonicParsing="false" text="Button" onAction="#onClickFirstDate"/>
-       <Button fx:id="secondDate" layoutX="314.0" layoutY="233.0" mnemonicParsing="false" text="Button" onAction="#onClickSecondDate"/>
+    <Button layoutX="20.0" layoutY="316.0" mnemonicParsing="false" onAction="#redirectToServicesPage" text="Услуги" />
+       <Button fx:id="firstDate" layoutX="214.0" layoutY="233.0" mnemonicParsing="false" onAction="#onClickFirstDate" text="Button" />
+       <Button fx:id="secondDate" layoutX="314.0" layoutY="233.0" mnemonicParsing="false" onAction="#onClickSecondDate" text="Button" />
        <Button fx:id="thirdDate" layoutX="414.0" layoutY="233.0" mnemonicParsing="false" text="Button" />
-       <Button fx:id="fourthDate" layoutX="514.0" layoutY="233.0" mnemonicParsing="false" text="Button" onAction="#onClickFourthDate"/>
-       <Button fx:id="fifthDate" layoutX="614.0" layoutY="233.0" mnemonicParsing="false" text="Button" onAction="#onClickFifthDate"/>
+       <Button fx:id="fourthDate" layoutX="514.0" layoutY="233.0" mnemonicParsing="false" onAction="#onClickFourthDate" text="Button" />
+       <Button fx:id="fifthDate" layoutX="614.0" layoutY="233.0" mnemonicParsing="false" onAction="#onClickFifthDate" text="Button" />
 </AnchorPane>

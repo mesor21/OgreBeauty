@@ -19,7 +19,6 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ServiceController extends RedirectController {
@@ -50,18 +49,21 @@ public class ServiceController extends RedirectController {
     @FXML
     private Button searchConfirm;
     List<Service> serviceList;
+    public ServiceController(){
+        this.serviceService = new ServiceService();
+    }
     @FXML
     public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
         // Устанавливаем значения для столбцов  1
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
-        //TODO TEST DATA
+        /*TODO TEST DATA
         Date date = new Date(2023,02,6);
         date.setHours(23);
         date.setMinutes(31);
         date.setSeconds(0);
         observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test",date.getDate()+"."+date.getMonth()+"."+date.getYear(),date.getHours()+":"+date.getMinutes(),new Date()));
 
-        /*for(int i=0; i<serviceList.size(); i++){
+        for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
                     serviceList.get(i).getId(),
                     serviceList.get(i).getEmploer().getFullName(),
@@ -72,32 +74,45 @@ public class ServiceController extends RedirectController {
                     serviceList.get(i).getData()
             ));
         }*/
+        for(int i=0; i<serviceList.size(); i++){
+            observableList.add(new ServiceDTO(
+                    serviceList.get(i).getId(),
+                    serviceList.get(i).getEmployeesID()+"",
+                    serviceList.get(i).getClientID()+"",
+                    serviceList.get(i).getServicesID()+"",
+                    serviceList.get(i).getData().getDate()+"."+serviceList.get(i).getData().getMonth()+"."+serviceList.get(i).getData().getYear(),
+                    serviceList.get(i).getData().getHours()+":"+serviceList.get(i).getData().getMinutes(),
+                    serviceList.get(i).getData()
+            ));
+        }
         return observableList;
     }
     //TODO Можно объеденить поиск и выдачу информации по дефолту
     private void setSearchDataInTable(String data, String name){
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("servicePage/servicePage.fxml"));
-        Pane paneOne = null;
-        try {
-            paneOne = (Pane)loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        ServiceController serviceController = (ServiceController) loader.getController();
-        serviceController.initialize(serviceService.find(data,name));
-        serviceController.setOpenStage(openStage);
-        Scene scene = new Scene(paneOne, 1920, 1080);
-        stage.setTitle("Ogre Beaity");
-        stage.setScene(scene);
-        openStage.close();
-        stage.show();
-        openStage = stage;
+        initialize(setTableData(serviceService.find(data,name)));
     }
+    public void initialize(ObservableList<ServiceDTO> observableListl){
+        List<String> listWhatIsSearch = new ArrayList<>();
+        listWhatIsSearch.add("Сотрудник");
+        listWhatIsSearch.add("Клиент");
+        listWhatIsSearch.add("Услуга");
+        ObservableList<String> ListForSearch = FXCollections.observableArrayList(listWhatIsSearch);
+        whereSearch.setItems(ListForSearch);
+        whereSearch.setValue(listWhatIsSearch.get(0));
+        searchConfirm.setOnAction(event -> {
+                    if(whereSearch.getValue().equals("Сотрудник")){
+                        setSearchDataInTable(search.getText(),"employeeFullname");
+                    }
+                    if(whereSearch.getValue().equals("Клиент")){
+                        setSearchDataInTable(search.getText(),"clientFullname");
+                    }
+                    if(whereSearch.getValue().equals("Услуга")){
+                        setSearchDataInTable(search.getText(),"serviceType");
+                    }
+                }
+        );
 
-    public void initialize(List<Service> services){
-        serviceList = services;
-        serviceTable.setItems(setTableData(serviceList));
+        serviceTable.setItems(observableListl);
 
         employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
         clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
@@ -192,8 +207,7 @@ public class ServiceController extends RedirectController {
                     }
                 }
         );
-
-        serviceList = serviceService.getListService();
+        this.serviceList = serviceService.getListService();
         serviceTable.setItems(setTableData(serviceList));
 
         employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
@@ -268,7 +282,6 @@ public class ServiceController extends RedirectController {
             addNewService();
         });
     }
-
     private void addNewService(){
         ServiceDTO serviceDTO = new ServiceDTO();
         openEditStage(serviceDTO);
@@ -306,9 +319,6 @@ public class ServiceController extends RedirectController {
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
-    }
-    public ServiceController(){
-        serviceService = new ServiceService();
     }
     public void setServiceList(List<Service> serviceList) {
         this.serviceList = serviceList;

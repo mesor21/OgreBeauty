@@ -65,7 +65,6 @@ public class EditService extends RedirectController {
     }
 
     public void initialize(ServiceDTO serviceDTO, Stage stage){
-        this.serviceDTO = serviceDTO;
         this.stage = stage;
 
         servicesComboBox.setEditable(true);
@@ -73,7 +72,7 @@ public class EditService extends RedirectController {
         clientComboBox.setEditable(true);
 
         boolean itNewService;
-        if(!serviceDTO.getServicesName().equals("")){
+        if(serviceDTO.getServicesName()!=null){
             //TODO TEST DATA
             servicesComboBox.setValue(new Services(1,"Test",2000));
             employeesComboBox.setValue(new Employees(Long.valueOf(1),"Dima","genius"));
@@ -84,6 +83,8 @@ public class EditService extends RedirectController {
             itNewService = false;
         }
         else{
+            serviceDTO.setDateDate(new Date());
+            this.serviceDTO=serviceDTO;
             itNewService = true;
         }
 
@@ -142,8 +143,7 @@ public class EditService extends RedirectController {
         datePicker.setOnAction(event -> {
             LocalDate localDate = datePicker.getValue();
             Instant instante = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-            Date date = Date.from(instante);
-            setDate(date);
+            this.serviceDTO.setDateDate(Date.from(instante));
             }
         );
 
@@ -161,13 +161,13 @@ public class EditService extends RedirectController {
         });
     }
     public void saveData(Long id, boolean isNew){
-        Service service = new Service(id,date.toString(),services,employees,client);
-        System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString()+" "+date.toString());
+        Service service = new Service(id,serviceDTO.getDateDate(),services,employees,client);
+        System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString()+" "+serviceDTO.getDateDate());
         if(isNew){
-            //serviceService.saveNewService(service); TODO TEST DATA
+            serviceService.saveNewService(service); //TODO TEST DATA
         }
         else{
-            //serviceService.updateService(service); TODO TEST DATA
+            serviceService.updateService(service);
         }
     }
     public void setStage(Stage stage) {

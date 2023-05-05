@@ -23,8 +23,9 @@ public class Service {
 
     public Service(Long id, String dataString, Services services, Employees emploer, Client client) {
         this.id = id;
-        try{
-            this.data = df.parse(dataString);
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+        try {
+            this.data = parser.parse(dataString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -33,15 +34,12 @@ public class Service {
         this.client = client;
     }
 
-    public Service(Integer id, String dataString, int clientID, int employeesID) {
-        this.id = Long.parseLong(id.toString());
-        try{
-            this.data = df.parse(dataString);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        this.clientID = clientID;
-        this.employeesID = employeesID;
+    public Service(Long id, Date data, Services services, Employees emploer, Client client) {
+        this.id = id;
+        this.data = data;
+        this.services = services;
+        this.emploer = emploer;
+        this.client = client;
     }
 
     public void setId(Long id) {
@@ -109,26 +107,5 @@ public class Service {
         return clientID;
     }
 
-    @Override
-    public String toString(){
-        String out="Service{" +
-                "id=" + id +
-                ", data=" + data +
-                ", servicesID='" + servicesID + '\'' +
-                ", emploer=";
-        if(emploer==null){
-            out+="null";
-        }else{
-            out+=emploer.toString();
-        }
-        out+=", client=";
-        if(client==null){
-            out+="null";
-        }
-        else{
-            out+=client.toString();
-        }
-        out+="}";
-        return out;
-    }
+
 }

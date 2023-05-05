@@ -10,9 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class MainController extends RedirectController {
     private Date selectedDate;
@@ -38,7 +36,7 @@ public class MainController extends RedirectController {
         this.selectedDate = new Date();
     }
     public void initialize(){
-        //summByDay.setText(mainService.summPearDay(selectedDate)+"");
+        //summByDay.setText("Выручка за день: "+mainService.summPearDay(selectedDate)+"");
         firstDate.setText((selectedDate.getDate()-2)+"."+(selectedDate.getMonth()+1)+"."+(selectedDate.getYear()+1900));
         secondDate.setText((selectedDate.getDate()-1)+"."+(selectedDate.getMonth()+1)+"."+(selectedDate.getYear()+1900));
         thirdDate.setText(selectedDate.getDate()+"."+(selectedDate.getMonth()+1)+"."+(selectedDate.getYear()+1900));

@@ -145,7 +145,7 @@ public class ServicesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, serviceType, price FROM services WHERE serviceType="+serviceType+"";
+            sql="SELECT id, serviceType, price FROM services WHERE serviceType='"+serviceType+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Services(rs.getInt("id"),

@@ -10,6 +10,7 @@ import com.example.ogrebeauty.repository.ServiceRepo;
 import com.example.ogrebeauty.repository.ServicesRepo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ServiceService {
@@ -56,8 +57,7 @@ public class ServiceService {
         serviceRepo.saveService(service);
     }
     public List<Service> getListService(){
-        return new ArrayList<>();
-        //return serviceRepo.getServiceList();
+        return serviceRepo.getServiceList();
     }
     public List<Service> find(String data, String fieldNameFromEntity){
         List<Service> serviceList = null;
@@ -80,6 +80,9 @@ public class ServiceService {
             }
         }
         return serviceList;
+    }
+    public List<Service> getServiceByDay(Date date){
+        return serviceRepo.findByDate(date);
     }
     public void delete(Long id){
         serviceRepo.deleteServiceById(id,true);

@@ -106,7 +106,7 @@ public class EmployeesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, jobTitle FROM employees WHERE fullName"+fullname+"";
+            sql="SELECT id, fullName, jobTitle FROM employees WHERE fullName='"+fullname+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 employees.add(new Employees(
@@ -135,7 +135,7 @@ public class EmployeesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, jobTitle FROM employees WHERE jobTitle"+jobtitle+"";
+            sql="SELECT id, fullName, jobTitle FROM employees WHERE jobTitle='"+jobtitle+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 employees.add(new Employees(
