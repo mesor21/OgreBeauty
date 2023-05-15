@@ -3,7 +3,7 @@ package com.example.ogrebeauty.controller.serviceController;
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
 import com.example.ogrebeauty.controller.helpClass.WindowManager;
 import com.example.ogrebeauty.controller.helpClass.AutoCompleteComboBoxListener;
-import com.example.ogrebeauty.controller.mainController.RedirectController;
+import com.example.ogrebeauty.controller.helpClass.RedirectController;
 import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.entity.Service;

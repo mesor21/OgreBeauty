@@ -1,7 +1,7 @@
 package com.example.ogrebeauty.controller.servicesController;
 
 import com.example.ogrebeauty.controller.helpClass.WindowManager;
-import com.example.ogrebeauty.controller.mainController.RedirectController;
+import com.example.ogrebeauty.controller.helpClass.RedirectController;
 import com.example.ogrebeauty.entity.Services;
 import com.example.ogrebeauty.service.ServicesService;
 import javafx.fxml.FXML;
@@ -47,6 +47,7 @@ public class EditServicesController extends RedirectController {
             }
         });
         disableEdit.setOnAction(event -> {
+            stage.close();
             try {
                 windowManager.redirectToServicesPage();
             } catch (IOException e) {

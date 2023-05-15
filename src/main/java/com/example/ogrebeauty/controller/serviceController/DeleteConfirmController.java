@@ -2,7 +2,7 @@ package com.example.ogrebeauty.controller.serviceController;
 
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
 import com.example.ogrebeauty.controller.helpClass.WindowManager;
-import com.example.ogrebeauty.controller.mainController.RedirectController;
+import com.example.ogrebeauty.controller.helpClass.RedirectController;
 import com.example.ogrebeauty.service.ServiceService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

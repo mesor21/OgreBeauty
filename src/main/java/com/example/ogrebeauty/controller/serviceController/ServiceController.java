@@ -3,7 +3,7 @@ package com.example.ogrebeauty.controller.serviceController;
 import com.example.ogrebeauty.Main;
 import com.example.ogrebeauty.controller.helpClass.Controller;
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
-import com.example.ogrebeauty.controller.mainController.RedirectController;
+import com.example.ogrebeauty.controller.helpClass.RedirectController;
 import com.example.ogrebeauty.entity.Service;
 import com.example.ogrebeauty.service.ServiceService;
 import javafx.collections.FXCollections;

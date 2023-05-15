@@ -1,4 +1,4 @@
-package com.example.ogrebeauty.controller.mainController;
+package com.example.ogrebeauty.controller.helpClass;
 
 import com.example.ogrebeauty.controller.helpClass.WindowManager;
 import javafx.fxml.FXML;
