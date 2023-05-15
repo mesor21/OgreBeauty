@@ -17,4 +17,5 @@ public class EditClientController {
     @FXML private TextField mark;
     @FXML private Button confirmData;
     @FXML private Button rejectData;
+    //TODO
 }

@@ -21,25 +21,25 @@
 
 ### Заебали хуи пинать. TODO
 
-- [ ] Main page
+- [x] Main page
 - [X] Service page
   - [X] Table
     - [X] Edit buttons
   - [X] Filter
-  - [ ] Style
+  - [x] Style
   - [X] Add new service
-- [ ] Services page
+- [x] Services page
+  - [x] Table
+    - [x] Edit buttons
+  - [x] Add new services
+- [x] Employees page
   - [ ] Table
-    - [ ] Edit buttons
-  - [ ] Add new services
-- [ ] Employees page
-  - [ ] Table
-    - [ ] Buttons
+    - [x] Buttons
   - [ ] Filters
   - [ ] Add new
-- [ ] Client Page
+- [x] Client Page
   - [ ] Table
-    - [ ] Buttons
+    - [x] Buttons
   - [ ] Filters
   - [ ] Add new
 

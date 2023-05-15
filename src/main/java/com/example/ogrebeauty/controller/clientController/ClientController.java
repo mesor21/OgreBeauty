@@ -8,8 +8,11 @@ import com.example.ogrebeauty.service.ClientService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.util.Callback;
 
 import java.util.List;
 
@@ -31,5 +34,72 @@ public class ClientController extends RedirectController implements Controller {
     }
     public void initialize(){
 
+        Callback<TableColumn<ClientDTO, String>, TableCell<ClientDTO, String>> editFactory
+                = //
+                new Callback<TableColumn<ClientDTO, String>, TableCell<ClientDTO, String>>() {
+                    @Override
+                    public TableCell call(final TableColumn<ClientDTO, String> param) {
+                        final TableCell<ClientDTO, String> cell = new TableCell<ClientDTO, String>() {
+
+                            final Button btn = new Button("Радактировать");
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    btn.setOnAction(event -> {
+                                        Client services = getTableView().getItems().get(getIndex()).getClient();
+                                        editClient(services);
+                                    });
+                                    setGraphic(btn);
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        editButton.setCellFactory(editFactory);
+        //deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+        Callback<TableColumn<ClientDTO, String>, TableCell<ClientDTO, String>> deleteFactory
+                = //
+                new Callback<TableColumn<ClientDTO, String>, TableCell<ClientDTO, String>>() {
+                    @Override
+                    public TableCell call(final TableColumn<ClientDTO, String> param) {
+                        final TableCell<ClientDTO, String> cell = new TableCell<ClientDTO, String>() {
+
+                            final Button btn = new Button("Удалить");
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    btn.setOnAction(event -> {
+                                        Client services = getTableView().getItems().get(getIndex()).getClient();
+                                        deleteConfirm(services);
+                                    });
+                                    setGraphic(btn);
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        deleteButton.setCellFactory(deleteFactory);
+        //TODO add search
+        //TODO add data in table, add new button
     };
+    private void editClient(Client client){
+
+    }
+    private void deleteConfirm(Client client){
+
+    }
 }

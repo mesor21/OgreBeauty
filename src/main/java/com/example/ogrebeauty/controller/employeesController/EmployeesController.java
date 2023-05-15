@@ -8,24 +8,22 @@ import com.example.ogrebeauty.service.EmployeesService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.util.Callback;
 
 import java.util.List;
 
 public class EmployeesController extends RedirectController implements Controller {
     private EmployeesService employeesService;
     private ObservableList<EmployeesDTO> employeesDTOObservableList;
-    @FXML
-    public TableView<EmployeesDTO> employeesTable;
-    @FXML
-    private TableColumn<EmployeesDTO, String> fullName;
-    @FXML
-    private TableColumn<EmployeesDTO, String> jobTitle;
-    @FXML
-    private TableColumn<EmployeesDTO, String> editButton;
-    @FXML
-    private TableColumn<EmployeesDTO, String> deleteButton;
+    @FXML public TableView<EmployeesDTO> employeesTable;
+    @FXML private TableColumn<EmployeesDTO, String> fullName;
+    @FXML private TableColumn<EmployeesDTO, String> jobTitle;
+    @FXML private TableColumn<EmployeesDTO, String> editButton;
+    @FXML private TableColumn<EmployeesDTO, String> deleteButton;
 
     public  EmployeesController(){
         employeesService = new EmployeesService();
@@ -39,6 +37,72 @@ public class EmployeesController extends RedirectController implements Controlle
         return servicesDTOS;
     }
     public void initialize(){
+        Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>> editFactory
+                = //
+                new Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>>() {
+                    @Override
+                    public TableCell call(final TableColumn<EmployeesDTO, String> param) {
+                        final TableCell<EmployeesDTO, String> cell = new TableCell<EmployeesDTO, String>() {
 
+                            final Button btn = new Button("Радактировать");
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    btn.setOnAction(event -> {
+                                        Employees services = getTableView().getItems().get(getIndex()).getEmployees();
+                                        editEmployees(services);
+                                    });
+                                    setGraphic(btn);
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        editButton.setCellFactory(editFactory);
+        //deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+        Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>> deleteFactory
+                = //
+                new Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>>() {
+                    @Override
+                    public TableCell call(final TableColumn<EmployeesDTO, String> param) {
+                        final TableCell<EmployeesDTO, String> cell = new TableCell<EmployeesDTO, String>() {
+
+                            final Button btn = new Button("Удалить");
+
+                            @Override
+                            public void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+                                    btn.setOnAction(event -> {
+                                        Employees services = getTableView().getItems().get(getIndex()).getEmployees();
+                                        deleteConfirm(services);
+                                    });
+                                    setGraphic(btn);
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                };
+        deleteButton.setCellFactory(deleteFactory);
+        //TODO add search
+        //TODO add data in table, add new button
     };
+    private void editEmployees(Employees employees){
+
+    }
+    private void deleteConfirm(Employees employees){
+
+    }
 }
