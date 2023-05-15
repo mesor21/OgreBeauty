@@ -188,3 +188,20 @@ CREATE DATABASE ogrebeauty;
 * Если в консоли появилось сообщение "Соединение с базой данных успешно установлено." переходим к следующему пункту. Если нет, то где-то вы ошиблись во время установки.
 * (Все параметры подключения можно отредактировать в файле [repository/PostgreSQLJDBC.java](https://github.com/mesor21/OgreBeauty/blob/main/src/main/java/com/example/ogrebeauty/repository/PostgreSQLJDBC.java))
 * **В "Main.java" закомментирована строчка отвечающая за создание таблиц в базе. После того как её раскомментируешь и запустишь проект 1 раз удали её обязательно после чего проект будет полностью работать с базой данных.**
+
+
+# Через докер
+
+https://docs.docker.com/desktop/install/windows-install/
+
+https://docs.docker.com/desktop/install/mac-install/
+
+Создаёшь новую бд с названием "ogrebeauty"
+
+```docker run --name postgreDB -e POSTGRES_PASSWORD=postgresql -p 5432:5432 -d postgres```
+
+```docker exec -it postgreDB bash```
+
+```psql -U postgres```
+
+```CREATE DATABASE ogrebeauty;```

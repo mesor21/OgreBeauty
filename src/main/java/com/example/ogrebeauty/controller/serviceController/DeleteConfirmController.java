@@ -1,6 +1,7 @@
 package com.example.ogrebeauty.controller.serviceController;
 
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
+import com.example.ogrebeauty.controller.helpClass.WindowManager;
 import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.service.ServiceService;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class DeleteConfirm extends RedirectController {
+public class DeleteConfirmController extends RedirectController {
     @FXML
     private Button deleteTrue;
     @FXML
@@ -21,21 +22,21 @@ public class DeleteConfirm extends RedirectController {
     private Stage stage;
     private ServiceService serviceService;
 
-    public DeleteConfirm() {
+    public DeleteConfirmController() {
         serviceService = new ServiceService();
     }
 
     @FXML
-    public void initialize(ServiceDTO serviceDTO,Stage stage){
+    public void initialize(ServiceDTO serviceDTO, Stage stage, WindowManager windowManager){
         this.serviceDTO = serviceDTO;
         this.stage = stage;
-
+        this.windowManager = windowManager;
         label.setText("Уверены что хотите удалить запись" + serviceDTO.getDate()+" "+serviceDTO.getTime()+ " ?");
         deleteTrue.setOnAction(event -> {
             try {
                 stage.close();
-                //delete(serviceDTO.getId());
-                redirectToServicePage();
+                delete(serviceDTO.getId());
+                windowManager.redirectToServicePage();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -46,8 +47,5 @@ public class DeleteConfirm extends RedirectController {
     }
     private void delete(Long id){
         serviceService.delete(id);
-    }
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 }
