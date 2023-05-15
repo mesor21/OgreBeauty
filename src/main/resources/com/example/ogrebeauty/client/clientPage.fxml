@@ -46,7 +46,7 @@
     <Button fx:id="addNewService" layoutX="37.0" layoutY="677.0" text="+" />
     <ImageView fitHeight="63.0" fitWidth="50.0" layoutX="25.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../../../../../../../../../../../../Downloads/bookmark.png" />
+            <Image url="@../img/bookmark.png" />
         </image>
         <cursor>
             <Cursor fx:constant="HAND" />
@@ -54,7 +54,7 @@
     </ImageView>
     <ImageView fitHeight="63.0" fitWidth="50.0" layoutX="25.0" layoutY="467.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../../../../../../../../../../../../Downloads/users-alt.png" />
+            <Image url="@../img/users-alt.png" />
         </image>
         <cursor>
             <Cursor fx:constant="HAND" />
@@ -62,7 +62,7 @@
     </ImageView>
     <ImageView fitHeight="63.0" fitWidth="50.0" layoutX="25.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../../../../../../../../../../../../Downloads/note.png" />
+            <Image url="@../img/note.png" />
         </image>
         <cursor>
             <Cursor fx:constant="HAND" />
@@ -70,7 +70,7 @@
     </ImageView>
     <ImageView fitHeight="63.0" fitWidth="50.0" layoutX="25.0" layoutY="562.0" pickOnBounds="true" preserveRatio="true">
         <image>
-            <Image url="@../../../../../../../../../../../../Downloads/pen.png" />
+            <Image url="@../img/pen.png" />
         </image>
         <cursor>
             <Cursor fx:constant="HAND" />
