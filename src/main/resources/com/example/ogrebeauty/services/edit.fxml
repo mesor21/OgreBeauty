@@ -10,11 +10,11 @@
       <TextField fx:id="type" layoutX="150.0" layoutY="43.0" prefHeight="51.0" prefWidth="357.0" style="-fx-background-color: #787272;" />
       <Label layoutX="24.0" layoutY="127.0" prefHeight="24.0" prefWidth="108.0" style="-fx-font-size: 21;" text="Стоимость" textFill="WHITE" />
       <TextField fx:id="price" layoutX="150.0" layoutY="114.0" prefHeight="51.0" prefWidth="357.0" style="-fx-background-color: #787272;" />
-      <Button fx:id="confirmAllData" alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="203.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" style="-fx-background-color: #CC4A79;" text="Подтвердить" textFill="WHITE">
+      <Button fx:id="confirmData" alignment="CENTER" contentDisplay="CENTER" layoutX="49.0" layoutY="203.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" style="-fx-background-color: #CC4A79;" text="Подтвердить" textFill="WHITE">
          <font>
             <Font size="23.0" />
          </font></Button>
-      <Button fx:id="disableEdit" alignment="CENTER" contentDisplay="CENTER" layoutX="297.0" layoutY="203.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" style="-fx-background-color: #606060;" text="Отменить" textFill="WHITE">
+      <Button fx:id="rejectData" alignment="CENTER" contentDisplay="CENTER" layoutX="297.0" layoutY="203.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" style="-fx-background-color: #606060;" text="Отменить" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font></Button>
