@@ -1,10 +1,9 @@
 package com.example.ogrebeauty.controller.servicesController;
 
 import com.example.ogrebeauty.Main;
-import com.example.ogrebeauty.controller.DTO.ServiceDTO;
 import com.example.ogrebeauty.controller.DTO.ServicesDTO;
 import com.example.ogrebeauty.controller.helpClass.Controller;
-import com.example.ogrebeauty.controller.mainController.RedirectController;
+import com.example.ogrebeauty.controller.helpClass.RedirectController;
 import com.example.ogrebeauty.entity.Services;
 import com.example.ogrebeauty.service.ServicesService;
 import javafx.collections.FXCollections;

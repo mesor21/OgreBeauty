@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         windowManager = new WindowManager();
         windowManager.setStage(stage);
-        windowManager.redirectToServicesPage();
+        windowManager.redirectToMainPage();
     }
 
     public static void main(String[] args) {

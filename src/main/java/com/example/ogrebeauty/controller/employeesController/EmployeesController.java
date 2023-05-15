@@ -1,7 +1,7 @@
 package com.example.ogrebeauty.controller.employeesController;
 
 import com.example.ogrebeauty.controller.helpClass.Controller;
-import com.example.ogrebeauty.controller.mainController.RedirectController;
+import com.example.ogrebeauty.controller.helpClass.RedirectController;
 import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.service.EmployeesService;
 import javafx.fxml.FXML;

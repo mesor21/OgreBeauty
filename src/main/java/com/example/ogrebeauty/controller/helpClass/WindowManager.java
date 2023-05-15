@@ -43,6 +43,7 @@ public class WindowManager {
         if(nameOfTamplate.equals("services/servicesPage.fxml")) {
             controller = (ServicesController) fxmlLoader.getController();
         }
+        controller.setWindowManager(this);
         controller.initialize();
         scene = new Scene(pane, 1920, 1080);
         stage.setTitle("Ogre Beaity");
