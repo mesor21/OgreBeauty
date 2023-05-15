@@ -1,6 +1,7 @@
 package com.example.ogrebeauty.controller.serviceController;
 
 import com.example.ogrebeauty.Main;
+import com.example.ogrebeauty.controller.helpClass.Controller;
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
 import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.entity.Service;
@@ -21,13 +22,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceController extends RedirectController {
-    //В этом классе нет удаления предыдущего контроллера и мне кажется это может привести в плохим последствиям, если много искать
+public class ServiceController extends RedirectController implements Controller {
     private ServiceService serviceService;
     @FXML
-    private TableView<ServiceDTO> serviceTable;
+    public TableView<ServiceDTO> serviceTable;
     @FXML
-    private TableColumn<ServiceDTO, String> employeesName;
+    public TableColumn<ServiceDTO, String> employeesName;
     @FXML
     private TableColumn<ServiceDTO, String> clientName;
     @FXML
@@ -48,13 +48,14 @@ public class ServiceController extends RedirectController {
     private TextField search;
     @FXML
     private Button searchConfirm;
-    List<Service> serviceList;
+    private List<Service> serviceList;
+    private ObservableList<ServiceDTO> observableList;
     public ServiceController(){
         this.serviceService = new ServiceService();
+        this.serviceList = serviceService.getListService();
+        this.observableList = setTableData(serviceList);
     }
-    @FXML
     public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
-        // Устанавливаем значения для столбцов  1
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
         /*TODO TEST DATA
         Date date = new Date(2023,02,6);
@@ -89,102 +90,7 @@ public class ServiceController extends RedirectController {
     }
     //TODO Можно объеденить поиск и выдачу информации по дефолту
     private void setSearchDataInTable(String data, String name){
-        initialize(setTableData(serviceService.find(data,name)));
-    }
-    public void initialize(ObservableList<ServiceDTO> observableListl){
-        List<String> listWhatIsSearch = new ArrayList<>();
-        listWhatIsSearch.add("Сотрудник");
-        listWhatIsSearch.add("Клиент");
-        listWhatIsSearch.add("Услуга");
-        ObservableList<String> ListForSearch = FXCollections.observableArrayList(listWhatIsSearch);
-        whereSearch.setItems(ListForSearch);
-        whereSearch.setValue(listWhatIsSearch.get(0));
-        searchConfirm.setOnAction(event -> {
-                    if(whereSearch.getValue().equals("Сотрудник")){
-                        setSearchDataInTable(search.getText(),"employeeFullname");
-                    }
-                    if(whereSearch.getValue().equals("Клиент")){
-                        setSearchDataInTable(search.getText(),"clientFullname");
-                    }
-                    if(whereSearch.getValue().equals("Услуга")){
-                        setSearchDataInTable(search.getText(),"serviceType");
-                    }
-                }
-        );
-
-        serviceTable.setItems(observableListl);
-
-        employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
-        clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
-        servicesName.setCellValueFactory(new PropertyValueFactory<>("servicesName"));
-        date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        time.setCellValueFactory(new PropertyValueFactory<>("time"));
-        editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
-
-        Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>> editFactory
-                = //
-                new Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>>() {
-                    @Override
-                    public TableCell call(final TableColumn<ServiceDTO, String> param) {
-                        final TableCell<ServiceDTO, String> cell = new TableCell<ServiceDTO, String>() {
-
-                            final Button btn = new Button("Радактировать");
-
-                            @Override
-                            public void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (empty) {
-                                    setGraphic(null);
-                                    setText(null);
-                                } else {
-                                    btn.setOnAction(event -> {
-                                        ServiceDTO serviceDTO = getTableView().getItems().get(getIndex());
-                                        openEditStage(serviceDTO);
-                                    });
-                                    setGraphic(btn);
-                                    setText(null);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-        editButton.setCellFactory(editFactory);
-
-        deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
-        Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>> deleteFactory
-                = //
-                new Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>>() {
-                    @Override
-                    public TableCell call(final TableColumn<ServiceDTO, String> param) {
-                        final TableCell<ServiceDTO, String> cell = new TableCell<ServiceDTO, String>() {
-
-                            final Button btn = new Button("Удалить");
-
-                            @Override
-                            public void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (empty) {
-                                    setGraphic(null);
-                                    setText(null);
-                                } else {
-                                    btn.setOnAction(event -> {
-                                        ServiceDTO serviceDTO = getTableView().getItems().get(getIndex());
-                                        deleteConfirm(serviceDTO);
-                                    });
-                                    setGraphic(btn);
-                                    setText(null);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-        deleteButton.setCellFactory(deleteFactory);
-
-        addNewService.setOnAction(event -> {
-            addNewService();
-        });
+        this.observableList = setTableData(serviceService.find(data,name));
     }
 
     public void initialize(){
@@ -192,8 +98,8 @@ public class ServiceController extends RedirectController {
         listWhatIsSearch.add("Сотрудник");
         listWhatIsSearch.add("Клиент");
         listWhatIsSearch.add("Услуга");
-        ObservableList<String> ListForSearch = FXCollections.observableArrayList(listWhatIsSearch);
-        whereSearch.setItems(ListForSearch);
+        ObservableList<String> listForSearch = FXCollections.observableArrayList(listWhatIsSearch);
+        whereSearch.setItems(listForSearch);
         whereSearch.setValue(listWhatIsSearch.get(0));
         searchConfirm.setOnAction(event -> {
                     if(whereSearch.getValue().equals("Сотрудник")){
@@ -207,8 +113,8 @@ public class ServiceController extends RedirectController {
                     }
                 }
         );
-        this.serviceList = serviceService.getListService();
-        serviceTable.setItems(setTableData(serviceList));
+
+        serviceTable.setItems(observableList);
 
         employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
         clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
@@ -295,9 +201,8 @@ public class ServiceController extends RedirectController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        EditService controller = (EditService) loader.getController();
-        controller.initialize(serviceDTO,stage);
-        controller.setOpenStage(openStage);
+        EditServiceController controller = (EditServiceController) loader.getController();
+        controller.initialize(serviceDTO,stage,windowManager);
         Scene scene = new Scene(paneOne, 500,500);
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
@@ -312,15 +217,12 @@ public class ServiceController extends RedirectController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        DeleteConfirm controller = (DeleteConfirm) loader.getController();
-        controller.initialize(serviceDTO,stage);
-        controller.setOpenStage(openStage);
+        DeleteConfirmController controller = (DeleteConfirmController) loader.getController();
+        controller.initialize(serviceDTO,stage,windowManager);
+
         Scene scene = new Scene(paneOne, 300,200);
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
-    }
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
     }
 }

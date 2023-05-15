@@ -14,15 +14,6 @@ import java.util.Date;
 import java.util.List;
 
 public class ServiceService {
-
-    /*Как работать с Data?
-    Создавайте в controller новый Data class и вставляйте в нужный метод сервиса через функцию .toString()
-    Пример:
-    private Data data = new Data();
-    data.set...(...);
-    service.editService(id, data.toString(), ...) ;
-    */
-
     public ServiceService() {
         this.serviceRepo = new ServiceRepo();
         this.clientRepo = new ClientRepo();

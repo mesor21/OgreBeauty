@@ -1,8 +1,9 @@
 package com.example.ogrebeauty.controller.serviceController;
 
 import com.example.ogrebeauty.controller.DTO.ServiceDTO;
-import com.example.ogrebeauty.controller.mainController.RedirectController;
+import com.example.ogrebeauty.controller.helpClass.WindowManager;
 import com.example.ogrebeauty.controller.helpClass.AutoCompleteComboBoxListener;
+import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.entity.Service;
@@ -27,9 +28,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EditService extends RedirectController {
+public class EditServiceController extends RedirectController {
     private ServiceDTO serviceDTO;
-    private Stage stage;
     @FXML
     private ComboBox<Services> servicesComboBox;
     private ObservableList<Services> servicesObservableList;
@@ -57,16 +57,14 @@ public class EditService extends RedirectController {
     private Employees employees;
     private Client client;
 
-    public EditService() {
+    public void initialize(ServiceDTO serviceDTO, Stage stage,WindowManager windowManager){
+
         this.serviceService = new ServiceService();
         this.servicesService = new ServicesService();
         this.employeesService = new EmployeesService();
         this.clientService = new ClientService();
-    }
 
-    public void initialize(ServiceDTO serviceDTO, Stage stage){
-        this.stage = stage;
-
+        this.windowManager =windowManager;
         servicesComboBox.setEditable(true);
         employeesComboBox.setEditable(true);
         clientComboBox.setEditable(true);
@@ -100,9 +98,7 @@ public class EditService extends RedirectController {
         autoCompleteComboBoxListenerForServices = new AutoCompleteComboBoxListener<>(servicesComboBox);
 
         servicesComboBox.setOnAction(event -> {
-            Services services;
-            services = servicesComboBox.getSelectionModel().getSelectedItem();
-            setServices(services);
+            this.services = servicesComboBox.getSelectionModel().getSelectedItem();
         });
 
         List<Employees> employeesList = new ArrayList<>();
@@ -116,9 +112,7 @@ public class EditService extends RedirectController {
         autoCompleteComboBoxListenerForEmployees = new AutoCompleteComboBoxListener<>(employeesComboBox);
 
         employeesComboBox.setOnAction(event -> {
-            Employees employees;
-            employees = employeesComboBox.getSelectionModel().getSelectedItem();
-            setEmployees(employees);
+            this.employees = employeesComboBox.getSelectionModel().getSelectedItem();
         });
 
         List<Client> clientList = new ArrayList<>();
@@ -132,9 +126,7 @@ public class EditService extends RedirectController {
         autoCompleteComboBoxListenerForClient = new AutoCompleteComboBoxListener<>(clientComboBox);
 
         clientComboBox.setOnAction(event -> {
-            Client client;
-            client = clientComboBox.getSelectionModel().getSelectedItem();
-            setClient(client);
+            this.client = clientComboBox.getSelectionModel().getSelectedItem();
         });
 
         Instant instant = serviceDTO.getDateDate().toInstant();
@@ -151,7 +143,7 @@ public class EditService extends RedirectController {
             saveData(serviceDTO.getId(),itNewService);
             stage.close();
             try {
-                redirectToServicePage();
+                windowManager.redirectToServicePage();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -160,7 +152,7 @@ public class EditService extends RedirectController {
             stage.close();
         });
     }
-    public void saveData(Long id, boolean isNew){
+    private void saveData(Long id, boolean isNew){
         Service service = new Service(id,serviceDTO.getDateDate(),services,employees,client);
         System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString()+" "+serviceDTO.getDateDate());
         if(isNew){
@@ -169,20 +161,5 @@ public class EditService extends RedirectController {
         else{
             serviceService.updateService(service);
         }
-    }
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    public void setServices(Services services) {
-        this.services = services;
-    }
-    public void setEmployees(Employees employees) {
-        this.employees = employees;
-    }
-    public void setClient(Client client) {
-        this.client = client;
     }
 }
