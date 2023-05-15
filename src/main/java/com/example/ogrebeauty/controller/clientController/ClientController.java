@@ -4,7 +4,6 @@ import com.example.ogrebeauty.Main;
 import com.example.ogrebeauty.controller.DTO.ClientDTO;
 import com.example.ogrebeauty.controller.helpClass.Controller;
 import com.example.ogrebeauty.controller.helpClass.RedirectController;
-import com.example.ogrebeauty.controller.clientController.DeleteConfirmController;
 import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.service.ClientService;
 import javafx.collections.FXCollections;
@@ -23,7 +22,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
-import java.sql.ClientInfoStatus;
 import java.util.List;
 
 public class ClientController extends RedirectController implements Controller {

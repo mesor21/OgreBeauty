@@ -210,8 +210,8 @@ public class ServiceRepo {
         return Long.valueOf(id);
     }
 
-    //TODO не работает поиск, так как будет ещё время автоматически искаться. Надо будет изменить
     public List<Service> findByDate(Date date){
+        System.out.println(date.toString());
         Connection connection = null;
         ServicesRepo servicesRepo = new ServicesRepo();
         ClientRepo clientRepo = new ClientRepo();

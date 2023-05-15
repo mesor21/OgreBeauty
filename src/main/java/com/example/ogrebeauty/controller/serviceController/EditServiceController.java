@@ -72,12 +72,12 @@ public class EditServiceController extends RedirectController {
         boolean itNewService;
         if(serviceDTO.getServicesName()!=null){
             //TODO TEST DATA
-            servicesComboBox.setValue(new Services(1,"Test",2000));
+            /*servicesComboBox.setValue(new Services(1,"Test",2000));
             employeesComboBox.setValue(new Employees(Long.valueOf(1),"Dima","genius"));
-            clientComboBox.setValue(new Client(Long.valueOf(1),"Dima","123@123","1234412",""));
-            /*servicesComboBox.setValue(servicesService.findByServiceType(serviceDTO.getServicesName(),"serviceType").get(0));
+            clientComboBox.setValue(new Client(Long.valueOf(1),"Dima","123@123","1234412",""));*/
+            servicesComboBox.setValue(servicesService.findByServiceType(serviceDTO.getServicesName(),"serviceType").get(0));
             employeesComboBox.setValue(employeesService.find(serviceDTO.getEmployeesName(),"fullname").get(0));
-            clientComboBox.setValue(clientService.find(serviceDTO.getClientName(),"fullname").get(0));*/
+            clientComboBox.setValue(clientService.find(serviceDTO.getClientName(),"fullname").get(0));
             itNewService = false;
         }
         else{
@@ -86,11 +86,11 @@ public class EditServiceController extends RedirectController {
             itNewService = true;
         }
 
-        List<Services> servicesList = new ArrayList<>();
         //TODO TEST DATA
+        /*List<Services> servicesList = new ArrayList<>();
         servicesList.add(new Services(1,"Test",2000));
-        servicesList.add(new Services(2,"NeTest",2000));
-        //List<Services> servicesList = servicesService.findByServiceType("","serviceType");
+        servicesList.add(new Services(2,"NeTest",2000));*/
+        List<Services> servicesList = servicesService.findByServiceType("","serviceType");
 
         servicesObservableList = FXCollections.observableArrayList(servicesList);
         servicesComboBox.setItems(servicesObservableList);
@@ -101,11 +101,11 @@ public class EditServiceController extends RedirectController {
             this.services = servicesComboBox.getSelectionModel().getSelectedItem();
         });
 
-        List<Employees> employeesList = new ArrayList<>();
         //TODO TEST DATA
+        /*List<Employees> employeesList = new ArrayList<>();
         employeesList.add(new Employees(Long.valueOf(1),"Dima","genius"));
-        employeesList.add(new Employees(Long.valueOf(2),"Nikita","lox"));
-        //employeesList = employeesService.find("","fullname");
+        employeesList.add(new Employees(Long.valueOf(2),"Nikita","lox"));*/
+        List<Employees> employeesList = employeesService.find("","fullname");
         employeesObservableList = FXCollections.observableArrayList(employeesList);
         employeesComboBox.setItems(employeesObservableList);
         employeesComboBox.setVisibleRowCount(5);
@@ -115,11 +115,11 @@ public class EditServiceController extends RedirectController {
             this.employees = employeesComboBox.getSelectionModel().getSelectedItem();
         });
 
-        List<Client> clientList = new ArrayList<>();
+        /*List<Client> clientList = new ArrayList<>();
         //TODO TEST DATA
         clientList.add(new Client(Long.valueOf(1),"Dima","123@123","1234412",""));
-        clientList.add(new Client(Long.valueOf(2),"Nikita","123@123","1234412",""));
-        //clientList = clientService.find("","fullname");
+        clientList.add(new Client(Long.valueOf(2),"Nikita","123@123","1234412",""));*/
+        List<Client> clientList = clientService.find("","fullname");
         clientObservableList = FXCollections.observableArrayList(clientList);
         clientComboBox.setItems(clientObservableList);
         clientComboBox.setVisibleRowCount(5);
@@ -154,9 +154,9 @@ public class EditServiceController extends RedirectController {
     }
     private void saveData(Long id, boolean isNew){
         Service service = new Service(id,serviceDTO.getDateDate(),services,employees,client);
-        System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString()+" "+serviceDTO.getDateDate());
+        //System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString()+" "+serviceDTO.getDateDate());
         if(isNew){
-            serviceService.saveNewService(service); //TODO TEST DATA
+            serviceService.saveNewService(service);
         }
         else{
             serviceService.updateService(service);

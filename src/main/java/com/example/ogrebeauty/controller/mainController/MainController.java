@@ -57,13 +57,12 @@ public class MainController extends RedirectController implements Controller {
             refreshPage();
         });
 
-        this.serviceDTOObservableList = setObservableList(serviceService.getServiceByDay(selectedDate));
-        serviceTable.setItems(serviceDTOObservableList);
-
+        serviceDTOObservableList = setObservableList(serviceService.getServiceByDay(selectedDate));
         employeesName.setCellValueFactory(new PropertyValueFactory<>("employeesName"));
         clientName.setCellValueFactory(new PropertyValueFactory<>("clientName"));
         servicesName.setCellValueFactory(new PropertyValueFactory<>("servicesName"));
         time.setCellValueFactory(new PropertyValueFactory<>("time"));
+        serviceTable.setItems(serviceDTOObservableList);
     }
     private ObservableList<ServiceDTO> setObservableList(List<Service> services){
         ObservableList<ServiceDTO> servicesDTOS = FXCollections.observableArrayList();

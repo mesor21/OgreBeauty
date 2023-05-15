@@ -37,8 +37,9 @@ public class EditServicesController extends RedirectController {
             isItNew = true;
         }
         confirmAllData.setOnAction(event -> {
-            System.out.println(type.getText()+" "+price.getText());
-            //saveData(services,isItNew);
+            services.setServiceType(type.getText());
+            services.setPrice(Integer.parseInt(price.getText()));
+            saveData(services,isItNew);
             stage.close();
             try {
                 windowManager.redirectToServicesPage();
