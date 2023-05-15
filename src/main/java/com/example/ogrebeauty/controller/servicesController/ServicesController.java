@@ -1,6 +1,8 @@
 package com.example.ogrebeauty.controller.servicesController;
 
 import com.example.ogrebeauty.Main;
+import com.example.ogrebeauty.controller.DTO.ServiceDTO;
+import com.example.ogrebeauty.controller.DTO.ServicesDTO;
 import com.example.ogrebeauty.controller.helpClass.Controller;
 import com.example.ogrebeauty.controller.mainController.RedirectController;
 import com.example.ogrebeauty.entity.Services;
@@ -26,39 +28,50 @@ import java.util.List;
 
 public class ServicesController extends RedirectController implements Controller{
     private ServicesService servicesService;
-    private ObservableList<Services> servicesObservableList;
+    private ObservableList<ServicesDTO> servicesObservableList;
     @FXML
-    public  TableView<Services> servicesTable;
+    public  TableView<ServicesDTO> servicesTable;
     @FXML
-    private TableColumn<Services, String> serviceTypeColumn;
+    private TableColumn<ServicesDTO, String> serviceTypeColumn;
     @FXML
-    private TableColumn<Services, Integer> priceColumn;
+    private TableColumn<ServicesDTO, String> priceColumn;
     @FXML
-    private TableColumn<Services, String> editButton;
+    private TableColumn<ServicesDTO, String> editButton;
     @FXML
-    private TableColumn<Services, String> deleteButton;
+    private TableColumn<ServicesDTO, String> deleteButton;
     @FXML
     private Button addNewServices;
 
+    private ObservableList<ServicesDTO> setObservableList(List<Services> services){
+        ObservableList<ServicesDTO> servicesDTOS = FXCollections.observableArrayList();
+        for(int i=0; i<services.size(); i++){
+            servicesDTOS.add(new ServicesDTO(services.get(i)));
+        }
+        return servicesDTOS;
+    }
+
     public ServicesController() {
         this.servicesService = new ServicesService();
-        //List<Services> servicesList= servicesService.findByServiceType("","serviceType");
         List<Services> services = new ArrayList<>();
+        services.add(new Services(1L, "TestData", 1000));
+
+        this.servicesObservableList = setObservableList(services);
+
+        //List<Services> servicesList= servicesService.findByServiceType("","serviceType");
+        /*List<Services> services = new ArrayList<>();
         services.add(new Services(1,"TestData",1000));
         this.servicesObservableList = FXCollections.observableList(services);//TODO TESTDATA FXCollections.observableList(servicesList);
-    }
+    */}
     public void initialize(){
-        servicesTable.setItems(servicesObservableList);
-
         serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
-        Callback<TableColumn<Services, String>, TableCell<Services, String>> editFactory
+        //editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
+        Callback<TableColumn<ServicesDTO, String>, TableCell<ServicesDTO, String>> editFactory
                 = //
-                new Callback<TableColumn<Services, String>, TableCell<Services, String>>() {
+                new Callback<TableColumn<ServicesDTO, String>, TableCell<ServicesDTO, String>>() {
                     @Override
-                    public TableCell call(final TableColumn<Services, String> param) {
-                        final TableCell<Services, String> cell = new TableCell<Services, String>() {
+                    public TableCell call(final TableColumn<ServicesDTO, String> param) {
+                        final TableCell<ServicesDTO, String> cell = new TableCell<ServicesDTO, String>() {
 
                             final Button btn = new Button("Радактировать");
 
@@ -70,7 +83,7 @@ public class ServicesController extends RedirectController implements Controller
                                     setText(null);
                                 } else {
                                     btn.setOnAction(event -> {
-                                        Services services = getTableView().getItems().get(getIndex());
+                                        Services services = getTableView().getItems().get(getIndex()).getServices();
                                         editServices(services);
                                     });
                                     setGraphic(btn);
@@ -82,13 +95,13 @@ public class ServicesController extends RedirectController implements Controller
                     }
                 };
         editButton.setCellFactory(editFactory);
-        deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
-        Callback<TableColumn<Services, String>, TableCell<Services, String>> deleteFactory
+        //deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+        Callback<TableColumn<ServicesDTO, String>, TableCell<ServicesDTO, String>> deleteFactory
                 = //
-                new Callback<TableColumn<Services, String>, TableCell<Services, String>>() {
+                new Callback<TableColumn<ServicesDTO, String>, TableCell<ServicesDTO, String>>() {
                     @Override
-                    public TableCell call(final TableColumn<Services, String> param) {
-                        final TableCell<Services, String> cell = new TableCell<Services, String>() {
+                    public TableCell call(final TableColumn<ServicesDTO, String> param) {
+                        final TableCell<ServicesDTO, String> cell = new TableCell<ServicesDTO, String>() {
 
                             final Button btn = new Button("Удалить");
 
@@ -100,7 +113,7 @@ public class ServicesController extends RedirectController implements Controller
                                     setText(null);
                                 } else {
                                     btn.setOnAction(event -> {
-                                        Services services = getTableView().getItems().get(getIndex());
+                                        Services services = getTableView().getItems().get(getIndex()).getServices();
                                         deleteConfirm(services);
                                     });
                                     setGraphic(btn);
@@ -113,10 +126,11 @@ public class ServicesController extends RedirectController implements Controller
                 };
         deleteButton.setCellFactory(deleteFactory);
 
+        servicesTable.setItems(servicesObservableList);
+
         addNewServices.setOnAction(event -> {
             addNewServices();
         });
-        servicesTable.setItems(servicesObservableList);
     };
     private void editServices(Services services){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("services/edit.fxml"));
