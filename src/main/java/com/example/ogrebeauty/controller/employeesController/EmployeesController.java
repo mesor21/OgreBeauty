@@ -26,6 +26,7 @@ public class EmployeesController extends RedirectController implements Controlle
     @FXML private TableColumn<EmployeesDTO, String> jobTitle;
     @FXML private TableColumn<EmployeesDTO, String> editButton;
     @FXML private TableColumn<EmployeesDTO, String> deleteButton;
+    @FXML private Button addNewEmployees;
 
     public  EmployeesController(){
         employeesService = new EmployeesService();
@@ -104,13 +105,19 @@ public class EmployeesController extends RedirectController implements Controlle
                 };
         deleteButton.setCellFactory(deleteFactory);
         employeesTable.setItems(employeesDTOObservableList);
+
+        addNewEmployees.setOnAction(event -> {
+            newEmployees();
+        });
         //TODO add search
-        //TODO add data in table, add new button
     };
     private void editEmployees(Employees employees){
 
     }
     private void deleteConfirm(Employees employees){
+
+    }
+    private void newEmployees(){
 
     }
 }

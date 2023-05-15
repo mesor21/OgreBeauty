@@ -28,7 +28,7 @@
             <Font size="30.0" />
         </font>
     </Button>
-    <Button fx:id="addNewService" layoutX="91.0" layoutY="956.0" text="+" />
+    <Button fx:id="addNewClient" layoutX="91.0" layoutY="956.0" text="+" />
     <ImageView fitHeight="88.0" fitWidth="83.0" layoutX="59.0" layoutY="259.0" onMouseClicked="#redirectToClientPage" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../img/bookmark.png" />
@@ -87,6 +87,7 @@
             <TableColumn fx:id="fullName" prefWidth="275.0" text="ФИО" />
             <TableColumn fx:id="email" prefWidth="175.0" text="email" />
             <TableColumn fx:id="phoneNumber" prefWidth="175.0" text="Номер телефона" />
+            <TableColumn fx:id="mark" prefWidth="175.0" text="Пометка" />
             <TableColumn fx:id="editButton" prefWidth="75.0" text="Изменение" />
             <TableColumn fx:id="deleteButton" prefWidth="75.0" text="Удаление" />
         </columns>

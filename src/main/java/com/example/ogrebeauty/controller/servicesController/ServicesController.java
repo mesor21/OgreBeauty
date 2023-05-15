@@ -148,7 +148,7 @@ public class ServicesController extends RedirectController implements Controller
         stage.showAndWait();
     }
     private void deleteConfirm(Services services){
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("services/servicesPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("services/delete.fxml"));
         Stage stage = new Stage();
         Pane pane = null;
         try{
