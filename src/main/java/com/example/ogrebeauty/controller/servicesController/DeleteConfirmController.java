@@ -29,6 +29,7 @@ public class DeleteConfirmController {
         label.setText("Вы уверены что хотите удалить "+services.getServiceType()+"?");
 
         deleteTrue.setOnAction(event -> {
+            stage.close();
             servicesService.deleteById(services.getId());
             try {
                 windowManager.redirectToServicesPage();
@@ -37,6 +38,7 @@ public class DeleteConfirmController {
             }
         });
         deleteFalse.setOnAction(event -> {
+            stage.close();
             try {
                 windowManager.redirectToServicesPage();
             } catch (IOException e) {

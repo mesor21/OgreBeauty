@@ -47,6 +47,7 @@ public class EditServicesController extends RedirectController {
             }
         });
         disableEdit.setOnAction(event -> {
+            stage.close();
             try {
                 windowManager.redirectToServicesPage();
             } catch (IOException e) {
