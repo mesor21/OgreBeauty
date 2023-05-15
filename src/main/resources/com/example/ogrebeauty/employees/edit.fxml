@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.ogrebeauty.controller.employeesController.EditEmployeesController"
+            prefHeight="400.0" prefWidth="600.0">
+    <TextField fx:id="fullName"/>
+    <TextField fx:id="jobTitle"/>
+    <Button fx:id="confirmData" text="Подтвердить"/>
+    <Button fx:id="rejectData" text="Отмена"/>
+</AnchorPane>

@@ -1,49 +1,42 @@
-//package com.example.ogrebeauty.controller.DTO;
-//
-//import com.example.ogrebeauty.entity.Services;
-//
-//public class EmployeesDTO {
-//    private Long id;
-//    private String serviceType;
-//    private String price;
-//    private Services services;
-//
-//    public ServicesDTO(Services services) {
-//        this.services = services;
-//        this.id = services.getId();
-//        this.serviceType = services.getServiceType();
-//        this.price = services.getPrice()+"";
-//    }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getServiceType() {
-//        return serviceType;
-//    }
-//
-//    public void setServiceType(String serviceType) {
-//        this.serviceType = serviceType;
-//    }
-//
-//    public String getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(String price) {
-//        this.price = price;
-//    }
-//
-//    public Services getServices() {
-//        return services;
-//    }
-//
-//    public void setServices(Services services) {
-//        this.services = services;
-//    }
-//}
+package com.example.ogrebeauty.controller.DTO;
+
+import com.example.ogrebeauty.entity.Employees;
+import com.example.ogrebeauty.entity.Service;
+
+import java.util.List;
+
+public class EmployeesDTO {
+    private Employees employees;
+    private String fullName;
+    private String jobTitle;
+
+    public EmployeesDTO(Employees employees) {
+        this.fullName = employees.getFullName();
+        this.jobTitle = employees.getJobTitle();
+        this.employees = employees;
+    }
+
+    public Employees getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Employees employees) {
+        this.employees = employees;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+}

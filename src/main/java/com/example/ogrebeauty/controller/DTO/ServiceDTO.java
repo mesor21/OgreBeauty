@@ -1,5 +1,7 @@
 package com.example.ogrebeauty.controller.DTO;
 
+import com.example.ogrebeauty.entity.Service;
+
 import java.util.Date;
 
 public class ServiceDTO {
@@ -11,7 +13,18 @@ public class ServiceDTO {
     private String date;
     private String time;
     private Date dateDate;
+
     public ServiceDTO() {
+    }
+
+    public ServiceDTO(Service service) {
+        this.id = service.getId();
+        this.employeesName = service.getEmploer().getFullName();
+        this.clientName = service.getClient().getFullName();
+        this.servicesName = service.getServices().getServiceType();
+        this.date = service.getData().getDate()+"."+service.getData().getMonth()+"."+service.getData().getYear();
+        this.time = service.getData().getHours()+":"+service.getData().getMinutes();
+        this.dateDate = service.getData();
     }
 
     public ServiceDTO(Long id, String employeesName, String clientName, String servicesName, String date, String time, Date dateDate) {

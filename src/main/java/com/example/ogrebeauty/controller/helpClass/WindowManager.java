@@ -70,6 +70,10 @@ public class WindowManager {
     public void redirectToServicesPage() throws IOException {
         setScene("services/servicesPage.fxml");
     }
+    public void setScene(Scene scene) {
+        this.stage.setScene(scene);
+    }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
