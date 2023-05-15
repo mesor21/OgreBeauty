@@ -12,8 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeesController extends RedirectController implements Controller {
@@ -27,6 +29,9 @@ public class EmployeesController extends RedirectController implements Controlle
 
     public  EmployeesController(){
         employeesService = new EmployeesService();
+        List<Employees> employeesList = new ArrayList<>();
+        employeesList.add(new Employees(Long.parseLong("1"),"Test","test"));
+        employeesDTOObservableList = setObservableList(employeesList);
     }
 
     private ObservableList<EmployeesDTO> setObservableList(List<Employees> services){
@@ -37,6 +42,8 @@ public class EmployeesController extends RedirectController implements Controlle
         return servicesDTOS;
     }
     public void initialize(){
+        fullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        jobTitle.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
         Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>> editFactory
                 = //
                 new Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>>() {
@@ -96,6 +103,7 @@ public class EmployeesController extends RedirectController implements Controlle
                     }
                 };
         deleteButton.setCellFactory(deleteFactory);
+        employeesTable.setItems(employeesDTOObservableList);
         //TODO add search
         //TODO add data in table, add new button
     };
