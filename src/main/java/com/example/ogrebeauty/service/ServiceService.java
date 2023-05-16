@@ -78,5 +78,8 @@ public class ServiceService {
     public void delete(Long id){
         serviceRepo.deleteServiceById(id,true);
     }
+    public List<Service> getAll(){
+        return serviceRepo.getAll();
+    }
 
 }

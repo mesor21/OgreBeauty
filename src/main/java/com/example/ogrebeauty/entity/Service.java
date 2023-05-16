@@ -11,10 +11,10 @@ public class Service {
     public static final DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
     private Long id;
     private Date data;
-    private Services services;
     private int servicesID;
     private int employeesID;
     private int clientID;
+    private Services services;
     private Employees emploer;
     private Client client;
 
@@ -40,6 +40,9 @@ public class Service {
         this.services = services;
         this.emploer = emploer;
         this.client = client;
+        this.servicesID=Integer.parseInt(services.getId()+"");
+        this.employeesID=Integer.parseInt(emploer.getId()+"");
+        this.clientID = Integer.parseInt(client.getId()+"");
     }
 
     public void setId(Long id) {

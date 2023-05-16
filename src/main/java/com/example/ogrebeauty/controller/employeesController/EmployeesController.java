@@ -39,7 +39,8 @@ public class EmployeesController extends RedirectController implements Controlle
     @FXML private Button searchConfirm;
     public  EmployeesController(){
         employeesService = new EmployeesService();
-        List<Employees> employeesList = employeesService.find("","fullname");
+        List<Employees> employeesList = employeesService.getAll();
+        this.employeesDTOObservableList=setObservableList(employeesList);
     }
 
     private ObservableList<EmployeesDTO> setObservableList(List<Employees> services){

@@ -78,9 +78,9 @@ public class ServiceController extends RedirectController implements Controller 
         for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
                     serviceList.get(i).getId(),
-                    serviceList.get(i).getEmployeesID()+"",
-                    serviceList.get(i).getClientID()+"",
-                    serviceList.get(i).getServicesID()+"",
+                    serviceList.get(i).getEmploer().getFullName()+"",
+                    serviceList.get(i).getClient().getFullName()+"",
+                    serviceList.get(i).getServices().getServiceType()+"",
                     serviceList.get(i).getData().getDate()+"."+(serviceList.get(i).getData().getMonth()+1)+"."+(serviceList.get(i).getData().getYear()+1900),
                     serviceList.get(i).getData().getHours()+":"+serviceList.get(i).getData().getMinutes(),
                     serviceList.get(i).getData()
@@ -88,7 +88,6 @@ public class ServiceController extends RedirectController implements Controller 
         }
         return observableList;
     }
-    //TODO Можно объеденить поиск и выдачу информации по дефолту
     private void setSearchDataInTable(String data, String name){
         this.observableList = setTableData(serviceService.find(data,name));
     }

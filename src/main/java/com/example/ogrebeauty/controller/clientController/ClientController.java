@@ -36,6 +36,13 @@ public class ClientController extends RedirectController implements Controller {
     @FXML private ComboBox whereSearch;
     @FXML private TextField search;
     @FXML private Button searchConfirm;
+
+    public ClientController() {
+        this.clientService = new ClientService();
+        List<Client> clientList = clientService.getAll();
+        this.clientDTOObservableList=setObservableList(clientList);
+    }
+
     private ObservableList<ClientDTO> setObservableList(List<Client> services){
         ObservableList<ClientDTO> servicesDTOS = FXCollections.observableArrayList();
         for(int i=0; i<services.size(); i++){

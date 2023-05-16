@@ -359,4 +359,41 @@ public class ServiceRepo {
         }
         return service;
     }
+    public List<Service> getAll(){
+        Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
+        ClientRepo clientRepo = new ClientRepo();
+        EmployeesRepo employeesRepo = new EmployeesRepo();
+        List<Service> service = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                service.add(
+                        new Service(
+                                rs.getLong("id"),
+                                rs.getString("date"),
+                                servicesRepo.findById(rs.getLong("servicesID")),
+                                employeesRepo.findEmployeesById(rs.getLong("employeesID")),
+                                clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return service;
+    }
 }

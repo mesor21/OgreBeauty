@@ -48,4 +48,7 @@ public class ClientService {
         }
         return clientList;
     }
+    public List<Client> getAll(){
+        return clientRepo.getAll();
+    }
 }

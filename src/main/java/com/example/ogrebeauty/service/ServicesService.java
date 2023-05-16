@@ -3,7 +3,6 @@ package com.example.ogrebeauty.service;
 import com.example.ogrebeauty.entity.Services;
 import com.example.ogrebeauty.repository.ServicesRepo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServicesService {
@@ -35,5 +34,8 @@ public class ServicesService {
     }
     public void deleteById(Long id){
         servicesRepo.delete(id, true);
+    }
+    public List<Services> getAll(){
+        return servicesRepo.getAll();
     }
 }

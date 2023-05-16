@@ -156,4 +156,33 @@ public class EmployeesRepo {
         }
         return employees;
     }
+    public List<Employees> getAll(){
+        Connection connection = null;
+        List<Employees> employees = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, fullName, jobTitle FROM employees";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                employees.add(new Employees(
+                        rs.getLong("id"),
+                        rs.getString("fullName"),
+                        rs.getString("jobTitle")));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return employees;
+    }
 }

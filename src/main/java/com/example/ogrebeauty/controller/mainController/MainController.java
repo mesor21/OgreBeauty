@@ -42,6 +42,7 @@ public class MainController extends RedirectController implements Controller {
         this.mainService= new MainService();
         this.serviceService = new ServiceService();
         this.selectedDate = new Date(123,4,5);
+        serviceDTOObservableList = setObservableList(serviceService.getAll());
     }
     public void initialize(){
         //this.summByDay.setText("Выручка за день: "+mainService.summPearDay(selectedDate)+"");

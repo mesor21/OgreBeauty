@@ -235,4 +235,34 @@ public class ClientRepo{
         }
         return client;
     }
+    public List<Client> getAll(){
+        Connection connection = null;
+        List<Client> client = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                client.add(new Client(
+                        rs.getLong("id"),
+                        rs.getString("fullName"),
+                        rs.getString("email"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("mark")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return client;
+    }
 }

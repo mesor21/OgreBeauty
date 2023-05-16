@@ -39,5 +39,7 @@ public class EmployeesService {
         }
         return employees;
     }
-    //TODO search
+    public List<Employees> getAll(){
+        return employeesRepo.getAll();
+    }
 }

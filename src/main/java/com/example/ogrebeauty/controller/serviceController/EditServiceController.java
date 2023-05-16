@@ -75,9 +75,9 @@ public class EditServiceController extends RedirectController {
             /*servicesComboBox.setValue(new Services(1,"Test",2000));
             employeesComboBox.setValue(new Employees(Long.valueOf(1),"Dima","genius"));
             clientComboBox.setValue(new Client(Long.valueOf(1),"Dima","123@123","1234412",""));*/
-            servicesComboBox.setValue(servicesService.findByServiceType(serviceDTO.getServicesName(),"serviceType").get(0));
-            employeesComboBox.setValue(employeesService.find(serviceDTO.getEmployeesName(),"fullname").get(0));
-            clientComboBox.setValue(clientService.find(serviceDTO.getClientName(),"fullname").get(0));
+            servicesComboBox.setValue(servicesService.getAll().get(0));
+            employeesComboBox.setValue(employeesService.getAll().get(0));
+            clientComboBox.setValue(clientService.getAll().get(0));
             itNewService = false;
         }
         else{
@@ -90,7 +90,7 @@ public class EditServiceController extends RedirectController {
         /*List<Services> servicesList = new ArrayList<>();
         servicesList.add(new Services(1,"Test",2000));
         servicesList.add(new Services(2,"NeTest",2000));*/
-        List<Services> servicesList = servicesService.findByServiceType("","serviceType");
+        List<Services> servicesList = servicesService.getAll();
 
         servicesObservableList = FXCollections.observableArrayList(servicesList);
         servicesComboBox.setItems(servicesObservableList);
@@ -105,12 +105,11 @@ public class EditServiceController extends RedirectController {
         /*List<Employees> employeesList = new ArrayList<>();
         employeesList.add(new Employees(Long.valueOf(1),"Dima","genius"));
         employeesList.add(new Employees(Long.valueOf(2),"Nikita","lox"));*/
-        List<Employees> employeesList = employeesService.find("","fullname");
+        List<Employees> employeesList = employeesService.getAll();
         employeesObservableList = FXCollections.observableArrayList(employeesList);
         employeesComboBox.setItems(employeesObservableList);
         employeesComboBox.setVisibleRowCount(5);
         autoCompleteComboBoxListenerForEmployees = new AutoCompleteComboBoxListener<>(employeesComboBox);
-
         employeesComboBox.setOnAction(event -> {
             this.employees = employeesComboBox.getSelectionModel().getSelectedItem();
         });
@@ -119,7 +118,7 @@ public class EditServiceController extends RedirectController {
         //TODO TEST DATA
         clientList.add(new Client(Long.valueOf(1),"Dima","123@123","1234412",""));
         clientList.add(new Client(Long.valueOf(2),"Nikita","123@123","1234412",""));*/
-        List<Client> clientList = clientService.find("","fullname");
+        List<Client> clientList = clientService.getAll();
         clientObservableList = FXCollections.observableArrayList(clientList);
         clientComboBox.setItems(clientObservableList);
         clientComboBox.setVisibleRowCount(5);
