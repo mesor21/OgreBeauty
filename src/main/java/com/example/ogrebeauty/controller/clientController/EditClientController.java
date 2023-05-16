@@ -54,7 +54,7 @@ public class EditClientController {
         rejectData.setOnAction(event -> {
             stage.close();
             try {
-                windowManager.redirectToServicesPage();
+                windowManager.redirectToClientPage();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

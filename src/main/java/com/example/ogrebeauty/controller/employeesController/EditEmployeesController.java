@@ -38,7 +38,7 @@ public class EditEmployeesController {
             employees.setJobTitle(jobTitle.getText());
             saveData(employees,isItNew);
             try {
-                windowManager.redirectToServicesPage();
+                windowManager.redirectToEmployeesPage();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -46,7 +46,7 @@ public class EditEmployeesController {
         rejectData.setOnAction(event -> {
             stage.close();
             try {
-                windowManager.redirectToServicesPage();
+                windowManager.redirectToEmployeesPage();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

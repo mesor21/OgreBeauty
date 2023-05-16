@@ -20,9 +20,9 @@ public class EditServicesController extends RedirectController {
     @FXML
     private TextField price;
     @FXML
-    private Button confirmAllData;
+    private Button confirmData;
     @FXML
-    private Button disableEdit;
+    private Button rejectData;
     public void initialize(Services services, ServicesService servicesService, WindowManager windowManager, Stage stage){
         this.services = services;
         this.servicesService = servicesService;
@@ -36,7 +36,7 @@ public class EditServicesController extends RedirectController {
         else{
             isItNew = true;
         }
-        confirmAllData.setOnAction(event -> {
+        confirmData.setOnAction(event -> {
             services.setServiceType(type.getText());
             services.setPrice(Integer.parseInt(price.getText()));
             saveData(services,isItNew);
@@ -47,7 +47,7 @@ public class EditServicesController extends RedirectController {
                 throw new RuntimeException(e);
             }
         });
-        disableEdit.setOnAction(event -> {
+        rejectData.setOnAction(event -> {
             stage.close();
             try {
                 windowManager.redirectToServicesPage();

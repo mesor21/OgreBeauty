@@ -39,9 +39,7 @@ public class EmployeesController extends RedirectController implements Controlle
 
     public  EmployeesController(){
         employeesService = new EmployeesService();
-        List<Employees> employeesList = new ArrayList<>();
-        employeesList.add(new Employees(Long.parseLong("1"),"Test","test"));
-        employeesDTOObservableList = setObservableList(employeesList);
+        List<Employees> employeesList = employeesService.find("","fullname");
     }
 
     private ObservableList<EmployeesDTO> setObservableList(List<Employees> services){
@@ -153,6 +151,7 @@ public class EmployeesController extends RedirectController implements Controlle
         stage.showAndWait();
     }
     private void newEmployees(){
-
+        Employees employees = new Employees();
+        editEmployees(employees);
     }
 }

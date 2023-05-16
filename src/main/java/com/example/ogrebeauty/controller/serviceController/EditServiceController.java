@@ -45,9 +45,9 @@ public class EditServiceController extends RedirectController {
     @FXML
     private DatePicker datePicker;
     @FXML
-    private Button confirmAllData;
+    private Button confirmData;
     @FXML
-    private Button disableEdit;
+    private Button rejectData;
     private ServiceService serviceService;
     private ServicesService servicesService;
     private EmployeesService employeesService;
@@ -139,7 +139,7 @@ public class EditServiceController extends RedirectController {
             }
         );
 
-        confirmAllData.setOnAction(event -> {
+        confirmData.setOnAction(event -> {
             saveData(serviceDTO.getId(),itNewService);
             stage.close();
             try {
@@ -148,7 +148,7 @@ public class EditServiceController extends RedirectController {
                 throw new RuntimeException(e);
             }
         });
-        disableEdit.setOnAction(event -> {
+        rejectData.setOnAction(event -> {
             stage.close();
         });
     }

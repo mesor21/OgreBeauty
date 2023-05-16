@@ -81,7 +81,7 @@ public class ServiceController extends RedirectController implements Controller 
                     serviceList.get(i).getEmployeesID()+"",
                     serviceList.get(i).getClientID()+"",
                     serviceList.get(i).getServicesID()+"",
-                    serviceList.get(i).getData().getDate()+"."+serviceList.get(i).getData().getMonth()+"."+serviceList.get(i).getData().getYear(),
+                    serviceList.get(i).getData().getDate()+"."+(serviceList.get(i).getData().getMonth()+1)+"."+(serviceList.get(i).getData().getYear()+1900),
                     serviceList.get(i).getData().getHours()+":"+serviceList.get(i).getData().getMinutes(),
                     serviceList.get(i).getData()
             ));
@@ -185,10 +185,10 @@ public class ServiceController extends RedirectController implements Controller 
         deleteButton.setCellFactory(deleteFactory);
 
         addNewService.setOnAction(event -> {
-            addNewService();
+            addService();
         });
     }
-    private void addNewService(){
+    private void addService(){
         ServiceDTO serviceDTO = new ServiceDTO();
         openEditStage(serviceDTO);
     }

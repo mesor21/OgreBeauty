@@ -51,12 +51,12 @@ public class ServicesController extends RedirectController implements Controller
 
     public ServicesController() {
         this.servicesService = new ServicesService();
-        List<Services> services = new ArrayList<>();
-        services.add(new Services(1L, "TestData", 1000));
+        /*List<Services> services = new ArrayList<>();
+        services.add(new Services(1L, "TestData", 1000));*/
+        List<Services> services= servicesService.findByServiceType("","serviceType");
 
         this.servicesObservableList = setObservableList(services);
 
-        //List<Services> servicesList= servicesService.findByServiceType("","serviceType");
         /*List<Services> services = new ArrayList<>();
         services.add(new Services(1,"TestData",1000));
         this.servicesObservableList = FXCollections.observableList(services);//TODO TESTDATA FXCollections.observableList(servicesList);
