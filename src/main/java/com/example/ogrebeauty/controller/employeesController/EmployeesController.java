@@ -6,6 +6,7 @@ import com.example.ogrebeauty.controller.employeesController.EditEmployeesContro
 import com.example.ogrebeauty.controller.employeesController.DeleteConfirmController;
 import com.example.ogrebeauty.controller.helpClass.Controller;
 import com.example.ogrebeauty.controller.helpClass.RedirectController;
+import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.service.EmployeesService;
 import javafx.collections.FXCollections;
@@ -13,10 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -36,7 +34,9 @@ public class EmployeesController extends RedirectController implements Controlle
     @FXML private TableColumn<EmployeesDTO, String> editButton;
     @FXML private TableColumn<EmployeesDTO, String> deleteButton;
     @FXML private Button addNewEmployees;
-
+    @FXML private ComboBox whereSearch;
+    @FXML private TextField search;
+    @FXML private Button searchConfirm;
     public  EmployeesController(){
         employeesService = new EmployeesService();
         List<Employees> employeesList = employeesService.find("","fullname");
@@ -50,6 +50,23 @@ public class EmployeesController extends RedirectController implements Controlle
         return servicesDTOS;
     }
     public void initialize(){
+        List<String> listWhatIsSearch = new ArrayList<>();
+        listWhatIsSearch.add("ФИО");
+        listWhatIsSearch.add("Должность");
+        ObservableList<String> listForSearch = FXCollections.observableArrayList(listWhatIsSearch);
+        whereSearch.setItems(listForSearch);
+        whereSearch.setValue(listForSearch.get(0));
+        searchConfirm.setOnAction(event -> {
+            List<Employees> employeesList = new ArrayList<>();
+            if(whereSearch.getValue().equals("ФИО")){
+                //employeesList=clientService.findByServiceType(search.getText(), "fullname");
+            }
+            if(whereSearch.getValue().equals("Должность")){
+                //employeesList=clientService.findByServiceType(search.getText(), "jobTitle");
+            }
+            this.employeesDTOObservableList=setObservableList(employeesList);
+        });
+
         fullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         jobTitle.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
         Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>> editFactory

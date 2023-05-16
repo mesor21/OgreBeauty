@@ -99,6 +99,7 @@ public class ServiceController extends RedirectController implements Controller 
         listWhatIsSearch.add("Клиент");
         listWhatIsSearch.add("Услуга");
         ObservableList<String> listForSearch = FXCollections.observableArrayList(listWhatIsSearch);
+        //TODO поиск не работает
         whereSearch.setItems(listForSearch);
         whereSearch.setValue(listWhatIsSearch.get(0));
         searchConfirm.setOnAction(event -> {

@@ -11,10 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -40,6 +37,12 @@ public class ServicesController extends RedirectController implements Controller
     private TableColumn<ServicesDTO, String> deleteButton;
     @FXML
     private Button addNewServices;
+    @FXML
+    private ComboBox whereSearch;
+    @FXML
+    private TextField search;
+    @FXML
+    private Button searchConfirm;
 
     private ObservableList<ServicesDTO> setObservableList(List<Services> services){
         ObservableList<ServicesDTO> servicesDTOS = FXCollections.observableArrayList();
@@ -62,6 +65,23 @@ public class ServicesController extends RedirectController implements Controller
         this.servicesObservableList = FXCollections.observableList(services);//TODO TESTDATA FXCollections.observableList(servicesList);
     */}
     public void initialize(){
+        List<String> listWhatIsSearch = new ArrayList<>();
+        listWhatIsSearch.add("Тип услуги");
+        listWhatIsSearch.add("Цена");
+        ObservableList<String> listForSearch = FXCollections.observableArrayList(listWhatIsSearch);
+        whereSearch.setItems(listForSearch);
+        whereSearch.setValue(listForSearch.get(0));
+        searchConfirm.setOnAction(event -> {
+            List<Services> services = new ArrayList<>();
+            if(whereSearch.getValue().equals("Тип услуги")){
+                // services=servicesService.findByServiceType(search.getText(), "serviceType");
+            }
+            if(whereSearch.getValue().equals("Цена")){
+                // services=servicesService.findByServiceType(search.getText(), "price");
+            }
+            this.servicesObservableList=setObservableList(services);
+        });
+
         serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         //editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
