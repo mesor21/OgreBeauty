@@ -113,15 +113,17 @@ public class ServicesRepo {
         return serviceList;
     }
     public Long getLastId(){
-        int id=0;
+        long id=0;
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql ="SELECT MAX(id) FROM services";
+            String sql ="SELECT MAX(id) AS max_id FROM services";
             ResultSet rs = stmt.executeQuery(sql);
-            id = rs.getInt("id");
+            if (rs.next()) {
+                id = rs.getLong("max_id"); // Retrieve the value using the alias
+            }
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -134,7 +136,7 @@ public class ServicesRepo {
                 e.printStackTrace();
             }
         }
-        return Long.valueOf(id);
+        return id;
     }
     //Search
     public List<Services> findByServiceType(String serviceType){

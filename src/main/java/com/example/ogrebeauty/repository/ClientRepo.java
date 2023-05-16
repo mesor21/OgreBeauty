@@ -88,14 +88,16 @@ public class ClientRepo{
         }
     }
     public Long getLastId(){
-        int id=0;
+        long id=0;
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql ="SELECT MAX(id) FROM client";
+            String sql ="SELECT MAX(id) AS max_id FROM client";
             ResultSet rs = stmt.executeQuery(sql);
-            id = rs.getInt("id");
+            if (rs.next()) {
+                id = rs.getLong("max_id"); // Retrieve the value using the alias
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -106,7 +108,7 @@ public class ClientRepo{
                 e.printStackTrace();
             }
         }
-        return Long.valueOf(id);
+        return id;
     }
     //Search
     public List<Client> findByFullname(String fullname){
