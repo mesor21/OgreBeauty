@@ -76,7 +76,7 @@
          <Font name="DIN Alternate Bold" size="60.0" />
       </font>
    </Label>
-    <TableView fx:id="employeesTable" layoutX="823.0" layoutY="395.0">
+    <TableView fx:id="employeesTable" layoutX="254.0" layoutY="344.0">
         <columns>
             <TableColumn fx:id="fullName" prefWidth="275.0" text="ФИО" />
             <TableColumn fx:id="jobTitle" prefWidth="175.0" text="Должность" />

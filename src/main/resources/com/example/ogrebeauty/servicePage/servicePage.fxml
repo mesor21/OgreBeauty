@@ -18,11 +18,14 @@
             <Font name="PT Mono Bold" size="64.0" />
         </font>
     </Label>
-    <ComboBox fx:id="whereSearch" layoutX="100.0" layoutY="174.0" />
-    <TextField fx:id="search" layoutX="195" layoutY="160" style="-fx-background-color: #787272; -fx-pref-height: 53px; -fx-border-radius: 15px; -fx-pref-width: 1415px;" />
-    <Button fx:id="searchConfirm" layoutX="1673" layoutY="153" style="-fx-pref-width: 162.85px; -fx-pref-height: 63px; -fx-background-color: #CC4A79; -fx-border-radius: 18px;" text="Поиск" textFill="WHITE">
+    <ComboBox fx:id="whereSearch" layoutX="1249.0" layoutY="162.0" prefHeight="52.0" prefWidth="343.0" style="-fx-background-color: #787272; -fx-pref-height: 53px;" />
+    <TextField fx:id="search" layoutX="181.0" layoutY="163.0" prefHeight="58.0" prefWidth="1104.0" promptText="ФИО" style="-fx-background-color: #787272; -fx-pref-height: 53px; -fx-border-radius: 15px; -fx-pref-width: 1015px;">
         <font>
-            <Font name="Sarai" size="18.0" />
+            <Font size="24.0" />
+        </font></TextField>
+    <Button fx:id="searchConfirm" layoutX="1662.0" layoutY="158.0" prefHeight="82.0" prefWidth="183.0" style="-fx-pref-width: 162.85px; -fx-pref-height: 63px; -fx-background-color: #CC4A79; -fx-border-radius: 18px;" text="Поиск" textFill="WHITE">
+        <font>
+            <Font size="30.0" />
         </font>
     </Button>
     <Button layoutX="676.0" layoutY="677.0" mnemonicParsing="false" onAction="#redirectToClientPage" text="Клиенты" />
