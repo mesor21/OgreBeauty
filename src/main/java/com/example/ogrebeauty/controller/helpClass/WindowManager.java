@@ -6,6 +6,7 @@ import com.example.ogrebeauty.controller.employeesController.EmployeesController
 import com.example.ogrebeauty.controller.mainController.MainController;
 import com.example.ogrebeauty.controller.serviceController.ServiceController;
 import com.example.ogrebeauty.controller.servicesController.ServicesController;
+import com.example.ogrebeauty.entity.Service;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 public class WindowManager {
     private Stage stage;
@@ -70,8 +73,22 @@ public class WindowManager {
     public void redirectToServicesPage() throws IOException {
         setScene("services/servicesPage.fxml");
     }
-    public void setScene(Scene scene) {
-        this.stage.setScene(scene);
+    public void setMainPageDate(Date date) {
+        this.fxmlLoader = new FXMLLoader(Main.class.getResource("mainPage/mainPage.fxml"));
+        Pane pane = new Pane();
+        try {
+            pane = (Pane)fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        MainController controller = (MainController) fxmlLoader.getController();
+        controller.setWindowManager(this);
+        controller.setSelectedDate(date);
+        controller.initialize();
+        scene = new Scene(pane, 1920, 1080);
+        stage.setTitle("Ogre Beaity");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void setStage(Stage stage) {

@@ -18,15 +18,15 @@
     - [x] Edit buttons
   - [x] Add new services
 - [x] Employees page
-  - [ ] Table
+  - [x] Table
     - [x] Buttons
-  - [ ] Filters
-  - [ ] Add new
+  - [x] Filters
+  - [x] Add new
 - [x] Client Page
-  - [ ] Table
+  - [x] Table
     - [x] Buttons
-  - [ ] Filters
-  - [ ] Add new
+  - [x] Filters
+  - [x] Add new
 
 ## Link
 * [Calendar](https://github.com/JKostikiadis/JFXCalendar.git)

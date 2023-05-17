@@ -17,12 +17,7 @@
            <Font name="PT Mono Bold" size="64.0" />
         </font>
     </Label>
-    <Label fx:id="summByDay" />
-       <Button fx:id="firstDate" layoutX="214.0" layoutY="233.0" mnemonicParsing="false" onAction="#onClickFirstDate" text="Button" />
-       <Button fx:id="secondDate" layoutX="314.0" layoutY="233.0" mnemonicParsing="false" onAction="#onClickSecondDate" text="Button" />
-       <Button fx:id="thirdDate" layoutX="414.0" layoutY="233.0" mnemonicParsing="false" text="Button" />
-       <Button fx:id="fourthDate" layoutX="514.0" layoutY="233.0" mnemonicParsing="false" onAction="#onClickFourthDate" text="Button" />
-       <Button fx:id="fifthDate" layoutX="614.0" layoutY="233.0" mnemonicParsing="false" onAction="#onClickFifthDate" text="Button" />
+    <Label fx:id="summByDay"/>
     <DatePicker fx:id="calendar" accessibleText="Data" layoutX="225.0" layoutY="303.0" showWeekNumbers="true" />
     <Label layoutX="900.0" layoutY="237.0" text="Список записей на сегодня" textFill="WHITE" />
     <TableView fx:id="serviceTable" layoutX="802.0" layoutY="269.0" prefHeight="700.0" prefWidth="1000.0">

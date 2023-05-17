@@ -225,7 +225,8 @@ public class ServiceRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date BETWEEN '"+ (date.getYear()+1900)+"."+(date.getMonth()+1)+"."+date.getDate()+" 00:00:00" +"' AND '"+date.getYear()+1900+"."+date.getMonth()+1+"."+date.getDate()+"23:59:59'";
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date BETWEEN '"+ (date.getYear()+1900)+"."+(date.getMonth()+1)+"."+date.getDate()+" 00:00:00" +"' AND '"+(date.getYear()+1900)+"."+(date.getMonth()+1)+"."+date.getDate()+" 23:59:59'";
+            System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 service.add(

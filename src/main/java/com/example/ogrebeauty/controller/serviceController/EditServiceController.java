@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -71,10 +70,6 @@ public class EditServiceController extends RedirectController {
 
         boolean itNewService;
         if(serviceDTO.getServicesName()!=null){
-            //TODO TEST DATA
-            /*servicesComboBox.setValue(new Services(1,"Test",2000));
-            employeesComboBox.setValue(new Employees(Long.valueOf(1),"Dima","genius"));
-            clientComboBox.setValue(new Client(Long.valueOf(1),"Dima","123@123","1234412",""));*/
             servicesComboBox.setValue(servicesService.getAll().get(0));
             employeesComboBox.setValue(employeesService.getAll().get(0));
             clientComboBox.setValue(clientService.getAll().get(0));
@@ -85,11 +80,6 @@ public class EditServiceController extends RedirectController {
             this.serviceDTO=serviceDTO;
             itNewService = true;
         }
-
-        //TODO TEST DATA
-        /*List<Services> servicesList = new ArrayList<>();
-        servicesList.add(new Services(1,"Test",2000));
-        servicesList.add(new Services(2,"NeTest",2000));*/
         List<Services> servicesList = servicesService.getAll();
 
         servicesObservableList = FXCollections.observableArrayList(servicesList);
@@ -101,10 +91,6 @@ public class EditServiceController extends RedirectController {
             this.services = servicesComboBox.getSelectionModel().getSelectedItem();
         });
 
-        //TODO TEST DATA
-        /*List<Employees> employeesList = new ArrayList<>();
-        employeesList.add(new Employees(Long.valueOf(1),"Dima","genius"));
-        employeesList.add(new Employees(Long.valueOf(2),"Nikita","lox"));*/
         List<Employees> employeesList = employeesService.getAll();
         employeesObservableList = FXCollections.observableArrayList(employeesList);
         employeesComboBox.setItems(employeesObservableList);
@@ -114,10 +100,6 @@ public class EditServiceController extends RedirectController {
             this.employees = employeesComboBox.getSelectionModel().getSelectedItem();
         });
 
-        /*List<Client> clientList = new ArrayList<>();
-        //TODO TEST DATA
-        clientList.add(new Client(Long.valueOf(1),"Dima","123@123","1234412",""));
-        clientList.add(new Client(Long.valueOf(2),"Nikita","123@123","1234412",""));*/
         List<Client> clientList = clientService.getAll();
         clientObservableList = FXCollections.observableArrayList(clientList);
         clientComboBox.setItems(clientObservableList);
@@ -153,7 +135,6 @@ public class EditServiceController extends RedirectController {
     }
     private void saveData(Long id, boolean isNew){
         Service service = new Service(id,serviceDTO.getDateDate(),services,employees,client);
-        //System.out.println(service.getServices().toString()+" "+service.getEmploer().toString()+" "+service.getClient().toString()+" "+serviceDTO.getDateDate());
         if(isNew){
             serviceService.saveNewService(service);
         }

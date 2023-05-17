@@ -55,26 +55,8 @@ public class ServiceController extends RedirectController implements Controller 
         this.serviceList = serviceService.getListService();
         this.observableList = setTableData(serviceList);
     }
-    public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) { //TODO эта функция будет только выводить данные в табилцу. На вход подаётся лист. Надо бы так для всех контроллеров сделать
+    public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) {
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
-        /*TODO TEST DATA
-        Date date = new Date(2023,02,6);
-        date.setHours(23);
-        date.setMinutes(31);
-        date.setSeconds(0);
-        observableList.add(new ServiceDTO(Long.valueOf(1),"Dmitry","Dmitry","test",date.getDate()+"."+date.getMonth()+"."+date.getYear(),date.getHours()+":"+date.getMinutes(),new Date()));
-
-        for(int i=0; i<serviceList.size(); i++){
-            observableList.add(new ServiceDTO(
-                    serviceList.get(i).getId(),
-                    serviceList.get(i).getEmploer().getFullName(),
-                    serviceList.get(i).getClient().getFullName(),
-                    serviceList.get(i).getServices().getServiceType(),
-                    serviceList.get(i).getData().getDate()+"."+serviceList.get(i).getData().getMonth()+"."+serviceList.get(i).getData().getYear(),
-                    serviceList.get(i).getData().getHours()+":"+serviceList.get(i).getData().getMinutes(),
-                    serviceList.get(i).getData()
-            ));
-        }*/
         for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
                     serviceList.get(i).getId(),
