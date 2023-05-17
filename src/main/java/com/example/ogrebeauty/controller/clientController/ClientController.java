@@ -42,6 +42,7 @@ public class ClientController extends RedirectController implements Controller {
     public ClientController() {
         this.clientService = new ClientService();
         this.clientList = clientService.getAll();
+        setTableData(clientList);
         this.listWhatIsSearch = new ArrayList<>();
         this.listWhatIsSearch.add("ФИО");
         this.listWhatIsSearch.add("email");

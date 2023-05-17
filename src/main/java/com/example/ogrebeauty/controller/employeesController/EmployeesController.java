@@ -39,6 +39,7 @@ public class EmployeesController extends RedirectController implements Controlle
     public  EmployeesController(){
         this.employeesService = new EmployeesService();
         this.employeesList = employeesService.getAll();
+        setTableData(employeesList);
         listWhatIsSearch = new ArrayList<>();
         listWhatIsSearch.add("ФИО");
         listWhatIsSearch.add("Должность");
