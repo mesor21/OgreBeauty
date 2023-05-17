@@ -119,7 +119,7 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE fullName="+fullname+"";
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE fullName='"+fullname+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Client(
@@ -151,7 +151,7 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE email="+email+"";
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE email='"+email+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Client(
@@ -183,7 +183,7 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE phoneNumber="+phoneNumber+"";
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE phoneNumber='"+phoneNumber+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Client(
@@ -215,7 +215,7 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE mark="+mark+"";
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE mark='"+mark+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Client(

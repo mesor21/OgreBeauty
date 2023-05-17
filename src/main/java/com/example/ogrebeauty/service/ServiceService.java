@@ -51,23 +51,23 @@ public class ServiceService {
         return serviceRepo.getServiceList();
     }
     public List<Service> find(String data, String fieldNameFromEntity){
-        List<Service> serviceList = null;
+        List<Service> serviceList = new ArrayList<>();
         if(fieldNameFromEntity.equals("clientFullname")){
             List<Client> clientList = clientRepo.findByFullname(data);
-            for(int i=0; i<clientList.size(); i++){
-                serviceList.addAll(serviceRepo.findByClientID(clientList.get(i).getId()));
+            for (Client client : clientList) {
+                serviceList.addAll(serviceRepo.findByClientID(client.getId()));
             }
         }
         if(fieldNameFromEntity.equals("employeeFullname")){
             List<Employees> employeesList = employeesRepo.findByFullname(data);
-            for(int i=0; i<employeesList.size(); i++){
-                serviceList.addAll(serviceRepo.findByEmployeesID(employeesList.get(i).getId()));
+            for (Employees employees : employeesList) {
+                serviceList.addAll(serviceRepo.findByEmployeesID(employees.getId()));
             }
         }
         if(fieldNameFromEntity.equals("serviceType")){
             List<Services> services = servicesRepo.findByServiceType(data);
-            for(int i=0; i<services.size(); i++){
-                serviceList.addAll(serviceRepo.findByServicesID(services.get(i).getId()));
+            for (Services service : services) {
+                serviceList.addAll(serviceRepo.findByServicesID(service.getId()));
             }
         }
         return serviceList;

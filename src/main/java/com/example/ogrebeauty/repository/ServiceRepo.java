@@ -214,7 +214,6 @@ public class ServiceRepo {
     }
 
     public List<Service> findByDate(Date date){
-        System.out.println(date.toString());
         Connection connection = null;
         ServicesRepo servicesRepo = new ServicesRepo();
         ClientRepo clientRepo = new ClientRepo();
@@ -226,7 +225,6 @@ public class ServiceRepo {
             Statement stmt = connection.createStatement();
             String sql;
             sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date BETWEEN '"+ (date.getYear()+1900)+"."+(date.getMonth()+1)+"."+date.getDate()+" 00:00:00" +"' AND '"+(date.getYear()+1900)+"."+(date.getMonth()+1)+"."+date.getDate()+" 23:59:59'";
-            System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 service.add(

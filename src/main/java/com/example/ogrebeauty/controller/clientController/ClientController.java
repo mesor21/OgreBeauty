@@ -110,7 +110,6 @@ public class ClientController extends RedirectController implements Controller {
                     }
                 };
         editButton.setCellFactory(editFactory);
-        //deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
         Callback<TableColumn<ClientDTO, String>, TableCell<ClientDTO, String>> deleteFactory
                 = //
                 new Callback<TableColumn<ClientDTO, String>, TableCell<ClientDTO, String>>() {

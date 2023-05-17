@@ -99,7 +99,6 @@ public class EmployeesController extends RedirectController implements Controlle
                     }
                 };
         editButton.setCellFactory(editFactory);
-        //deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
         Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>> deleteFactory
                 = //
                 new Callback<TableColumn<EmployeesDTO, String>, TableCell<EmployeesDTO, String>>() {

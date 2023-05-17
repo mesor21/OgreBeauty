@@ -50,13 +50,21 @@ public class ServiceController extends RedirectController implements Controller 
     private Button searchConfirm;
     private List<Service> serviceList;
     private ObservableList<ServiceDTO> observableList;
+    private List<String> listWhatIsSearch;
     public ServiceController(){
         this.serviceService = new ServiceService();
         this.serviceList = serviceService.getListService();
-        this.observableList = setTableData(serviceList);
+        setTableData(serviceList);
+        this.listWhatIsSearch = new ArrayList<>();
+        this.listWhatIsSearch.add("Мастер");
+        this.listWhatIsSearch.add("Клиент");
+        this.listWhatIsSearch.add("Услуга");
     }
-    public ObservableList<ServiceDTO> setTableData(List<Service> serviceList) {
+    public void setTableData(List<Service> serviceList) {
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
+        /*if(serviceList==null){
+            this.observableList=observableList;
+        }*/
         for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
                     serviceList.get(i).getId(),
@@ -68,31 +76,32 @@ public class ServiceController extends RedirectController implements Controller 
                     serviceList.get(i).getData()
             ));
         }
-        return observableList;
-    }
-    private void setSearchDataInTable(String data, String name){
-        this.observableList = setTableData(serviceService.find(data,name));
+        this.observableList=observableList;
     }
 
+
     public void initialize(){
-        List<String> listWhatIsSearch = new ArrayList<>();
-        listWhatIsSearch.add("Сотрудник");
-        listWhatIsSearch.add("Клиент");
-        listWhatIsSearch.add("Услуга");
         ObservableList<String> listForSearch = FXCollections.observableArrayList(listWhatIsSearch);
-        //TODO поиск не работает
         whereSearch.setItems(listForSearch);
-        whereSearch.setValue(listWhatIsSearch.get(0));
+        if(whereSearch.getValue()==null){
+            whereSearch.setValue(listWhatIsSearch.get(0));
+        }
         searchConfirm.setOnAction(event -> {
-                    if(whereSearch.getValue().equals("Сотрудник")){
-                        setSearchDataInTable(search.getText(),"employeeFullname");
-                    }
-                    if(whereSearch.getValue().equals("Клиент")){
-                        setSearchDataInTable(search.getText(),"clientFullname");
-                    }
-                    if(whereSearch.getValue().equals("Услуга")){
-                        setSearchDataInTable(search.getText(),"serviceType");
-                    }
+            if(!search.getText().equals("")) {
+                if (whereSearch.getValue().equals("Мастер")) {
+                    this.serviceList = serviceService.find(search.getText(), "employeeFullname");
+                }
+                if (whereSearch.getValue().equals("Клиент")) {
+                    this.serviceList = serviceService.find(search.getText(), "clientFullname");
+                }
+                if (whereSearch.getValue().equals("Услуга")) {
+                    this.serviceList = serviceService.find(search.getText(), "serviceType");
+                }
+            }
+            else{
+                this.serviceList = serviceService.getAll();
+            }
+            updateData();
                 }
         );
 
@@ -103,7 +112,6 @@ public class ServiceController extends RedirectController implements Controller 
         servicesName.setCellValueFactory(new PropertyValueFactory<>("servicesName"));
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         time.setCellValueFactory(new PropertyValueFactory<>("time"));
-        editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
 
         Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>> editFactory
                 = //
@@ -135,7 +143,6 @@ public class ServiceController extends RedirectController implements Controller 
                 };
         editButton.setCellFactory(editFactory);
 
-        deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
         Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>> deleteFactory
                 = //
                 new Callback<TableColumn<ServiceDTO, String>, TableCell<ServiceDTO, String>>() {
@@ -206,5 +213,15 @@ public class ServiceController extends RedirectController implements Controller 
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
+    }
+    private void updateData(){
+        windowManager.serviceSearch(serviceList, (String) whereSearch.getValue());
+    }
+    public void setSearchField(String searchField){
+        for(String value : listWhatIsSearch){
+            if(searchField.equals(value)){
+                whereSearch.setValue(value);
+            }
+        }
     }
 }

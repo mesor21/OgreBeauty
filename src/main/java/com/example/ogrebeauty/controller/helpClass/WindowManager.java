@@ -7,6 +7,7 @@ import com.example.ogrebeauty.controller.mainController.MainController;
 import com.example.ogrebeauty.controller.serviceController.ServiceController;
 import com.example.ogrebeauty.controller.servicesController.ServicesController;
 import com.example.ogrebeauty.entity.Service;
+import com.example.ogrebeauty.service.ServiceService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -84,6 +85,24 @@ public class WindowManager {
         MainController controller = (MainController) fxmlLoader.getController();
         controller.setWindowManager(this);
         controller.setSelectedDate(date);
+        controller.initialize();
+        scene = new Scene(pane, 1920, 1080);
+        stage.setTitle("Ogre Beaity");
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void serviceSearch(List<Service> services,String searchField){
+        this.fxmlLoader = new FXMLLoader(Main.class.getResource("servicePage/servicePage.fxml"));
+        Pane pane = new Pane();
+        try {
+            pane = (Pane)fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ServiceController controller = (ServiceController) fxmlLoader.getController();
+        controller.setTableData(services);
+        controller.setWindowManager(this);
+        controller.setSearchField(searchField);
         controller.initialize();
         scene = new Scene(pane, 1920, 1080);
         stage.setTitle("Ogre Beaity");

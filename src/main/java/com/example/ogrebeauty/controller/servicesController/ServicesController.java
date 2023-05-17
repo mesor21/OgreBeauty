@@ -84,7 +84,6 @@ public class ServicesController extends RedirectController implements Controller
 
         serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        //editButton.setCellValueFactory(new PropertyValueFactory<>("editButton"));
         Callback<TableColumn<ServicesDTO, String>, TableCell<ServicesDTO, String>> editFactory
                 = //
                 new Callback<TableColumn<ServicesDTO, String>, TableCell<ServicesDTO, String>>() {
@@ -114,7 +113,6 @@ public class ServicesController extends RedirectController implements Controller
                     }
                 };
         editButton.setCellFactory(editFactory);
-        //deleteButton.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
         Callback<TableColumn<ServicesDTO, String>, TableCell<ServicesDTO, String>> deleteFactory
                 = //
                 new Callback<TableColumn<ServicesDTO, String>, TableCell<ServicesDTO, String>>() {
