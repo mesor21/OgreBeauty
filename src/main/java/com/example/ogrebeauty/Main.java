@@ -1,33 +1,25 @@
 package com.example.ogrebeauty;
 
-import com.example.ogrebeauty.entity.Service;
+import com.example.ogrebeauty.controller.helpClass.WindowManager;
 import com.example.ogrebeauty.repository.PostgreSQLJDBC;
-import com.example.ogrebeauty.service.ServiceService;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 public class Main extends Application {
+    private WindowManager windowManager;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainPage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1920, 1080);
-        stage.setTitle("Ogre Beaity");
-        //TODO set icon
-
-        stage.setScene(scene);
-        stage.show();
+        windowManager = new WindowManager();
+        windowManager.setStage(stage);
+        windowManager.redirectToMainPage();
     }
 
     public static void main(String[] args) {
-        //PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
-        //connectionDatabase.connectTest();
-        /*connectionDatabase.autocreateTables();*/
+        PostgreSQLJDBC connectionDatabase = new PostgreSQLJDBC();
+        connectionDatabase.connectTest();
+        //connectionDatabase.autocreateTables();
         launch();
     }
 }

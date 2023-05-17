@@ -58,10 +58,6 @@ public class Employees {
 
     @Override
     public String toString() {
-        return "Employees{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", jobTitle='" + jobTitle + '\'' +
-                '}';
+        return getFullName();
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="393.0" prefWidth="540.0" style="-fx-background-color: #252525;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ogrebeauty.controller.clientController.EditClientController">
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="34.0" prefHeight="41.0" prefWidth="109.0" style="-fx-font-size: 32;" text="ФИО" textFill="WHITE" />
+    <TextField fx:id="fullName" layoutX="156.0" layoutY="29.0" prefHeight="50.0" prefWidth="357.0" />
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="114.0" prefHeight="24.0" prefWidth="68.0" style="-fx-font-size: 21;" text="e-mail" textFill="WHITE" />
+    <TextField fx:id="email" layoutX="156.0" layoutY="101.0" prefHeight="50.0" prefWidth="357.0" />
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="51.0" layoutY="186.0" prefHeight="24.0" prefWidth="67.0" style="-fx-font-size: 21;" text="номер" textFill="WHITE" />
+    <TextField fx:id="phoneNumber" layoutX="156.0" layoutY="173.0" prefHeight="50.0" prefWidth="357.0" />
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="261.0" prefHeight="24.0" prefWidth="89.0" style="-fx-font-size: 21;" text="Заметка" textFill="WHITE" />
+    <TextField fx:id="mark" layoutX="156.0" layoutY="248.0" prefHeight="50.0" prefWidth="357.0" />
+    <Button fx:id="confirmData" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="323.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" style="-fx-background-color: #CC4A79;" text="Подтвердить" textFill="WHITE">
+      <font>
+         <Font size="23.0" />
+      </font></Button>
+    <Button fx:id="rejectData" alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="323.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" style="-fx-background-color: #606060;" text="Отменить" textFill="WHITE">
+        <font>
+            <Font size="24.0" />
+        </font></Button>
+</AnchorPane>

@@ -82,7 +82,7 @@ public class ServicesRepo {
             }
         }
     }
-    public List<Services> getAll(Long id){
+    public List<Services> getById(Long id){
         List<Services> serviceList=new ArrayList<>();
         Connection connection = null;
         try {
@@ -113,15 +113,17 @@ public class ServicesRepo {
         return serviceList;
     }
     public Long getLastId(){
-        int id=0;
+        long id=0;
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql ="SELECT MAX(id) FROM services";
+            String sql ="SELECT MAX(id) AS max_id FROM services";
             ResultSet rs = stmt.executeQuery(sql);
-            id = rs.getInt("id");
+            if (rs.next()) {
+                id = rs.getLong("max_id"); // Retrieve the value using the alias
+            }
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -134,7 +136,7 @@ public class ServicesRepo {
                 e.printStackTrace();
             }
         }
-        return Long.valueOf(id);
+        return id;
     }
     //Search
     public List<Services> findByServiceType(String serviceType){
@@ -145,7 +147,7 @@ public class ServicesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, serviceType, price FROM services WHERE serviceType="+serviceType+"";
+            sql="SELECT id, serviceType, price FROM services WHERE serviceType='"+serviceType+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Services(rs.getInt("id"),
@@ -195,5 +197,33 @@ public class ServicesRepo {
         }
         return client;
     }
-
+    public List<Services> getAll(){
+        Connection connection = null;
+        List<Services> client = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, serviceType, price FROM services";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                client.add(new Services(rs.getInt("id"),
+                        rs.getString("serviceType"),
+                        rs.getInt("price")
+                ));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return client;
+    }
 }

@@ -3,8 +3,12 @@ package com.example.ogrebeauty.repository;
 import com.example.ogrebeauty.entity.Service;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ServiceRepo {
     DatabaseInfo databaseInfo = new DatabaseInfo();
@@ -30,7 +34,7 @@ public class ServiceRepo {
             }
             String sql="INSERT INTO service VALUES("+
                     service.getId().toString()+", '"+
-                    service.getData().toString()+"', '"+
+                    (service.getData().getYear()+1900)+"."+(service.getData().getMonth()+1)+"."+service.getData().getDate()+" "+service.getData().getHours()+":"+service.getData().getMinutes()+":"+service.getData().getSeconds()+"', '"+
                     service.getServicesID()+"', '"+
                     clientID+"', '"+
                     employeesID+"')";
@@ -100,7 +104,7 @@ public class ServiceRepo {
         }
     }
 
-    public List<Service> getServiceList(String peaple,Long id){
+    public List<Service> getServiceForPeapleService(String peaple,Long id){
         List<Service> serviceList=new ArrayList<>();
         Connection connection = null;
         ServicesRepo servicesRepo = new ServicesRepo();
@@ -144,16 +148,29 @@ public class ServiceRepo {
         }
         return serviceList;
     }
-    public Long getLastId(){
-        int id=0;
+    public List<Service> getServiceList(){
+        List<Service> serviceList=new ArrayList<>();
         Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
+        ClientRepo clientRepo = new ClientRepo();
+        EmployeesRepo employeesRepo = new EmployeesRepo();
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql ="SELECT MAX(id) FROM service";
+            String sql;
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service";
             ResultSet rs = stmt.executeQuery(sql);
-            id = rs.getInt("id");
+            while(rs.next()){
+                serviceList.add(new Service(
+                                rs.getLong("id"),
+                                rs.getString("date"),
+                                servicesRepo.findById(rs.getLong("servicesID")),
+                                employeesRepo.findEmployeesById(rs.getLong("employeesID")),
+                                clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
+            }
         }
         catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -166,10 +183,36 @@ public class ServiceRepo {
                 e.printStackTrace();
             }
         }
-        return Long.valueOf(id);
+        return serviceList;
+    }
+    public Long getLastId(){
+        long id=0;
+        Connection connection = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql = "SELECT MAX(id) AS max_id FROM service"; // Add an alias for the result column
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                id = rs.getLong("max_id"); // Retrieve the value using the alias
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(id);
+        return id;
     }
 
-    //Search
     public List<Service> findByDate(Date date){
         Connection connection = null;
         ServicesRepo servicesRepo = new ServicesRepo();
@@ -181,7 +224,7 @@ public class ServiceRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date="+date.toString()+"";
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE date BETWEEN '"+ (date.getYear()+1900)+"."+(date.getMonth()+1)+"."+date.getDate()+" 00:00:00" +"' AND '"+(date.getYear()+1900)+"."+(date.getMonth()+1)+"."+date.getDate()+" 23:59:59'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 service.add(
@@ -293,6 +336,43 @@ public class ServiceRepo {
             Statement stmt = connection.createStatement();
             String sql;
             sql="SELECT id, date, servicesID, clientID, employeesID FROM service WHERE servicesID="+servicesID+"";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                service.add(
+                        new Service(
+                                rs.getLong("id"),
+                                rs.getString("date"),
+                                servicesRepo.findById(rs.getLong("servicesID")),
+                                employeesRepo.findEmployeesById(rs.getLong("employeesID")),
+                                clientRepo.findClientById(rs.getLong("clientID"))
+                        )
+                );
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return service;
+    }
+    public List<Service> getAll(){
+        Connection connection = null;
+        ServicesRepo servicesRepo = new ServicesRepo();
+        ClientRepo clientRepo = new ClientRepo();
+        EmployeesRepo employeesRepo = new EmployeesRepo();
+        List<Service> service = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, date, servicesID, clientID, employeesID FROM service";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 service.add(

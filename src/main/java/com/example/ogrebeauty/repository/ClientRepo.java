@@ -88,14 +88,16 @@ public class ClientRepo{
         }
     }
     public Long getLastId(){
-        int id=0;
+        long id=0;
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql ="SELECT MAX(id) FROM client";
+            String sql ="SELECT MAX(id) AS max_id FROM client";
             ResultSet rs = stmt.executeQuery(sql);
-            id = rs.getInt("id");
+            if (rs.next()) {
+                id = rs.getLong("max_id"); // Retrieve the value using the alias
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -106,7 +108,7 @@ public class ClientRepo{
                 e.printStackTrace();
             }
         }
-        return Long.valueOf(id);
+        return id;
     }
     //Search
     public List<Client> findByFullname(String fullname){
@@ -117,7 +119,7 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE fullName="+fullname+"";
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE fullName='"+fullname+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Client(
@@ -149,7 +151,7 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE email="+email+"";
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE email='"+email+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Client(
@@ -181,7 +183,7 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE phoneNumber="+phoneNumber+"";
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE phoneNumber='"+phoneNumber+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Client(
@@ -213,7 +215,37 @@ public class ClientRepo{
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE mark="+mark+"";
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client WHERE mark='"+mark+"'";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                client.add(new Client(
+                        rs.getLong("id"),
+                        rs.getString("fullName"),
+                        rs.getString("email"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("mark")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return client;
+    }
+    public List<Client> getAll(){
+        Connection connection = null;
+        List<Client> client = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, fullName, email, phoneNumber, mark FROM client";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 client.add(new Client(

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #252525;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ogrebeauty.controller.servicesController.DeleteConfirmController">
+    <children>
+        <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="134.0" layoutY="113.0" prefHeight="86.0" prefWidth="349.0" style="-fx-font-size: 75px;" text="Удалить?" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font size="75.0" />
+            </font></Label>
+        <Button fx:id="deleteTrue" alignment="CENTER" contentDisplay="CENTER" layoutX="70.0" layoutY="280.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" style="-fx-background-color: #606060; -fx-font-size: 30px; -fx-background-radius: 18px;" text="Да" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Regular" size="32.0" />
+            </font>
+        </Button>
+        <Button fx:id="deleteFalse" alignment="CENTER" contentDisplay="CENTER" layoutX="342.0" layoutY="280.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="183.0" style="-fx-background-color: CC4A79; -fx-font-size: 32px; -fx-background-radius: 18px;" text="Нет" textFill="WHITE">
+            <font>
+                <Font name="Open Sans Regular" size="32.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

@@ -8,6 +8,13 @@ public class Services {
     private String serviceType;
     private int price;
 
+    public Services() {
+    }
+
+    public Services(Long id) {
+        this.id = id;
+    }
+
     public Services(String serviceType) {
         this.serviceType = serviceType;
     }
@@ -46,5 +53,10 @@ public class Services {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return serviceType;
     }
 }

@@ -3,10 +3,13 @@ package com.example.ogrebeauty.service;
 import com.example.ogrebeauty.entity.Services;
 import com.example.ogrebeauty.repository.ServicesRepo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServicesService {
+    public ServicesService() {
+        this.servicesRepo = new ServicesRepo();
+    }
+
     ServicesRepo servicesRepo;
     public Services getServices(Long id){
         return servicesRepo.findById(id);
@@ -19,7 +22,6 @@ public class ServicesService {
         services.setId(servicesRepo.getLastId()+1);
         servicesRepo.save(services);
     }
-    //TODO null exception
     public List<Services> findByServiceType(String data, String fieldNameFromEntity){
         List<Services> servicesList =null;
         if(fieldNameFromEntity.equals("serviceType")) {
@@ -29,5 +31,11 @@ public class ServicesService {
             servicesList = servicesRepo.findByPrice(data);
         }
         return servicesList;
+    }
+    public void deleteById(Long id){
+        servicesRepo.delete(id, true);
+    }
+    public List<Services> getAll(){
+        return servicesRepo.getAll();
     }
 }

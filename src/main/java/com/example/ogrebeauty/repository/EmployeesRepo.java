@@ -77,14 +77,16 @@ public class EmployeesRepo {
         }
     }
     public Long getLastId(){
-        int id=0;
+        long id=0;
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
-            String sql ="SELECT MAX(id) FROM employees";
+            String sql ="SELECT MAX(id) AS max_id FROM employees";
             ResultSet rs = stmt.executeQuery(sql);
-            id = rs.getInt("id");
+            if (rs.next()) {
+                id = rs.getLong("max_id"); // Retrieve the value using the alias
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -95,7 +97,7 @@ public class EmployeesRepo {
                 e.printStackTrace();
             }
         }
-        return Long.valueOf(id);
+        return id;
     }
     //Search
     public List<Employees> findByFullname(String fullname){
@@ -106,7 +108,7 @@ public class EmployeesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, jobTitle FROM employees WHERE fullName"+fullname+"";
+            sql="SELECT id, fullName, jobTitle FROM employees WHERE fullName='"+fullname+"'";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 employees.add(new Employees(
@@ -135,7 +137,36 @@ public class EmployeesRepo {
             connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
             Statement stmt = connection.createStatement();
             String sql;
-            sql="SELECT id, fullName, jobTitle FROM employees WHERE jobTitle"+jobtitle+"";
+            sql="SELECT id, fullName, jobTitle FROM employees WHERE jobTitle='"+jobtitle+"'";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                employees.add(new Employees(
+                        rs.getLong("id"),
+                        rs.getString("fullName"),
+                        rs.getString("jobTitle")));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return employees;
+    }
+    public List<Employees> getAll(){
+        Connection connection = null;
+        List<Employees> employees = new ArrayList<>();
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(databaseInfo.getUrl(), databaseInfo.getUser(), databaseInfo.getPass());
+            Statement stmt = connection.createStatement();
+            String sql;
+            sql="SELECT id, fullName, jobTitle FROM employees";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next())
                 employees.add(new Employees(

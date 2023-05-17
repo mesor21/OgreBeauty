@@ -8,11 +8,15 @@ import org.w3c.dom.ls.LSException;
 import java.util.List;
 
 public class ClientService {
+    public ClientService() {
+        this.clientRepo = new ClientRepo();
+        this.serviceRepo = new ServiceRepo();
+    }
     ClientRepo clientRepo;
     ServiceRepo serviceRepo;
     public Client getClient(Long id){
         Client client = clientRepo.findClientById(id);
-        client.setService(serviceRepo.getServiceList("client",id));
+        client.setService(serviceRepo.getServiceForPeapleService("client",id));
         return client;
     }
     public void updateClient(Client client){
@@ -28,7 +32,6 @@ public class ClientService {
         clientRepo.deleteClientById(Long.parseLong(id), true);
     }
 
-    //TODO null exception
     public List<Client> find(String data, String fieldNameFromEntity){
         List<Client> clientList = null;
         if(fieldNameFromEntity.equals("fullname")) {
@@ -44,5 +47,8 @@ public class ClientService {
             return clientRepo.findByMark(data);
         }
         return clientList;
+    }
+    public List<Client> getAll(){
+        return clientRepo.getAll();
     }
 }
