@@ -6,7 +6,10 @@ import com.example.ogrebeauty.controller.employeesController.EmployeesController
 import com.example.ogrebeauty.controller.mainController.MainController;
 import com.example.ogrebeauty.controller.serviceController.ServiceController;
 import com.example.ogrebeauty.controller.servicesController.ServicesController;
+import com.example.ogrebeauty.entity.Client;
+import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.entity.Service;
+import com.example.ogrebeauty.entity.Services;
 import com.example.ogrebeauty.service.ServiceService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -91,7 +94,7 @@ public class WindowManager {
         stage.setScene(scene);
         stage.show();
     }
-    public void serviceSearch(List<Service> services,String searchField){
+    public void serviceSearch(List<Service> services,String whatSearch,String searchField){
         this.fxmlLoader = new FXMLLoader(Main.class.getResource("servicePage/servicePage.fxml"));
         Pane pane = new Pane();
         try {
@@ -101,15 +104,72 @@ public class WindowManager {
         }
         ServiceController controller = (ServiceController) fxmlLoader.getController();
         controller.setTableData(services);
+        controller.setSearchField(whatSearch);
+        controller.setSearch(searchField);
         controller.setWindowManager(this);
-        controller.setSearchField(searchField);
         controller.initialize();
         scene = new Scene(pane, 1920, 1080);
         stage.setTitle("Ogre Beaity");
         stage.setScene(scene);
         stage.show();
     }
-
+    public void servicesSearch(List<Services> services, String whatSearch, String searchField){
+        this.fxmlLoader = new FXMLLoader(Main.class.getResource("services/servicesPage.fxml"));
+        Pane pane = new Pane();
+        try {
+            pane = (Pane)fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ServicesController controller = (ServicesController) fxmlLoader.getController();
+        controller.setTableData(services);
+        controller.setSearchField(whatSearch);
+        controller.setSearch(searchField);
+        controller.setWindowManager(this);
+        controller.initialize();
+        scene = new Scene(pane, 1920, 1080);
+        stage.setTitle("Ogre Beaity");
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void clientSearch(List<Client> clientList, String whatSearch, String searchField){
+        this.fxmlLoader = new FXMLLoader(Main.class.getResource("client/clientPage.fxml"));
+        Pane pane = new Pane();
+        try {
+            pane = (Pane)fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ClientController controller = (ClientController) fxmlLoader.getController();
+        controller.setTableData(clientList);
+        controller.setSearchField(whatSearch);
+        controller.setSearch(searchField);
+        controller.setWindowManager(this);
+        controller.initialize();
+        scene = new Scene(pane, 1920, 1080);
+        stage.setTitle("Ogre Beaity");
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void employeesSearch(List<Employees> employees,String whatSearch, String searchField){
+        this.fxmlLoader = new FXMLLoader(Main.class.getResource("employees/employeesPage.fxml"));
+        Pane pane = new Pane();
+        try {
+            pane = (Pane)fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        EmployeesController controller = (EmployeesController) fxmlLoader.getController();
+        controller.setTableData(employees);
+        controller.setSearchField(whatSearch);
+        controller.setSearch(searchField);
+        controller.setWindowManager(this);
+        controller.initialize();
+        scene = new Scene(pane, 1920, 1080);
+        stage.setTitle("Ogre Beaity");
+        stage.setScene(scene);
+        stage.show();
+    }
     public void setStage(Stage stage) {
         this.stage = stage;
     }

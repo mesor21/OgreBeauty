@@ -25,6 +25,8 @@ import java.util.List;
 public class ClientController extends RedirectController implements Controller {
     private ClientService clientService;
     private ObservableList<ClientDTO> clientDTOObservableList;
+    private List<Client> clientList;
+    private List<String> listWhatIsSearch;
     @FXML public TableView<ClientDTO>  clientTable;
     @FXML private TableColumn<ClientDTO, String> fullName;
     @FXML private TableColumn<ClientDTO, String> email;
@@ -39,41 +41,46 @@ public class ClientController extends RedirectController implements Controller {
 
     public ClientController() {
         this.clientService = new ClientService();
-        List<Client> clientList = clientService.getAll();
-        this.clientDTOObservableList=setObservableList(clientList);
+        this.clientList = clientService.getAll();
+        this.listWhatIsSearch = new ArrayList<>();
+        this.listWhatIsSearch.add("ФИО");
+        this.listWhatIsSearch.add("email");
+        this.listWhatIsSearch.add("Номер телефона");
+        this.listWhatIsSearch.add("Пометка");
     }
 
-    private ObservableList<ClientDTO> setObservableList(List<Client> services){
+    public void setTableData(List<Client> services){
         ObservableList<ClientDTO> servicesDTOS = FXCollections.observableArrayList();
         for(int i=0; i<services.size(); i++){
             servicesDTOS.add(new ClientDTO(services.get(i)));
         }
-        return servicesDTOS;
+        this.clientDTOObservableList = servicesDTOS;
     }
     public void initialize(){
-        List<String> listWhatIsSearch = new ArrayList<>();
-        listWhatIsSearch.add("ФИО");
-        listWhatIsSearch.add("email");
-        listWhatIsSearch.add("Номер телефона");
-        listWhatIsSearch.add("Пометка");
         ObservableList<String> listForSearch = FXCollections.observableArrayList(listWhatIsSearch);
         whereSearch.setItems(listForSearch);
-        whereSearch.setValue(listForSearch.get(0));
+        if(whereSearch.getValue()==null){
+            whereSearch.setValue(listWhatIsSearch.get(0));
+        }
         searchConfirm.setOnAction(event -> {
-            List<Client> clientList = new ArrayList<>();
-            if(whereSearch.getValue().equals("ФИО")){
-                //clientList=clientService.findByServiceType(search.getText(), "serviceType");
+            if(!search.getText().equals("")) {
+                if (whereSearch.getValue().equals("ФИО")) {
+                    this.clientList = clientService.find(search.getText(), "serviceType");
+                }
+                if (whereSearch.getValue().equals("email")) {
+                    this.clientList = clientService.find(search.getText(), "email");
+                }
+                if (whereSearch.getValue().equals("Номер телефона")) {
+                    this.clientList = clientService.find(search.getText(), "phoneNumber");
+                }
+                if (whereSearch.getValue().equals("Пометка")) {
+                    this.clientList = clientService.find(search.getText(), "mark");
+                }
             }
-            if(whereSearch.getValue().equals("email")){
-                //clientList=clientService.findByServiceType(search.getText(), "email");
+            else {
+                this.clientList = clientService.getAll();
             }
-            if(whereSearch.getValue().equals("Номер телефона")){
-                // clientList=clientService.findByServiceType(search.getText(), "phoneNumber");
-            }
-            if(whereSearch.getValue().equals("Пометка")){
-                // clientList=clientService.findByServiceType(search.getText(), "mark");
-            }
-            this.clientDTOObservableList=setObservableList(clientList);
+            updateData();
         });
 
         fullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -143,7 +150,6 @@ public class ClientController extends RedirectController implements Controller {
         addNewClient.setOnAction(event -> {
             newClient();
         });
-        //TODO add search
     };
     private void editClient(Client client){
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("client/edit.fxml"));
@@ -180,5 +186,18 @@ public class ClientController extends RedirectController implements Controller {
     private void newClient(){
         Client client = new Client();
         editClient(client);
+    }
+    private void updateData(){
+        windowManager.clientSearch(clientList,(String) whereSearch.getValue(),search.getText());
+    }
+    public void setSearchField(String searchField){
+        for(String value : listWhatIsSearch){
+            if(searchField.equals(value)){
+                whereSearch.setValue(value);
+            }
+        }
+    }
+    public void setSearch(String search){
+        this.search.setText(search);
     }
 }

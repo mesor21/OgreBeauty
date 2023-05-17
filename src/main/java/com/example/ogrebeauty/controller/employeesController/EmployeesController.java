@@ -2,11 +2,8 @@ package com.example.ogrebeauty.controller.employeesController;
 
 import com.example.ogrebeauty.Main;
 import com.example.ogrebeauty.controller.DTO.EmployeesDTO;
-import com.example.ogrebeauty.controller.employeesController.EditEmployeesController;
-import com.example.ogrebeauty.controller.employeesController.DeleteConfirmController;
 import com.example.ogrebeauty.controller.helpClass.Controller;
 import com.example.ogrebeauty.controller.helpClass.RedirectController;
-import com.example.ogrebeauty.entity.Client;
 import com.example.ogrebeauty.entity.Employees;
 import com.example.ogrebeauty.service.EmployeesService;
 import javafx.collections.FXCollections;
@@ -28,6 +25,8 @@ import java.util.List;
 public class EmployeesController extends RedirectController implements Controller {
     private EmployeesService employeesService;
     private ObservableList<EmployeesDTO> employeesDTOObservableList;
+    private List<Employees> employeesList;
+    private List<String> listWhatIsSearch;
     @FXML public TableView<EmployeesDTO> employeesTable;
     @FXML private TableColumn<EmployeesDTO, String> fullName;
     @FXML private TableColumn<EmployeesDTO, String> jobTitle;
@@ -38,34 +37,39 @@ public class EmployeesController extends RedirectController implements Controlle
     @FXML private TextField search;
     @FXML private Button searchConfirm;
     public  EmployeesController(){
-        employeesService = new EmployeesService();
-        List<Employees> employeesList = employeesService.getAll();
-        this.employeesDTOObservableList=setObservableList(employeesList);
+        this.employeesService = new EmployeesService();
+        this.employeesList = employeesService.getAll();
+        listWhatIsSearch = new ArrayList<>();
+        listWhatIsSearch.add("ФИО");
+        listWhatIsSearch.add("Должность");
     }
 
-    private ObservableList<EmployeesDTO> setObservableList(List<Employees> services){
+    public void setTableData(List<Employees> services){
         ObservableList<EmployeesDTO> servicesDTOS = FXCollections.observableArrayList();
         for(int i=0; i<services.size(); i++){
             servicesDTOS.add(new EmployeesDTO(services.get(i)));
         }
-        return servicesDTOS;
+        this.employeesDTOObservableList = servicesDTOS;
     }
     public void initialize(){
-        List<String> listWhatIsSearch = new ArrayList<>();
-        listWhatIsSearch.add("ФИО");
-        listWhatIsSearch.add("Должность");
         ObservableList<String> listForSearch = FXCollections.observableArrayList(listWhatIsSearch);
         whereSearch.setItems(listForSearch);
-        whereSearch.setValue(listForSearch.get(0));
+        if(whereSearch.getValue()==null){
+            whereSearch.setValue(listWhatIsSearch.get(0));
+        }
         searchConfirm.setOnAction(event -> {
-            List<Employees> employeesList = new ArrayList<>();
-            if(whereSearch.getValue().equals("ФИО")){
-                //employeesList=clientService.findByServiceType(search.getText(), "fullname");
+            if(!search.getText().equals("")) {
+                if (whereSearch.getValue().equals("ФИО")) {
+                    this.employeesList = employeesService.find(search.getText(), "fullname");
+                }
+                if (whereSearch.getValue().equals("Должность")) {
+                    this.employeesList = employeesService.find(search.getText(), "jobTitle");
+                }
             }
-            if(whereSearch.getValue().equals("Должность")){
-                //employeesList=clientService.findByServiceType(search.getText(), "jobTitle");
+            else{
+                this.employeesList=employeesService.getAll();
             }
-            this.employeesDTOObservableList=setObservableList(employeesList);
+            updateData();
         });
 
         fullName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -170,5 +174,18 @@ public class EmployeesController extends RedirectController implements Controlle
     private void newEmployees(){
         Employees employees = new Employees();
         editEmployees(employees);
+    }
+    private void updateData(){
+
+    }
+    public void setSearchField(String searchField){
+        for(String value : listWhatIsSearch){
+            if(searchField.equals(value)){
+                whereSearch.setValue(value);
+            }
+        }
+    }
+    public void setSearch(String search){
+        this.search.setText(search);
     }
 }

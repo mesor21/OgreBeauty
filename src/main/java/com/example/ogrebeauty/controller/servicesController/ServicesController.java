@@ -25,6 +25,8 @@ import java.util.List;
 public class ServicesController extends RedirectController implements Controller{
     private ServicesService servicesService;
     private ObservableList<ServicesDTO> servicesObservableList;
+    private List<Services> services;
+    private List<String> listWhatIsSearch;
     @FXML
     public  TableView<ServicesDTO> servicesTable;
     @FXML
@@ -44,42 +46,41 @@ public class ServicesController extends RedirectController implements Controller
     @FXML
     private Button searchConfirm;
 
-    private ObservableList<ServicesDTO> setObservableList(List<Services> services){
+    public ServicesController() {
+        this.servicesService = new ServicesService();
+        this.services= servicesService.getAll();
+        setTableData(services);
+        this.listWhatIsSearch = new ArrayList<>();
+        this.listWhatIsSearch.add("Тип услуги");
+        this.listWhatIsSearch.add("Цена");
+    }
+
+    public void setTableData(List<Services> services){
         ObservableList<ServicesDTO> servicesDTOS = FXCollections.observableArrayList();
         for(int i=0; i<services.size(); i++){
             servicesDTOS.add(new ServicesDTO(services.get(i)));
         }
-        return servicesDTOS;
+        this.servicesObservableList = servicesDTOS;
     }
-
-    public ServicesController() {
-        this.servicesService = new ServicesService();
-        /*List<Services> services = new ArrayList<>();
-        services.add(new Services(1L, "TestData", 1000));*/
-        List<Services> services= servicesService.getAll();
-
-        this.servicesObservableList = setObservableList(services);
-
-        /*List<Services> services = new ArrayList<>();
-        services.add(new Services(1,"TestData",1000));
-        this.servicesObservableList = FXCollections.observableList(services);//TODO TESTDATA FXCollections.observableList(servicesList);
-    */}
     public void initialize(){
-        List<String> listWhatIsSearch = new ArrayList<>();
-        listWhatIsSearch.add("Тип услуги");
-        listWhatIsSearch.add("Цена");
         ObservableList<String> listForSearch = FXCollections.observableArrayList(listWhatIsSearch);
         whereSearch.setItems(listForSearch);
-        whereSearch.setValue(listForSearch.get(0));
+        if(whereSearch.getValue()==null){
+            whereSearch.setValue(listWhatIsSearch.get(0));
+        }
         searchConfirm.setOnAction(event -> {
-            List<Services> services = new ArrayList<>();
-            if(whereSearch.getValue().equals("Тип услуги")){
-                // services=servicesService.findByServiceType(search.getText(), "serviceType");
+            if(!search.getText().equals("")) {
+                if (whereSearch.getValue().equals("Тип услуги")) {
+                    this.services = servicesService.findByServiceType(search.getText(), "serviceType");
+                }
+                if (whereSearch.getValue().equals("Цена")) {
+                    this.services = servicesService.findByServiceType(search.getText(), "price");
+                }
             }
-            if(whereSearch.getValue().equals("Цена")){
-                // services=servicesService.findByServiceType(search.getText(), "price");
+            else{
+                this.services = servicesService.getAll();
             }
-            this.servicesObservableList=setObservableList(services);
+            updateData();
         });
 
         serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("serviceType"));
@@ -184,5 +185,18 @@ public class ServicesController extends RedirectController implements Controller
     private void addNewServices(){
         Services services = new Services();
         editServices(services);
+    }
+    private void updateData(){
+        windowManager.servicesSearch(services, (String) whereSearch.getValue(),search.getText());
+    }
+    public void setSearchField(String searchField){
+        for(String value : listWhatIsSearch){
+            if(searchField.equals(value)){
+                whereSearch.setValue(value);
+            }
+        }
+    }
+    public void setSearch(String search){
+        this.search.setText(search);
     }
 }

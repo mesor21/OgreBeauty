@@ -62,9 +62,6 @@ public class ServiceController extends RedirectController implements Controller 
     }
     public void setTableData(List<Service> serviceList) {
         ObservableList<ServiceDTO> observableList = FXCollections.observableArrayList();
-        /*if(serviceList==null){
-            this.observableList=observableList;
-        }*/
         for(int i=0; i<serviceList.size(); i++){
             observableList.add(new ServiceDTO(
                     serviceList.get(i).getId(),
@@ -215,7 +212,7 @@ public class ServiceController extends RedirectController implements Controller 
         stage.showAndWait();
     }
     private void updateData(){
-        windowManager.serviceSearch(serviceList, (String) whereSearch.getValue());
+        windowManager.serviceSearch(serviceList, (String) whereSearch.getValue(),search.getText());
     }
     public void setSearchField(String searchField){
         for(String value : listWhatIsSearch){
@@ -223,5 +220,8 @@ public class ServiceController extends RedirectController implements Controller 
                 whereSearch.setValue(value);
             }
         }
+    }
+    public void setSearch(String search){
+        this.search.setText(search);
     }
 }
